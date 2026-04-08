@@ -1,0 +1,1029 @@
+---
+title: "THE ARTOMETRICS OF MEDIA FRANCHISES"
+format:
+  html:
+    number-sections: false
+    theme: none
+    css: artometrics.css
+    toc: true
+    toc-depth: 2
+    toc-title: "IN THIS REPORT"
+    toc-location: left
+    smooth-scroll: true
+    embed-resources: true
+  pdf:
+    number-sections: false
+editor:
+  markdown:
+    wrap: 72
+---
+
+```{r setup}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(scales)
+library(glue)
+library(ggtext)
+
+# ── Artometrics color palette ──────────────────────────────────────
+art_bg        <- "#FAFAF8"
+art_cream     <- "#F2F0EB"
+art_dark      <- "#1C1C1E"
+art_mid       <- "#6B6B6B"
+art_highlight <- "#C0392B"
+art_secondary <- "#2C3E6B"
+art_muted     <- "#D5D5D5"
+
+# ── Artometrics ggplot2 theme ──────────────────────────────────────
+theme_artometrics <- function() {
+  theme_minimal(base_family = "Helvetica") +
+    theme(
+      plot.background    = element_rect(fill = art_cream, color = NA),
+      panel.background   = element_rect(fill = art_cream, color = NA),
+      panel.grid.major   = element_line(color = art_muted, linewidth = 0.4),
+      panel.grid.minor   = element_blank(),
+      axis.text          = element_text(color = art_mid, size = 9),
+      axis.title         = element_text(color = art_dark, size = 10,
+                                        face = "bold"),
+      plot.title         = element_markdown(color = art_dark, size = 13,
+                                        face = "bold", margin = margin(b = 6)),
+      plot.subtitle      = element_markdown(color = art_mid, size = 10,
+                                        margin = margin(b = 10)),
+      plot.caption       = element_text(color = art_mid, size = 8,
+                                        hjust = 0,
+                                        margin = margin(t = 10)),
+      plot.caption.position = "plot",
+      plot.margin        = margin(t = 16, r = 16, b = 16, l = 16),
+      legend.background  = element_rect(fill = art_cream, color = NA),
+      legend.text        = element_text(color = art_mid, size = 8),
+      legend.title       = element_text(color = art_dark, size = 9,
+                                        face = "bold"),
+      strip.text         = element_text(color = art_dark, size = 9,
+                                        face = "bold")
+    )
+}
+
+# ── Load data from TidyTuesday ─────────────────────────────────────
+media_franchises <- readr::read_csv(
+  paste0(
+    "https://raw.githubusercontent.com/rfordatascience/",
+    "tidytuesday/main/data/2019/2019-07-02/media_franchises.csv"
+  ),
+  show_col_types = FALSE
+)
+
+# ── Franchise-level summary tibble ─────────────────────────────────
+franchises <- media_franchises %>%
+  group_by(franchise, original_media, year_created, creators, owners) %>%
+  summarize(
+    categories    = n(),
+    total_revenue = sum(revenue),
+    .groups       = "drop"
+  )
+```
+
+## FAST FACTS
+
+```{=html}
+<style>
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 24px 0 32px 0;
+  }
+  .fact-box {
+    background: #F2F0EB;
+    border-left: 4px solid #C0392B;
+    padding: 18px 20px;
+    border-radius: 2px;
+  }
+  .fact-number {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #C0392B;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    font-family: Helvetica, sans-serif;
+  }
+  .fact-label {
+    display: block;
+    font-size: 0.82rem;
+    color: #6B6B6B;
+    line-height: 1.45;
+    font-family: Helvetica, sans-serif;
+  }
+  @media (max-width: 700px) {
+    .facts-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<div class="facts-grid">
+  <div class="fact-box">
+    <span class="fact-number">$91B</span>
+    <span class="fact-label">Pokémon lifetime revenue — the highest-grossing media franchise ever recorded</span>
+  </div>
+  <div class="fact-box">
+    <span class="fact-number">107</span>
+    <span class="fact-label">Unique franchises in the dataset, each clearing at least $4B in lifetime revenue</span>
+  </div>
+  <div class="fact-box">
+    <span class="fact-number">$4B+</span>
+    <span class="fact-label">Minimum threshold for inclusion — this dataset only covers the very top of the industry</span>
+  </div>
+  <div class="fact-box">
+    <span class="fact-number">8</span>
+    <span class="fact-label">Revenue categories tracked: Merchandise, Video Games, Box Office, Home Video, Comic/Manga, Music, TV, Book Sales</span>
+  </div>
+  <div class="fact-box">
+    <span class="fact-number">92 yrs</span>
+    <span class="fact-label">Span of the dataset — from Winnie the Pooh (1923) to Monster Strike (2015)</span>
+  </div>
+  <div class="fact-box">
+    <span class="fact-number">~80%</span>
+    <span class="fact-label">Share of top-15 franchises where merchandise alone outearns all other revenue streams combined</span>
+  </div>
+</div>
+```
+
+## TOP 20 FRANCHISES BY TOTAL REVENUE
+
+### Revenue Breakdown by Category, Top 20 Franchises
+
+```{r chart1-stacked-bar}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 6.5
+
+category_colors <- c(
+  "Merchandise, Licensing & Retail" = art_highlight,
+  "Video Games/Games"               = art_secondary,
+  "Box Office"                      = "#E67E22",
+  "Home Video/Entertainment"        = "#27AE60",
+  "Comic or Manga"                  = "#8E44AD",
+  "Music"                           = "#F39C12",
+  "TV"                              = "#16A085",
+  "Book sales"                      = "#2980B9"
+)
+
+top20 <- franchises %>%
+  slice_max(total_revenue, n = 20)
+
+plot_data <- media_franchises %>%
+  semi_join(top20, by = "franchise") %>%
+  mutate(
+    franchise        = fct_reorder(franchise, revenue, sum),
+    revenue_category = fct_reorder(revenue_category, revenue, sum)
+  )
+
+label_data <- plot_data %>%
+  group_by(franchise) %>%
+  summarize(total_revenue = sum(revenue), .groups = "drop")
+
+p1 <- ggplot(plot_data, aes(franchise, revenue, fill = revenue_category)) +
+  geom_hline(yintercept = 50, color = art_highlight, linetype = "dashed",
+             linewidth = 0.5, alpha = 0.6) +
+  geom_col() +
+  geom_text(
+    data        = label_data,
+    aes(x = franchise, y = total_revenue,
+        label   = paste0("$", round(total_revenue, 0), "B")),
+    inherit.aes = FALSE,
+    hjust       = -0.1,
+    size        = 2.8,
+    color       = art_dark
+  ) +
+  scale_y_continuous(
+    labels = dollar,
+    expand = expansion(mult = c(0, 0.18))
+  ) +
+  scale_fill_manual(values = category_colors) +
+  coord_flip() +
+  guides(fill = guide_legend(reverse = TRUE)) +
+  theme_artometrics() +
+  theme(panel.grid.major.y = element_blank()) +
+  labs(
+    title    = "In media, <span style='color:#C0392B'>**merchandise**</span> is the real product",
+    subtitle = "The red in every bar tells the same story — licensing & retail dwarfs every other revenue stream",
+    x        = NULL,
+    y        = "Revenue (Billions USD)",
+    fill     = "Category",
+    caption  = paste0(
+      "Chart concept: David Robinson, TidyTuesday Screencast 2019-07-22 ",
+      "(youtu.be/1xsbTs9-a50) | Data: TidyTuesday 2019-07-02\n— ARTOMETRICS"
+    )
+  )
+
+p1
+
+ggsave(
+  filename = "chart1_top20_revenue.png",
+  plot     = p1,
+  path     = ".",
+  width    = 12, height = 7, dpi = 300, bg = "white"
+)
+```
+
+### THE PODIUM
+
+Pokémon at \$91B is not just the top of this chart — it is a different
+kind of number. The gap between Pokémon and second-place Hello Kitty
+(\$80B) is itself larger than the total lifetime revenue of Batman,
+Spider-Man, Barbie, or Dragon Ball. This is what it looks like when a
+franchise achieves structural escape velocity: the compounding effect of
+merchandise revenue over decades, driven by a product line that expands
+into every available category simultaneously — cards, video games,
+plush, clothing, themed food, theme park attractions, and an anime that
+has functioned primarily as a 25-year commercial for the card game.
+Pokémon was not built to be a franchise. It was built to be an economy.
+
+### THE RED THAT RUNS THROUGH EVERYTHING
+
+The color logic of this chart is the argument. Merchandise, Licensing &
+Retail (red) dominates the fill for nearly every bar in the top 20. This
+is not a quirk of how Wikipedia compiles revenue figures — it is a
+structural feature of how large-scale media IP actually makes money. The
+content — the films, the games, the episodes — functions primarily as
+**marketing infrastructure** for the real product, which is the license.
+Every time a child watches a Winnie the Pooh episode, they are being
+cultivated as a future customer for plush animals, backpacks, and themed
+birthday party supplies. The entertainment is the demand generator. The
+merchandise is the business.
+
+### THE EXCEPTIONS TO THE RULE
+
+Three franchises in the top 20 break visibly from the red-dominant
+pattern, and each is instructive. **Mario** is mostly dark blue — Video
+Games/Games — because Nintendo has spent decades resisting the licensing
+temptation that Disney and Sanrio embraced fully. Mario merchandise
+exists, but Nintendo's core strategy is to keep the IP tightly coupled
+to its own hardware ecosystem. **Shōnen Jump / Jump Comics** is mostly
+purple (Comic or Manga), because Jump's revenue structure is
+fundamentally a publishing business — it sells magazines and tankōbon
+volumes, not T-shirts. And **Star Wars** shows the most balanced mix in
+the top 20: box office, merchandise, home video, and games each
+contributing meaningfully. Star Wars is the model of a fully diversified
+franchise — which is both its greatest strength and the reason Disney
+paid \$4 billion for Lucasfilm in 2012.
+
+### ANPANMAN AND THE INVISIBLE GIANT
+
+**Anpanman** at \$60B is the franchise most likely to surprise a Western
+reader. It is entirely invisible in American pop culture, but it is one
+of the most dominant children's IP properties in Japan — a bread-faced
+superhero created by Takashi Yanase in 1973 that appears on virtually
+every consumer product category in the country. Its revenue is almost
+entirely merchandise. Anpanman's placement at #6, above Disney Princess,
+Spider-Man, and the MCU, is a useful corrective to the assumption that
+"global" and "valuable" are synonyms. The most commercially successful
+IP does not have to cross cultural borders — it just has to dominate its
+home market completely and then sustain that dominance across
+generations.
+
+### THE \$50B LINE
+
+The dashed red line marks \$50B, and only four franchises cross it:
+Pokémon, Hello Kitty, Winnie the Pooh, and Mickey Mouse & Friends. All
+four share the same structural DNA: they were created between 1923 and
+1974, they are character-first (not story-first) IP, and they generate
+revenue almost entirely through merchandise rather than theatrical
+releases or episodic content. The fifty-billion threshold is not an
+arbitrary marker — it represents the outcome of five or more decades of
+compounding licensing agreements, and it is realistically unreachable
+for any franchise created after 1990 on a comparable timeline. The only
+modern franchise with a plausible path there is Pokémon, which is
+already there.
+
+### WHAT THIS RANKING ACTUALLY MEASURES
+
+This chart is a revenue ranking, not a cultural impact ranking, and the
+distinction matters. Several franchises with enormous cultural influence
+are absent or low here because their impact was not primarily monetized
+through the tracked categories. The dataset only includes franchises
+that crossed \$4B in estimated revenue — already filtering out a massive
+portion of the IP landscape — and the revenue estimates themselves are
+Wikipedia-sourced approximations, not audited financial statements. Read
+this chart as a measurement of **commercial scale**, not prestige, depth
+of influence, or narrative quality. Those are different measurements,
+and they produce different rankings.
+
+## REVENUE PER YEAR OF EXISTENCE
+
+### Which Franchise Is the Most Efficient Money-Making Machine?
+
+```{r chart2-lollipop}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 6.5
+
+chart2_data <- franchises %>%
+  mutate(
+    years_active     = 2019 - year_created,
+    revenue_per_year = total_revenue / years_active,
+    is_top           = as.character(franchise == "Pokémon")
+  ) %>%
+  slice_max(revenue_per_year, n = 15) %>%
+  mutate(franchise = fct_reorder(franchise, revenue_per_year))
+
+p2 <- ggplot(chart2_data, aes(x = franchise, y = revenue_per_year)) +
+  geom_hline(yintercept = 2, color = art_highlight, linetype = "dashed",
+             linewidth = 0.5, alpha = 0.6) +
+  geom_segment(
+    aes(xend = franchise, y = 0, yend = revenue_per_year,
+        color = is_top),
+    linewidth = 0.8
+  ) +
+  geom_point(aes(color = is_top, size = is_top)) +
+  geom_text(
+    aes(label = paste0("$", round(revenue_per_year, 1), "B/yr")),
+    hjust = -0.2,
+    size  = 3,
+    color = art_dark
+  ) +
+  scale_color_manual(values = c("TRUE" = art_highlight, "FALSE" = art_secondary),
+                     guide = "none") +
+  scale_size_manual(values = c("TRUE" = 7, "FALSE" = 4.5),
+                    guide = "none") +
+  scale_y_continuous(
+    labels = dollar,
+    expand = expansion(mult = c(0, 0.28))
+  ) +
+  coord_flip() +
+  theme_artometrics() +
+  theme(panel.grid.major.y = element_blank()) +
+  labs(
+    title    = "<span style='color:#C0392B'>Pokémon</span> earns more per year than most franchises earn in a lifetime",
+    subtitle = "~$4B annually since 1996 — more than Hello Kitty, which is twice its age",
+    x        = NULL,
+    y        = "Revenue Per Year (Billions USD)",
+    caption  = "Data: TidyTuesday 2019-07-02 | Revenue ÷ (2019 − year created)\n— ARTOMETRICS"
+  )
+
+p2
+
+ggsave(
+  filename = "chart2_revenue_per_year.png",
+  plot     = p2,
+  path     = ".",
+  width    = 12, height = 7, dpi = 300, bg = "white"
+)
+```
+
+### THE EFFICIENCY REFRAME
+
+Total revenue rewards longevity. Revenue per year rewards efficiency.
+These are different measurements, and the chart that results from
+choosing the latter produces a meaningfully different ranking — one that
+strips away the structural advantage of age and asks a harder question:
+**how much value does this franchise generate per year of its
+existence?** A franchise created in 1928 has had 91 years to accumulate
+revenue. One created in 1996 has had 23. Normalizing by time puts them
+on comparable footing, and the result is a reordering that surfaces some
+of the most analytically interesting IP in the dataset — and exposes
+some long-running giants for the slower earners they actually are on an
+annualized basis.
+
+### POKÉMON'S STRUCTURAL ANOMALY
+
+At \$4B per year since 1996, Pokémon is not just the most efficient
+franchise in this dataset — it is operating in a category by itself. The
+gap between Pokémon and second-place Marvel Cinematic Universe
+(\$2.8B/yr) is proportionally larger than the gap between the MCU and
+the bottom of this chart. What makes Pokémon structurally anomalous is
+that its efficiency cannot be attributed to a single revenue driver. The
+trading card game, the video game series (which consistently breaks
+Nintendo hardware sales records at launch), the anime (which aired its
+first episode in 1997 and has never stopped), the theatrical films, and
+merchandise licensing all operate simultaneously and reinforce each
+other. Pokémon is not a franchise that earns well from one thing. It is
+a franchise that earns from everything, at once, all the time.
+
+### THE AGE PENALTY IN REVERSE
+
+Several franchises that ranked very high on total revenue drop
+significantly when normalized by time. **Hello Kitty**, second in total
+revenue at \$80B, falls to fourth at \$1.8B/yr — because it has been
+generating that revenue since 1974, making its 45-year run the
+denominator that brings the rate down. **Winnie the Pooh** and **Mickey
+Mouse** drop further still, not because they underperform, but because
+their massive lifetime totals are the product of nearly a century of
+operation. That is its own remarkable achievement. But the per-year lens
+is unforgiving to age: a franchise that earns \$1B a year for 90 years
+scores lower on this chart than one that earns \$2B a year for 25.
+
+### WHY THE MCU SITS AT \$2.8B/YR
+
+The Marvel Cinematic Universe was launched with *Iron Man* in 2008,
+making it one of the youngest properties in this chart at 11 years old
+as of 2019. Its \$2.8B/yr efficiency is explained by the most deliberate
+franchise engineering project in Hollywood history. Disney's acquisition
+of Marvel for \$4 billion in 2009 was almost immediately justified: *The
+Avengers* (2012) grossed over \$1.5B globally on its own. By 2019 the
+MCU had produced 23 films with a combined box office exceeding \$22B,
+plus merchandise, home video, and licensing revenue that multiplied the
+total. The MCU's high per-year efficiency is not an accident of luck —
+it was the product of systematic narrative planning across multiple
+phases, an aggressive release cadence, and cross-film character
+marketing that converted every individual movie into an advertisement
+for the next one.
+
+### DISNEY'S ASSEMBLY LINE: FROZEN AND CARS
+
+Both **Frozen** and **Cars** appear on this chart at approximately
+\$1.7B/yr, and their presence together illustrates something precise
+about Disney's merchandise operation. Neither is a long-running series —
+Frozen debuted in 2013 and Cars in 2006, making them among the youngest
+IP here. Their efficiency is almost entirely merchandise-driven.
+**Frozen** generated more in licensing revenue than *The Avengers* in
+the year of its release, driven by an Elsa-branded product demand that
+emptied store shelves globally through 2014. **Cars** is arguably the
+most commercially successful Pixar franchise despite being critically
+underrated, because its vehicle-based IP translates into one of the
+highest-performing toy categories in retail history. Disney did not just
+make popular films. It built IP that converts into retail product with
+exceptional precision.
+
+### WHAT THE \$2B LINE TELLS YOU
+
+The \$2B per year dashed line functions as a natural breakpoint. Above
+it: Pokémon, the MCU, and Disney Princess — three franchises operating
+at what might be called **institutional revenue scale**. Below it:
+twelve franchises that are commercially dominant by any conventional
+measure but haven't reached that annualized level. The cluster between
+\$1B and \$2B/yr — Frozen, Cars, Star Wars, Anpanman, Harry Potter,
+Monster Strike, Wii, Call of Duty, DC Extended Universe, Puzzle &
+Dragons, and Mario — still represents a scale that most IP never
+approaches. The \$2B line is not a verdict on quality or cultural
+significance. It is a marker of structural rarity.
+
+## MERCHANDISE DEPENDENCE
+
+### How Dependent Are the Top 15 Franchises on Merch Revenue?
+
+```{r chart3-merch-bar}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 6.5
+
+top15 <- franchises %>%
+  slice_max(total_revenue, n = 15)
+
+p3 <- media_franchises %>%
+  semi_join(top15, by = "franchise") %>%
+  mutate(
+    category_group = if_else(
+      revenue_category == "Merchandise, Licensing & Retail",
+      "Merchandise, Licensing & Retail",
+      "All Other Revenue"
+    )
+  ) %>%
+  group_by(franchise, category_group) %>%
+  summarize(revenue = sum(revenue), .groups = "drop") %>%
+  group_by(franchise) %>%
+  mutate(
+    total   = sum(revenue),
+    pct     = revenue / total
+  ) %>%
+  ungroup() %>%
+  mutate(franchise = fct_reorder(franchise, total)) %>%
+  ggplot(aes(franchise, revenue, fill = category_group)) +
+  geom_col() +
+  geom_text(
+    aes(
+      y     = total,
+      label = paste0(round(pct * 100, 0), "% merch")
+    ),
+    data = . %>%
+      filter(category_group == "Merchandise, Licensing & Retail") %>%
+      group_by(franchise) %>%
+      slice(1),
+    hjust = -0.1,
+    size  = 2.8,
+    color = art_dark
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Merchandise, Licensing & Retail" = art_highlight,
+      "All Other Revenue"               = art_muted
+    )
+  ) +
+  scale_y_continuous(
+    labels = dollar,
+    expand = expansion(mult = c(0, 0.2))
+  ) +
+  coord_flip() +
+  theme_artometrics() +
+  theme(panel.grid.major.y = element_blank(),
+        legend.position = "none") +
+  labs(
+    title    = "For most franchises, <span style='color:#C0392B'>merchandise IS the business</span>",
+    subtitle = "12 of the top 15 franchises earn more from merch alone than all other sources combined",
+    x        = NULL,
+    y        = "Revenue (Billions USD)",
+    fill     = NULL,
+    caption  = "Data: TidyTuesday 2019-07-02\n— ARTOMETRICS"
+  )
+
+p3
+
+ggsave(
+  filename = "chart3_merch_vs_other.png",
+  plot     = p3,
+  path     = ".",
+  width    = 12, height = 7, dpi = 300, bg = "white"
+)
+```
+
+### THE REAL PRODUCT
+
+This chart asks a binary question: for each franchise, how much revenue
+comes from merchandise, and how much from everything else combined? The
+answer, for most of the top 15, is that merchandise is not a revenue
+stream — it is the **entire business model**. The content exists to
+establish and sustain the characters. The characters exist to be
+licensed. The licenses generate the revenue. When you understand that
+hierarchy, the red-dominant pattern in Chart 1 stops being surprising
+and starts being inevitable. The entertainment industry, at its most
+commercially scaled, is a licensing industry that uses storytelling as
+its primary marketing channel.
+
+### THE 99% CLUB
+
+Three franchises report merchandise percentages at or above 99%, and
+each represents a distinct archetype of the same underlying model.
+**Hello Kitty** is the purest case: a character with no story
+whatsoever. Sanrio designed it explicitly to be a blank canvas that
+buyers project personality onto, which makes it infinitely adaptable
+across every product category and cultural market globally. **Winnie the
+Pooh** is a literary character who was almost immediately consumed by
+its own merchandise machine — A.A. Milne's heirs sold the Disney rights
+in 1961, and Disney subsequently built one of the most comprehensive
+licensing operations in retail history around a bear in a red shirt.
+**Mickey Mouse** is the origin point of the Disney licensing model
+itself: Walt Disney licensed Mickey onto a pencil tablet in 1929, one
+year after *Steamboat Willie*, because the studio needed cash and the
+character was already generating demand. That decision effectively
+invented the modern franchise merchandise model.
+
+### WHAT POKÉMON'S 67% ACTUALLY MEANS
+
+Pokémon's merchandise share of approximately 67% is the lowest of the
+character-driven franchises in this chart — and paradoxically, that is a
+sign of its scale rather than its diversification. The 33% of revenue
+coming from non-merchandise sources represents the Pokémon video game
+series and the trading card game, both of which are multi-billion dollar
+industries in their own right. Pokémon is 67% merch not because merch
+underperforms, but because its other revenue streams are large enough to
+bring the percentage down. At \$91B total, the roughly \$30B in
+non-merchandise revenue is more than the entire lifetime revenue of
+Batman or Spider-Man.
+
+### THE THREE EXCEPTIONS
+
+**Mario** (11% merch), **Marvel Cinematic Universe** (16% merch), and
+**Wizarding World / Harry Potter** (25% merch) are the three franchises
+in the top 15 where a majority of revenue comes from non-merchandise
+sources. Mario's low merch percentage reflects Nintendo's deliberate
+strategy of keeping the IP tightly coupled to its own hardware and
+software ecosystem rather than flooding the license market. The MCU's
+16% reflects a franchise that earns primarily through box office and
+home video, with merchandise as a secondary stream rather than the
+primary one. And Harry Potter's 25% reflects a franchise with an
+exceptionally strong book sales and box office base — J.K. Rowling's
+novels generated multi-billion dollar publishing revenue before a single
+piece of merchandise was sold. These three are the exceptions that prove
+the rule: genuine revenue diversification is rare at this scale, and
+when it exists, it typically traces back to an unusually strong
+non-merchandise origin.
+
+### SHŌNEN JUMP'S MISSING BAR
+
+**Shōnen Jump / Jump Comics** shows no visible red bar on this chart,
+which means its merchandise revenue is low enough to be negligible
+relative to its total. This is worth naming explicitly because Jump is
+the publisher of Dragon Ball, Naruto, One Piece, Bleach, and Hunter x
+Hunter — among the most culturally impactful manga franchises in
+history. The revenue tracked here for Jump is primarily Comic or Manga
+(publishing). The enormous merchandise markets that exist around Dragon
+Ball or Naruto are tracked under their individual franchise entries, not
+under the Jump umbrella. This is a data architecture point rather than
+an economic one — Jump's publishing revenue is real and substantial —
+but it illustrates how aggregation choices shape what a chart shows.
+
+### THE RISK STRUCTURE OF MERCH DEPENDENCE
+
+A franchise that earns 99% of its revenue from merchandise is
+extraordinarily powerful when licensing markets are healthy — and
+extraordinarily exposed when they aren't. Merchandise revenue is
+sensitive to retail distribution shifts, consumer taste changes, supply
+chain disruptions, and the cultural relevance cycles that determine
+whether a character still moves product on a store shelf. The franchises
+with diversified revenue — Star Wars, the MCU, Harry Potter — have more
+structural resilience because a box office disappointment doesn't
+collapse the entire revenue stack. The franchises that are 99% merch
+have higher peak revenue potential but fewer places to fall back on when
+cultural momentum shifts. This is the trade-off the chart is quietly
+showing.
+
+## ORIGIN DETERMINES INCOME
+
+### Revenue Category by Original Media Type (Heatmap)
+
+```{r chart4-heatmap}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 6.5
+
+p4 <- media_franchises %>%
+  group_by(original_media, revenue_category) %>%
+  summarize(revenue = sum(revenue), .groups = "drop") %>%
+  mutate(
+    original_media   = fct_reorder(original_media, revenue, sum),
+    revenue_category = fct_reorder(revenue_category, revenue, sum)
+  ) %>%
+  ggplot(aes(revenue_category, original_media, fill = revenue)) +
+  geom_tile(color = "white", linewidth = 0.5) +
+  geom_text(
+    aes(label = if_else(revenue >= 5, paste0("$", round(revenue, 0), "B"), "")),
+    size  = 2.8,
+    color = "white"
+  ) +
+  scale_fill_gradient(
+    low    = art_cream,
+    high   = art_highlight,
+    labels = dollar,
+    name   = "Revenue\n(Billions)"
+  ) +
+  theme_artometrics() +
+  theme(
+    axis.text.x      = element_text(angle = 40, hjust = 1),
+    panel.grid.major = element_blank()
+  ) +
+  labs(
+    title    = "Your origin determines your income",
+    subtitle = "Manga → merchandise. Novels → box office. <span style='color:#C0392B'>What you start as shapes every dollar you earn.</span>",
+    x        = NULL,
+    y        = NULL,
+    caption  = "Data: TidyTuesday 2019-07-02\n— ARTOMETRICS"
+  )
+
+p4
+
+ggsave(
+  filename = "chart4_origin_heatmap.png",
+  plot     = p4,
+  path     = ".",
+  width    = 12, height = 7, dpi = 300, bg = "white"
+)
+```
+
+### ORIGIN AS DESTINY
+
+The heatmap makes a structural argument: **the medium a franchise starts
+in is the primary predictor of where its revenue comes from**. This is
+not a coincidence of data aggregation. It is a reflection of how
+audience relationships form, how licensing markets develop, and how
+distribution channels compound over time. A franchise that starts as a
+manga builds its audience through reading, cultivates the kind of
+devoted fandom that buys character products, and enters a merchandise
+pipeline that has been refined over decades of Japanese pop culture
+publishing. A franchise that starts as a novel builds its audience
+through prose, generates demand for screen adaptations, and monetizes
+through box office and home video. The starting point creates the
+trajectory. The trajectory creates the revenue mix.
+
+### THE MANGA → MERCHANDISE PIPELINE
+
+The **Manga** row has its darkest cell in the Merchandise, Licensing &
+Retail column at \$112B — the highest merchandise total of any origin
+category in the dataset. This figure is driven by the franchises that
+originated in Weekly Shōnen Jump and its competitors: Dragon Ball,
+Naruto, One Piece, Bleach, Fullmetal Alchemist, and dozens of others
+that built multi-decade merchandise ecosystems around beloved
+characters. The manga-to-merchandise pipeline is structurally similar to
+the character IP model that Hello Kitty and Winnie the Pooh use, but
+arrives through a different channel: instead of building a blank canvas
+character, manga builds complex narrative universes that generate
+intense fan attachment — and then monetizes that attachment through
+character product, figures, clothing, and collectibles. The output is
+the same. The cultural pathway is different.
+
+### VIDEO GAMES AND THE DARK CELL
+
+The **Video game** row has the darkest single cell in the entire
+heatmap: \$239B in Video Games/Games revenue. This is almost entirely
+Pokémon. Because Pokémon is classified as a video-game-origin franchise
+and generates roughly \$90B in video game revenue on its own, it
+dominates the row. But the video game origin row also shows meaningful
+merchandise revenue (\$82B) — again, heavily Pokémon — and essentially
+nothing in box office or book sales. The interpretation: **franchises
+that start as interactive software tend to earn through interactive
+software and merchandise**, and they rarely convert that audience into
+theatrical or literary revenue at scale. The medium shapes the
+monetization.
+
+### NOVELS AND THE BOX OFFICE PATHWAY
+
+The **Novel** row is the most interesting counter-pattern. It shows
+meaningful revenue in Book sales (\$18B), TV (\$5B), and Home
+Video/Entertainment (\$13B) — but its most striking column is Box Office
+(\$33B). No other origin category generates comparable box office
+revenue except Film. This reflects the consistent Hollywood appetite for
+literary IP as source material: the Wizarding World, Twilight, The
+Hunger Games, and the James Bond franchise (Ian Fleming's novels) all
+began as prose and monetized primarily through theatrical adaptation.
+The novel-to-box-office pipeline is one of the most established in the
+entertainment industry, and this heatmap shows its financial footprint
+clearly.
+
+### ANIMATED FILMS: THE MOST BALANCED PORTFOLIO
+
+**Animated film** franchises show the most even revenue distribution
+across columns in the heatmap, with meaningful values in Home
+Video/Entertainment (\$12B), Box Office (\$5B), and Merchandise (\$74B).
+This is the Disney and Pixar signature: theatrical release generates
+awareness and cultural currency, home video extends the revenue window
+(and historically represented enormous licensing fees), and merchandise
+converts both into a sustained retail business. The balance in this row
+is not an accident — it is the output of Disney's vertically integrated
+franchise model, which was designed specifically to extract revenue from
+multiple windows rather than betting on a single channel.
+
+### THE ANIME ROW: SURPRISINGLY THIN
+
+Given that anime is a major cultural export and the subject of an entire
+Artometrics report, the **Anime** row in this chart is notably thin.
+Merchandise revenue of \$11B and a small video game contribution are the
+only visible cells. This reflects a dataset design choice rather than an
+economic reality: most franchises that originated as anime — Gundam,
+Dragon Ball's anime continuation, Sailor Moon, Pretty Cure — are
+classified under their original media (manga, TV series, toy line)
+rather than under "Anime" as an origin. The row here captures IP that is
+genuinely anime-first with no prior source medium, which is a much
+smaller category than "franchises that have an anime component."
+
+### WHAT THE BLANK CELLS MEAN
+
+The blank (near-white) cells in the heatmap are as informative as the
+dark ones. A blank cell means that origin type essentially never
+generates revenue in that category — not that no franchise has ever
+crossed over, but that the total is small enough to register as close to
+zero against the scales of the visible cells. Novel franchises generate
+almost no video game revenue. Cartoon character IP generates almost no
+box office revenue. Greeting card origins (Hello Kitty) generate almost
+no book sales. These are not gaps waiting to be filled — they are
+structural limits of what each medium's audience relationship makes
+commercially viable. The map of blank cells is a map of where franchise
+expansion does not successfully transfer audience loyalty into new
+revenue.
+
+## AGE VS. TOTAL REVENUE
+
+### Do Older Franchises Make More Money?
+
+```{r chart5-scatter}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 6.5
+
+label_franchises <- franchises %>%
+  filter(total_revenue >= 25)
+
+p5 <- franchises %>%
+  ggplot(aes(x = year_created, y = total_revenue)) +
+  geom_point(
+    aes(size = categories, color = original_media),
+    alpha = 0.75
+  ) +
+  geom_text(
+    aes(label = franchise),
+    data          = label_franchises,
+    vjust         = -1,
+    size          = 2.5,
+    color         = art_dark,
+    check_overlap = TRUE
+  ) +
+  scale_size_continuous(range = c(2, 9), guide = "none") +
+  scale_color_manual(
+    guide  = "none",
+    values = c(
+      "Video game"        = art_secondary,
+      "Manga"             = art_highlight,
+      "Novel"             = "#E67E22",
+      "Animated film"     = "#27AE60",
+      "Comic book"        = "#8E44AD",
+      "Anime"             = "#F39C12",
+      "Television series" = "#16A085",
+      "Animated cartoon"  = "#2980B9",
+      "Greeting card"     = "#95A5A6",
+      "Digital pet"       = "#D35400",
+      "Film"              = "#1ABC9C",
+      "Musical theatre"   = "#7F8C8D",
+      "Animated series"   = "#BDC3C7",
+      "Cartoon"           = "#E74C3C",
+      "Cartoon character" = "#3498DB",
+      "Book"              = "#2ECC71",
+      "Visual novel"      = "#9B59B6"
+    )
+  ) +
+  scale_y_continuous(labels = dollar) +
+  scale_x_continuous(breaks = seq(1920, 2015, by = 10)) +
+  theme_artometrics() +
+  geom_hline(yintercept = 25, color = art_highlight, linetype = "dashed",
+             linewidth = 0.5, alpha = 0.6) +
+  annotate("text", x = 1910, y = 26, label = "$25B",
+           hjust = 0, size = 2.6, color = art_highlight) +
+  labs(
+    title    = "Age helps — but <span style='color:#C0392B'>Pokémon</span> rewrote the rules",
+    subtitle = "Created in 1996, Pokémon has outearned franchises four times its age",
+    x        = "Year Created",
+    y        = "Total Revenue (Billions USD)",
+    caption  = "Data: TidyTuesday 2019-07-02 | Labeled franchises exceed $25B lifetime revenue\n— ARTOMETRICS"
+  ) +
+  theme(legend.position = "none")
+
+p5
+
+ggsave(
+  filename = "chart5_age_vs_revenue.png",
+  plot     = p5,
+  path     = ".",
+  width    = 12, height = 7, dpi = 300, bg = "white"
+)
+```
+
+### THE GENERAL RULE
+
+The broad pattern is real and intuitive: **older franchises tend to have
+higher total revenue**. This is not a profound insight on its own — more
+time means more years of product sales, licensing agreements,
+compounding brand recognition, and sequential audience generations. The
+upper-left quadrant of this chart (old franchises, high revenue) is
+where the juggernauts cluster, and the lower-right (newer franchises,
+lower revenue) is where the recent entrants are still building. But this
+baseline pattern is precisely what makes the exceptions visible and
+interesting. The general rule sets the expectation that Pokémon
+violates.
+
+### THE PRE-1980 CLUSTER
+
+The upper-left portion of the chart — franchises created before 1980
+that have broken \$25B in lifetime revenue — contains Winnie the Pooh
+(1923), Mickey Mouse & Friends (1928), Hello Kitty (1974), Star Wars
+(1977), and Anpanman (1973). What unites them is not just age but
+**character durability**: each is built around an IP that has maintained
+meaningful cultural relevance across multiple generations of audiences
+without requiring narrative continuity. You don't need to have seen
+*Bambi* to want a Mickey Mouse hat. You don't need to have read the
+original books to buy a Winnie the Pooh plush. The characters sustain
+demand independently of the stories — which is the prerequisite for the
+kind of multi-decade merchandise compounding that produces \$70B+
+totals.
+
+### POKÉMON AS THE STRUCTURAL EXCEPTION
+
+**Pokémon** — created in 1996 and sitting at \$91B — is the single
+largest deviation from the age-revenue relationship in this dataset. It
+has outearned franchises that are two, three, and four times its age.
+Understanding why requires looking at what Pokémon was structurally
+designed to do: **generate collecting behavior at scale, across every
+age cohort, continuously**. The trading card game creates perpetual
+demand for new product releases. The video games create new entry points
+every generation of Nintendo hardware. The anime creates persistent
+cultural exposure for characters that drive card and game sales. Each
+component feeds the others in a loop that doesn't require any single
+cultural moment to sustain — it just requires the system to keep
+running. Pokémon is an economic machine built inside an entertainment
+property.
+
+### WHAT DOT SIZE TELLS YOU
+
+The size of each dot encodes the number of revenue categories that
+franchise has been tracked across — larger dots have more diversified
+revenue streams. The biggest dots in the upper portion of the chart
+(Pokémon, Star Wars, Mario, Wizarding World) are the most diversified
+franchises and tend to be the highest earners. This is not a
+coincidence. **Revenue diversification and total revenue scale are
+correlated**: franchises that successfully extend into multiple
+categories tend to reach higher absolute totals, and franchises that
+reach higher totals tend to have the brand equity necessary to extend
+into multiple categories. The causality runs in both directions — scale
+enables diversification, and diversification protects and extends scale.
+
+### THE CROWDED LOWER-RIGHT
+
+The lower-right quadrant — franchises created after 1990 with revenue
+below \$25B — is the most densely populated region of the chart. This is
+where the majority of the dataset lives: properties created in the last
+30 years that have cleared the \$4B threshold but haven't broken into
+the upper tier. The density of this region is partly a cohort effect
+(more franchises have been created in recent decades than in earlier
+ones) and partly a reflection of the time required to compound. Most of
+these properties are still in their growth phase by 2019. Some will
+eventually migrate to higher revenue territory. Most will plateau where
+they are. The chart shows the density of the field below the \$25B line,
+but it cannot show which properties will eventually clear it.
+
+### IMPLICATIONS FOR NEW IP
+
+This chart implies something uncomfortable for anyone building new IP in
+the 2010s: **the structural advantages of age are real, the ceiling for
+rapid ascent is high, and Pokémon is the exception, not the template**.
+Creating a franchise that reaches \$25B+ within 25 years of launch
+requires either a fundamentally new market (which Pokémon partially
+benefited from in the early internet era) or a level of cross-category
+execution that virtually no IP development team has successfully
+replicated. The franchises most likely to break through are the ones
+that, like Pokémon, embed a behavioral loop — collecting, competing,
+trading, sharing — rather than relying on passive consumption alone.
+Passive consumption makes fans. Behavioral loops make economies.
+
+## LIMITATIONS
+
+This dataset reflects revenue estimates compiled from Wikipedia as of
+mid-2019, and carries several important caveats. Revenue figures are
+sourced inconsistently — some represent lifetime totals through 2019,
+others may reflect different windows or methodologies. Franchises are
+only included if they surpassed an estimated \$4B threshold, meaning
+smaller but culturally significant IP is absent entirely. The ownership
+and creator fields reflect the state of the industry at the time of data
+collection and do not account for subsequent acquisitions — for example,
+the full integration of Fox assets into Disney's portfolio, or the
+ongoing consolidation of gaming IP by major publishers. Revenue
+categories were consolidated from over 60 raw Wikipedia subcategories
+into 8 groups, which involves judgment calls documented in the original
+TidyTuesday cleaning script. The "Merchandise, Licensing & Retail"
+category is particularly broad and may include revenue streams that
+other analyses would track separately. All revenue figures should be
+treated as order-of-magnitude approximations rather than precise
+financial data.
+
+## CONCLUSION
+
+The media franchise landscape is not flat — it is sharply skewed toward
+a small number of IP that have mastered merchandise and sustained it
+across decades. Pokémon stands alone at the top, not because of box
+office dominance but because it turned a video game into the world's
+most successful licensing machine while simultaneously running an anime,
+a card game, a stadium tour, and a global trading ecosystem. The
+Artometrics takeaway from this dataset is a single structural insight:
+**the most valuable thing a franchise can do is give people something to
+own, collect, and trade — not just something to watch**.
+
+The franchises that figured this out earliest and most completely —
+Hello Kitty, Mickey Mouse, Winnie the Pooh — have sustained half-century
+revenue streams that newer IP can only aspire to. But Pokémon proved the
+model can be replicated at speed, at scale, and without a century of
+compounding time. The question for the next generation of IP is not
+whether to merchandise. Every major franchise already knows the answer
+to that. The question is whether the underlying IP can generate the kind
+of behavioral engagement — collecting, competing, trading, playing —
+that sustains merchandise demand without a continuous hit of new content
+to power it. The franchises that can do that don't just make money. They
+become institutions.
+
+## REFERENCES
+
+-   TidyTuesday (2019-07-02). *Media Franchise Revenues*. R for Data
+    Science Community. Retrieved from
+    https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-07-02
+
+-   Wikipedia. *List of Highest-Grossing Media Franchises*. Retrieved
+    via TidyTuesday cleaning script (revenue.R).
+
+-   Robinson, D. (2019, July 22). *Analyzing Franchise Revenue —
+    TidyTuesday Screencast*. YouTube. https://youtu.be/1xsbTs9-a50 —
+    Chart 1 concept adapted from this screencast with original
+    Artometrics styling applied.
+
+## EDITOR'S NOTE
+
+*This report was researched, written, designed, and produced in active
+collaboration with Claude AI (Anthropic). The data pipeline, statistical
+analysis, chart design, written analysis, narrative structure, and
+visual styling were all developed through a directed partnership between
+human editorial judgment and AI execution. Artometrics was built on the
+premise that rigorous analysis and honest process are not in conflict.
+The research questions, editorial instincts, interpretive framing, and
+brand vision are ours. The execution — every line of R code, every
+paragraph of analysis, every design decision — was a collaboration. We
+document this not as a disclaimer but as a description of how we
+actually work, and as a position: we believe this is what serious data
+journalism looks like when the tools available are used honestly and at
+full capacity.*
+
+*— Artometrics Editorial*

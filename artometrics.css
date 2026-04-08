@@ -1,0 +1,238 @@
+/* ============================================================
+   ARTOMETRICS — Magazine HTML Theme
+   ============================================================ */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&display=swap');
+
+/* ── Color Variables ──────────────────────────────────────── */
+:root {
+  --art-bg:        #FAFAF8;
+  --art-dark:      #1C1C1E;
+  --art-mid:       #6B6B6B;
+  --art-highlight: #C0392B;
+  --art-secondary: #2C3E6B;
+  --art-muted:     #D5D5D5;
+  --art-white:     #FFFFFF;
+  --art-cream:     #F2F0EB;
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  background-color: var(--art-bg);
+  color: var(--art-dark);
+  font-size: 17px;
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Layout — full width ──────────────────────────────────── */
+.quarto-container,
+.page-layout-article,
+#quarto-content,
+.container-fluid,
+main {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+#quarto-document-content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+/* ── Hero Title Block ─────────────────────────────────────── */
+#title-block-header {
+  background-color: var(--art-dark);
+  color: var(--art-white);
+  padding: 5rem 2rem 4rem;
+  margin-bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.1;
+  color: var(--art-white);
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 1.1rem;
+  color: var(--art-muted);
+  max-width: 860px;
+  margin: 0.5rem auto 0;
+}
+
+/* Red rule under title */
+#title-block-header::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--art-highlight);
+  margin: 2rem auto 0;
+}
+
+/* ── Section Headings ─────────────────────────────────────── */
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--art-dark);
+  border-top: 3px solid var(--art-highlight);
+  padding-top: 1rem;
+  margin-top: 3.5rem;
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.3px;
+  text-align: center;
+}
+
+h3 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--art-mid);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 0.3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+h4 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--art-secondary);
+}
+
+/* ── Body Text ────────────────────────────────────────────── */
+p {
+  color: var(--art-dark);
+  margin-bottom: 1.2rem;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--art-dark);
+}
+
+/* ── Fast Facts section — styled as a stat strip ──────────── */
+h2:first-of-type + ul,
+h2#fast-facts + ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 2.5rem;
+}
+
+h2#fast-facts + ul li {
+  background: var(--art-cream);
+  border-left: 4px solid var(--art-highlight);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-radius: 0 4px 4px 0;
+}
+
+/* ── Charts — full width ──────────────────────────────────── */
+.cell-output-display,
+.quarto-figure,
+img,
+.figure {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block;
+  margin: 2rem 0;
+}
+
+/* ── Horizontal Rules ─────────────────────────────────────── */
+hr {
+  border: none;
+  border-top: 1px solid var(--art-muted);
+  margin: 3rem 0;
+}
+
+/* ── Inline code ──────────────────────────────────────────── */
+code {
+  font-family: 'DM Mono', monospace;
+  background: var(--art-cream);
+  color: var(--art-highlight);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  font-size: 0.88em;
+}
+
+/* ── Blockquote as pull-quote ─────────────────────────────── */
+blockquote {
+  border-left: 5px solid var(--art-highlight);
+  background: var(--art-cream);
+  margin: 2rem 0;
+  padding: 1.2rem 1.5rem;
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--art-dark);
+  border-radius: 0 4px 4px 0;
+}
+
+/* ── Callout boxes ────────────────────────────────────────── */
+.callout {
+  border-radius: 4px;
+  border-left: 5px solid var(--art-secondary);
+}
+
+/* ── Footer / caption text ────────────────────────────────── */
+.figure-caption,
+figcaption {
+  font-size: 0.82rem;
+  color: var(--art-mid);
+  font-style: italic;
+  margin-top: 0.4rem;
+}
+
+/* ── TOC (if enabled) ─────────────────────────────────────── */
+#TOC {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  border-left: 3px solid var(--art-highlight);
+  padding-left: 1rem;
+}
+
+#TOC a {
+  color: var(--art-mid);
+  text-decoration: none;
+}
+
+#TOC a:hover {
+  color: var(--art-highlight);
+}
+
+/* ── Artometrics wordmark in footer ──────────────────────── */
+body::after {
+  content: 'ARTOMETRICS';
+  display: block;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: var(--art-muted);
+  padding: 3rem 0 2rem;
+}
