@@ -24,7 +24,7 @@ Five charts working through how the most valuable IP in history actually makes i
 
 ## Read the full article
 
-[artometrics.com](https://artometrics.com)
+[artometrics.com/franchises](https://www.artometrics.com/franchises/)
 
 ## Tools
 
