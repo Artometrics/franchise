@@ -1,5 +1,5 @@
 ---
-title: "FRANCHISES"
+title: "FRANCHISE"
 subtitle: "The Artometrics of Media Monopolies"
 format:
   html:
