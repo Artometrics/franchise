@@ -1,0 +1,163 @@
+<style>
+/* ── Progress bar ──────────────────────────────────────────────────── */
+#art-progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px; width: 0%;
+  background: #C0392B;
+  z-index: 9999;
+  transition: width 0.08s linear;
+  pointer-events: none;
+}
+
+/* ── Sidebar toggle button ─────────────────────────────────────────── */
+#art-sidebar-btn {
+  position: fixed;
+  top: 50vh;
+  left: 240px;
+  transform: translateY(-50%);
+  z-index: 9998;
+  background: #F2F0EB;
+  border: 1px solid #D5D5D5;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  color: #6B6B6B;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 10px 7px;
+  cursor: pointer;
+  transition: left 0.3s ease, color 0.15s, border-color 0.15s;
+}
+#art-sidebar-btn:hover { color: #C0392B; border-color: #C0392B; }
+
+/* ── Collapsed state ───────────────────────────────────────────────── */
+body.art-sidebar-collapsed #art-sidebar-btn {
+  left: 0;
+  border-left: 1px solid #D5D5D5;
+}
+body.art-sidebar-collapsed nav#TOC {
+  width: 0 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  border-right: none !important;
+}
+nav#TOC {
+  transition: width 0.3s ease, min-width 0.3s ease,
+              opacity 0.3s ease, padding 0.3s ease !important;
+}
+
+/* ── Copy buttons ──────────────────────────────────────────────────── */
+.art-copy-btn {
+  display: inline-block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #6B6B6B;
+  background: #F2F0EB;
+  border: 1px solid #D5D5D5;
+  border-radius: 3px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+.art-copy-btn:hover { color: #C0392B; border-color: #C0392B; }
+
+/* ── Code exhibit dropdowns ────────────────────────────────────────── */
+.art-code-block {
+  margin: 0.8rem auto 1rem;
+  max-width: 860px;
+  text-align: center;
+}
+.art-code-block details { text-align: left; }
+.art-code-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #6B6B6B;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  list-style: none;
+  padding: 8px 16px;
+  background: #F2F0EB;
+  border: 1px solid #D5D5D5;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+.art-code-summary::-webkit-details-marker { display: none; }
+.art-code-summary:hover { color: #C0392B; border-color: #C0392B; }
+.art-code-pre {
+  background: #F2F0EB;
+  border: 1px solid #D5D5D5;
+  border-left: 3px solid #2C3E6B;
+  border-radius: 0 0 4px 4px;
+  padding: 1rem 1.2rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  margin: 0 0 0.5rem;
+  white-space: pre;
+  text-align: left;
+}
+
+/* ── Fast Facts grid ───────────────────────────────────────────────── */
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0 32px 0;
+}
+.fact-box {
+  background: #F2F0EB;
+  border-left: 4px solid #C0392B;
+  padding: 18px 20px;
+  border-radius: 2px;
+  text-align: left;
+}
+.fact-number {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #C0392B;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  font-family: Helvetica, sans-serif;
+  text-align: left;
+}
+.fact-label {
+  display: block;
+  font-size: 0.82rem;
+  color: #6B6B6B;
+  line-height: 1.45;
+  font-family: Helvetica, sans-serif;
+  text-align: left;
+  max-width: none;
+  margin: 0;
+}
+@media (max-width: 700px) {
+  .facts-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── References ────────────────────────────────────────────────────── */
+.art-references { max-width: 700px; margin: 0 auto; text-align: left; }
+.art-ref-item {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #D5D5D5;
+  font-size: 0.92rem;
+  color: #1C1C1E;
+  line-height: 1.6;
+}
+.art-ref-item:last-child { border-bottom: none; }
+.art-ref-item a { color: #C0392B; text-decoration: none; }
+.art-ref-item a:hover { text-decoration: underline; }
+</style>

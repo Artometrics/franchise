@@ -1,0 +1,44 @@
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ── 1. Progress bar ────────────────────────────────────────────────
+  var bar = document.createElement('div');
+  bar.id = 'art-progress-bar';
+  document.body.appendChild(bar);
+  window.addEventListener('scroll', function () {
+    var st = window.scrollY || document.documentElement.scrollTop;
+    var dh = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (dh > 0 ? (st / dh) * 100 : 0) + '%';
+  }, { passive: true });
+
+  // ── 2. Sidebar toggle ──────────────────────────────────────────────
+  var btn = document.createElement('button');
+  btn.id = 'art-sidebar-btn';
+  btn.setAttribute('aria-label', 'Hide navigation');
+  btn.innerHTML = '&#10005;';
+  document.body.appendChild(btn);
+
+  btn.addEventListener('click', function () {
+    var collapsed = document.body.classList.toggle('art-sidebar-collapsed');
+    btn.innerHTML = collapsed ? '&#9776;' : '&#10005;';
+    btn.setAttribute('aria-label', collapsed ? 'Show navigation' : 'Hide navigation');
+  });
+
+});
+
+// ── Copy button (called from inline HTML) ──────────────────────────
+function copyBlock(id, btn) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText).then(function () {
+    btn.textContent = '✓ Copied';
+    btn.style.background = '#2C3E6B';
+    btn.style.color = '#fff';
+    setTimeout(function () {
+      btn.textContent = 'Copy';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1800);
+  });
+}
+</script>

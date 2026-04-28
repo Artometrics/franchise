@@ -30,22 +30,61 @@ body {
   text-align: center; /* Centers all root text */
 }
 
-/* ── Layout — full width ──────────────────────────────────── */
+/* ── Layout ───────────────────────────────────────────────── */
+
 .quarto-container,
 .page-layout-article,
-#quarto-content,
-.container-fluid,
-main {
+.container-fluid {
   max-width: 100% !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
-#quarto-document-content {
+/* Rebuild the sidebar + content grid that theme:none strips */
+#quarto-content {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+/* Floating left sidebar */
+#quarto-sidebar,
+nav#TOC {
+  width: 240px !important;
+  min-width: 240px !important;
+  flex-shrink: 0 !important;
+  position: sticky !important;
+  top: 1rem !important;
+  height: calc(100vh - 2rem) !important;
+  overflow-y: auto !important;
+  padding: 2rem 1rem 2rem 1.5rem !important;
+  border-right: 1px solid var(--art-muted);
+  background: var(--art-bg);
+}
+
+/* Main content fills remaining width */
+#quarto-document-content,
+main.content {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
   max-width: 860px;
   margin: 0 auto;
   padding: 0 2rem 4rem;
 }
+
+/* Hide sidebar on narrow screens */
+@media (max-width: 900px) {
+  #quarto-sidebar, nav#TOC {
+    display: none !important;
+  }
+  #quarto-content {
+    flex-direction: column !important;
+  }
+}
+
 
 /* ── Hero Title Block ─────────────────────────────────────── */
 #title-block-header {
@@ -224,25 +263,101 @@ figcaption {
   margin-right: auto;
 }
 
-/* ── TOC (if enabled) ─────────────────────────────────────── */
-#TOC {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.9rem;
-  border-left: 3px solid var(--art-highlight);
-  padding-left: 1rem;
-  text-align: left; /* Keeps TOC structure readable */
-  margin: 0 auto;
-  max-width: 700px;
+/* ── Reading Progress Bar ─────────────────────────────────── */
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--art-highlight);
+  z-index: 9999;
+  transition: width 0.08s linear;
+  pointer-events: none;
 }
 
-#TOC a {
+/* ── TOC (floating left sidebar) ──────────────────────────── */
+#TOC,
+.sidebar-navigation,
+nav.toc-left {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  text-align: left;
+  padding: 1.2rem 0 1.2rem 0;
+}
+
+/* TOC title */
+#toc-title,
+.toc-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--art-highlight);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--art-highlight);
+  display: block;
+}
+
+/* TOC links — default state */
+#TOC a,
+.sidebar nav a {
   color: var(--art-mid);
   text-decoration: none;
+  display: block;
+  padding: 3px 0 3px 12px;
+  border-left: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s, padding-left 0.15s;
+  line-height: 1.45;
 }
 
-#TOC a:hover {
+/* TOC hover */
+#TOC a:hover,
+.sidebar nav a:hover {
+  color: var(--art-highlight);
+  border-left-color: var(--art-highlight);
+  padding-left: 16px;
+}
+
+/* TOC active section — Quarto adds .active class natively */
+#TOC a.active,
+.sidebar nav a.active,
+#TOC li.active > a,
+.sidebar nav li.active > a {
+  color: var(--art-dark);
+  font-weight: 600;
+  border-left: 2px solid var(--art-highlight);
+  padding-left: 16px;
+}
+
+/* TOC nested items (h3 level) */
+#TOC ul ul a,
+.sidebar nav ul ul a {
+  font-size: 0.78rem;
+  color: var(--art-muted);
+  padding-left: 20px;
+}
+
+#TOC ul ul a:hover,
+.sidebar nav ul ul a:hover {
   color: var(--art-highlight);
 }
+
+/* Remove default list styling from TOC */
+#TOC ul,
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#TOC li,
+.sidebar nav li {
+  margin: 2px 0;
+}
+
 
 /* ── Artometrics wordmark in footer ──────────────────────── */
 body::after {
@@ -255,4 +370,97 @@ body::after {
   letter-spacing: 4px;
   color: var(--art-muted);
   padding: 3rem 0 2rem;
+}
+
+/* ── Collapsible Code Blocks ──────────────────────────────── */
+
+/* The toggle button Quarto renders for code-fold */
+.code-fold-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--art-mid);
+  background: var(--art-cream);
+  border: 1px solid var(--art-muted);
+  border-radius: 4px;
+  padding: 3px 10px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  letter-spacing: 0.3px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.code-fold-btn:hover {
+  color: var(--art-highlight);
+  border-color: var(--art-highlight);
+}
+
+/* Code block container */
+details.code-fold > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--art-mid);
+  background: var(--art-cream);
+  border: 1px solid var(--art-muted);
+  border-radius: 4px;
+  padding: 3px 10px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  list-style: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+details.code-fold > summary:hover {
+  color: var(--art-highlight);
+  border-color: var(--art-highlight);
+}
+
+details.code-fold > summary::marker,
+details.code-fold > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* The code block itself when expanded */
+details.code-fold > div {
+  border: 1px solid var(--art-muted);
+  border-radius: 0 4px 4px 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+/* Code block styling */
+pre {
+  background: var(--art-cream);
+  border: 1px solid var(--art-muted);
+  border-radius: 4px;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+  font-size: 0.83rem;
+  line-height: 1.6;
+  text-align: left;
+  margin: 0.5rem 0 1.5rem;
+}
+
+pre code {
+  background: none;
+  color: var(--art-dark);
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+
+/* SQL exhibit block — slightly different treatment */
+/* Quarto places the language class on <code>, not <pre>, so we use :has() */
+pre:has(> code.sourceCode.sql),
+pre:has(> code[class*="language-sql"]) {
+  border-left: 3px solid var(--art-secondary);
+  background: #F0F2F8;
+  padding-left: 1.4rem;
 }
