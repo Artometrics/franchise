@@ -31,6 +31,8 @@ library(scales)
 library(glue)
 library(ggtext)
 
+dir.create("charts", showWarnings = FALSE)
+
 # ── Artometrics color palette ──────────────────────────────────────
 art_bg        <- "#FAFAF8"
 art_cream     <- "#F2F0EB"
@@ -86,7 +88,7 @@ media_franchises <- readr::read_csv(
 )
 ```
 
-```{r clean-data}
+```{r wrangle}
 #| echo: false
 #| warning: false
 #| message: false
@@ -125,42 +127,19 @@ year_span <- max(media_franchises$year_created) -
              min(media_franchises$year_created)                  # 92
 ```
 
-## TABLEAU DASHBOARD
+The global media industry runs on intellectual property — and a
+surprisingly small number of franchises account for most of the money.
+This report analyzes 107 properties from the TidyTuesday 2019 media
+franchises dataset, each with at least \$4 billion in estimated lifetime
+revenue as of mid-2019. Every franchise here has already cleared a
+threshold that most IP never approaches. This is not a representative
+sample of the media industry. It is a map of its ceiling.
 
-```{=html}
-<div style="max-width:860px; margin: 2rem auto;">
-  <div class='tableauPlaceholder' id='viz1777356026882' style='position:relative;width:100%;'>
-    <noscript><a href='#'><img alt='HOSPITAL READMISSION PENALTIES' src='https://public.tableau.com/static/images/re/readmitted_dashboard/READMITTED/1_rss.png' style='border:none' /></a></noscript>
-    <object class='tableauViz' style='display:none;'>
-      <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-      <param name='embed_code_version' value='3' />
-      <param name='site_root' value='' />
-      <param name='name' value='readmitted_dashboard/READMITTED' />
-      <param name='tabs' value='no' />
-      <param name='toolbar' value='yes' />
-      <param name='static_image' value='https://public.tableau.com/static/images/re/readmitted_dashboard/READMITTED/1.png' />
-      <param name='animate_transition' value='yes' />
-      <param name='display_static_image' value='yes' />
-      <param name='display_spinner' value='yes' />
-      <param name='display_overlay' value='yes' />
-      <param name='display_count' value='yes' />
-      <param name='language' value='en-US' />
-    </object>
-  </div>
-  <script type='text/javascript'>
-    (function() {
-      var d = document.getElementById('viz1777356026882');
-      var v = d.getElementsByTagName('object')[0];
-      var w = d.offsetWidth;
-      v.style.width  = '100%';
-      v.style.height = (w > 800 ? w * 0.75 : w > 500 ? w * 0.75 : 1477) + 'px';
-      var s = document.createElement('script');
-      s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-      v.parentNode.insertBefore(s, v);
-    })();
-  </script>
-</div>
-```
+Three charts, three angles on the same structural question: where does
+franchise money actually come from, which properties generate it most
+efficiently, and what does the ownership picture look like when you stop
+treating subsidiaries as separate competitors? The answers are
+Merchandise, Pokémon, and Disney — in that order.
 
 ## FAST FACTS
 
@@ -193,22 +172,52 @@ year_span <- max(media_franchises$year_created) -
 </div>
 ```
 
-## SQL EXHIBIT — FRANCHISES CLEANING LOGIC
+## DATASET CONTEXT
+
+The TidyTuesday 2019 media franchises dataset covers 107 properties,
+each with at least \$4B in estimated lifetime revenue as of mid-2019.
+The figures are sourced from Wikipedia's list of highest-grossing media
+franchises and compiled into eight revenue categories. Every franchise
+here has already cleared a threshold that most IP never approaches —
+this is not a representative sample of the media industry. It is a map
+of its ceiling.
+
+The \$4B minimum is not a small number. Most films, shows, games, and
+books that have ever existed never come close to it. Being in this
+dataset means a property has sustained commercial relevance across
+multiple revenue streams, often across multiple decades. The franchises
+below that line — culturally significant, critically acclaimed, beloved
+— simply aren't here. What remains is the top tier: IP that didn't just
+succeed but compounded.
+
+Revenue here is a lifetime estimate, not an annual figure. A franchise
+created in 1923 has had a century to accumulate; one created in 2013
+has had six years. That asymmetry shapes every chart. Chart 1 shows the
+raw totals and what they're made of. Chart 2 corrects for age by
+normalizing revenue per year — a fairer fight. Chart 3 strips away the
+ownership labels and asks what the leaderboard actually looks like when
+subsidiaries are folded into their parent companies.
+
+The `owners` column names the entity holding the IP rights as of 2019.
+What it doesn't do is automatically consolidate subsidiaries under
+parent companies. Disney owns Marvel Entertainment and 20th Century Fox,
+but all three appear as separate rows in the raw data. Chart 3 exists
+because of this gap — it asks what the ownership picture looks like when
+you close it.
 
 ```{=html}
 <div class="art-code-block">
   <details>
     <summary class="art-code-summary">
-      ▶ VIEW SQL — Franchises Cleaning &amp; Aggregation Logic
-      <button class="art-copy-btn" onclick="copyBlock('sql-code', this)">Copy</button>
+      <span class="art-lang-tag art-lang-sql">SQL</span>
+      &nbsp;View dataset queries
     </summary>
-    <pre class="art-code-pre" id="sql-code">-- MEDIA FRANCHISES: CLEANING AND FRANCHISE-LEVEL AGGREGATION
+    <pre class="art-code-pre" id="sql-block-1">-- MEDIA FRANCHISES: CLEANING AND FRANCHISE-LEVEL AGGREGATION
 -- Mirrors the R cleaning logic in franchise.qmd
 -- Source: TidyTuesday 2019-07-02 (Wikipedia via rfordatascience)
 
 -- ── STEP 1: FRANCHISE-LEVEL SUMMARY ──────────────────────────────
--- Roll up from the row-per-franchise-per-category raw table
--- to one row per franchise with total revenue and category count.
+-- Roll up from row-per-franchise-per-category to one row per franchise.
 
 SELECT
     franchise,
@@ -257,52 +266,85 @@ GROUP BY parent_company
 HAVING COUNT(DISTINCT franchise) >= 2
 ORDER BY total_revenue DESC
 LIMIT 12;</pre>
+    <button class="art-copy-btn" onclick="copyBlock('sql-block-1', this)">Copy</button>
+  </details>
+</div>
+
+<div class="art-code-block">
+  <details>
+    <summary class="art-code-summary">
+      <span class="art-lang-tag art-lang-python">Python</span>
+      &nbsp;View EDA notebook
+    </summary>
+    <pre class="art-code-pre" id="python-block-1"># Media Franchises — Python EDA
+# Mirrors the EDA logic used to validate this dataset before R analysis.
+# Display-only — same data, same URL, different tool.
+
+import pandas as pd
+import numpy as np
+import requests
+from io import StringIO
+
+# ── Load data ─────────────────────────────────────────────────────
+url = (
+    "https://raw.githubusercontent.com/rfordatascience/tidytuesday/"
+    "main/data/2019/2019-07-02/media_franchises.csv"
+)
+df = pd.read_csv(StringIO(requests.get(url).text))
+
+print(f"Shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
+print(f"\nColumns: {list(df.columns)}")
+
+# ── Missing values ────────────────────────────────────────────────
+print("\n── MISSING VALUES ───────────────────────────────────────")
+missing = df.isnull().sum()
+print(missing[missing > 0] if missing.sum() > 0 else "None")
+
+# ── Revenue summary ───────────────────────────────────────────────
+print("\n── REVENUE SUMMARY (Billions USD) ───────────────────────")
+print(df["revenue"].describe().round(2))
+
+# ── Top 5 franchises by total revenue ────────────────────────────
+print("\n── TOP 5 FRANCHISES BY TOTAL REVENUE ───────────────────")
+top5 = (df.groupby("franchise")["revenue"]
+          .sum()
+          .sort_values(ascending=False)
+          .head(5)
+          .round(1))
+print(top5.to_string())
+
+# ── Revenue by category ───────────────────────────────────────────
+print("\n── REVENUE BY CATEGORY ──────────────────────────────────")
+by_cat = (df.groupby("revenue_category")["revenue"]
+            .sum()
+            .sort_values(ascending=False)
+            .round(1))
+print(by_cat.to_string())
+
+# ── Revenue by original media ─────────────────────────────────────
+print("\n── REVENUE BY ORIGINAL MEDIA ────────────────────────────")
+by_media = (df.groupby("original_media")["revenue"]
+              .agg(["sum", "count"])
+              .sort_values("sum", ascending=False)
+              .round(1))
+by_media.columns = ["total_rev_B", "n_rows"]
+print(by_media.to_string())
+
+# ── Disney subsidiaries in ownership column ───────────────────────
+print("\n── DISNEY-RELATED OWNERS ────────────────────────────────")
+disney_rows = df[df["owners"].str.contains("Walt Disney", na=False)]
+disney_summary = (disney_rows.groupby("owners")["revenue"]
+                  .sum()
+                  .sort_values(ascending=False)
+                  .round(1))
+print(disney_summary.to_string())
+print(f"\nDisney consolidated total: ${disney_summary.sum():.1f}B")</pre>
+    <button class="art-copy-btn" onclick="copyBlock('python-block-1', this)">Copy</button>
   </details>
 </div>
 ```
 
-### WHAT THIS DATASET IS
-
-The TidyTuesday 2019 media franchises dataset covers 107 properties,
-each with at least \$4B in estimated lifetime revenue as of mid-2019.
-The figures are sourced from Wikipedia's list of highest-grossing media
-franchises and compiled into eight revenue categories. Every franchise
-here has already cleared a threshold that most IP never approaches —
-this is not a representative sample of the media industry. It is a map
-of its ceiling.
-
-### THE $4B FLOOR
-
-The \$4B minimum is not a small number. Most films, shows, games, and
-books that have ever existed never come close to it. Being in this
-dataset means a property has sustained commercial relevance across
-multiple revenue streams, often across multiple decades. The franchises
-below that line — culturally significant, critically acclaimed, beloved
-— simply aren't here. What remains is the top tier: IP that didn't just
-succeed but compounded.
-
-### THREE WAYS TO READ THE DATA
-
-Revenue here is a lifetime estimate, not an annual figure. A franchise
-created in 1923 has had a century to accumulate; one created in 2013
-has had six years. That asymmetry shapes every chart. Chart 1 shows the
-raw totals and what they're made of. Chart 2 corrects for age by
-normalizing revenue per year — a fairer fight. Chart 3 strips away the
-ownership labels and asks what the leaderboard actually looks like when
-subsidiaries are folded into their parent companies.
-
-### HOW TO READ THE OWNERSHIP DATA
-
-The `owners` column names the entity holding the IP rights as of 2019.
-What it doesn't do is automatically consolidate subsidiaries under
-parent companies. Disney owns Marvel Entertainment and 20th Century Fox,
-but all three appear as separate rows in the raw data. Chart 3 exists
-because of this gap — it asks what the ownership picture looks like when
-you close it.
-
 ## CHART 1 — TOP 20 FRANCHISES BY REVENUE
-
-### Revenue Breakdown by Category, Top 20 Franchises
 
 ```{r chart1-stacked-bar}
 #| echo: false
@@ -375,21 +417,51 @@ p1
 ggsave(
   filename = "chart1_top20_revenue.png",
   plot     = p1,
-  path     = ".",
+  path     = "charts",
   width    = 12, height = 7, dpi = 300, bg = "white"
 )
 ```
+
+Pokémon at \$91B is not just the top of this chart — it is a different
+kind of number. The gap between Pokémon and second-place Hello Kitty
+(\$80B) is itself larger than the total lifetime revenue of Batman,
+Spider-Man, or Dragon Ball. This is what it looks like when a franchise
+achieves structural escape velocity: merchandise revenue compounding
+over decades, driven by a product line that expands into every available
+category simultaneously — cards, video games, plush, clothing, themed
+food, and an anime that has functioned primarily as a 25-year commercial
+for the card game. Pokémon was not built to be a franchise. It was built
+to be an economy.
+
+The color logic of this chart is the argument. Merchandise, Licensing &
+Retail (red) dominates the fill for nearly every bar in the top 20.
+This is not a quirk of how Wikipedia compiles revenue — it is a
+structural feature of how large-scale IP actually makes money. The
+content — films, games, episodes — functions primarily as **marketing
+infrastructure** for the real product, which is the license. The
+entertainment generates demand. Merchandise captures it.
+
+Three franchises break visibly from the red-dominant pattern. **Mario**
+is mostly dark blue — Nintendo has spent decades resisting the licensing
+temptation that Disney and Sanrio embraced fully, keeping the IP tightly
+coupled to its own hardware ecosystem. **Shōnen Jump / Jump Comics** is
+mostly purple (Comic or Manga) because its revenue structure is a
+publishing business — magazines and tankōbon volumes, not T-shirts. And
+**Star Wars** shows the most balanced mix: box office, merchandise, home
+video, and games each contributing meaningfully. Star Wars is the model
+of a fully diversified franchise — which is why Disney paid \$4B for
+Lucasfilm in 2012.
 
 ```{=html}
 <div class="art-code-block">
   <details>
     <summary class="art-code-summary">
-      ▶ VIEW R CODE — Chart 1: Top 20 Franchises by Revenue
-      <button class="art-copy-btn" onclick="copyBlock('chart1-code', this)">Copy</button>
+      <span class="art-lang-tag art-lang-r">R</span>
+      &nbsp;View Chart 1 code
     </summary>
-    <pre class="art-code-pre" id="chart1-code">category_colors <- c(
-  "Merchandise, Licensing & Retail" = "#C0392B",
-  "Video Games/Games"               = "#2C3E6B",
+    <pre class="art-code-pre" id="r-block-1">category_colors <- c(
+  "Merchandise, Licensing & Retail" = art_highlight,
+  "Video Games/Games"               = art_secondary,
   "Box Office"                      = "#E67E22",
   "Home Video/Entertainment"        = "#27AE60",
   "Comic or Manga"                  = "#8E44AD",
@@ -412,17 +484,14 @@ label_data <- plot_data %>%
   summarize(total_revenue = sum(revenue), .groups = "drop")
 
 p1 <- ggplot(plot_data, aes(franchise, revenue, fill = revenue_category)) +
-  geom_hline(yintercept = 50, color = "#C0392B", linetype = "dashed",
+  geom_hline(yintercept = 50, color = art_highlight, linetype = "dashed",
              linewidth = 0.5, alpha = 0.6) +
   geom_col() +
   geom_text(
-    data        = label_data,
+    data = label_data,
     aes(x = franchise, y = total_revenue,
-        label   = paste0("$", round(total_revenue, 0), "B")),
-    inherit.aes = FALSE,
-    hjust       = -0.1,
-    size        = 2.8,
-    color       = "#1C1C1E"
+        label = paste0("$", round(total_revenue, 0), "B")),
+    inherit.aes = FALSE, hjust = -0.1, size = 2.8, color = art_dark
   ) +
   scale_y_continuous(labels = dollar, expand = expansion(mult = c(0, 0.18))) +
   scale_fill_manual(values = category_colors) +
@@ -431,57 +500,20 @@ p1 <- ggplot(plot_data, aes(franchise, revenue, fill = revenue_category)) +
   theme_artometrics() +
   theme(panel.grid.major.y = element_blank()) +
   labs(
-    title    = "IN MEDIA, <span style='color:#C0392B'>**MERCHANDISE**</span> IS THE REAL PRODUCT",
+    title   = "IN MEDIA, &lt;span style='color:#C0392B'&gt;**MERCHANDISE**&lt;/span&gt; IS THE REAL PRODUCT",
     subtitle = "THE RED IN EVERY BAR TELLS THE SAME STORY — LICENSING & RETAIL DWARFS EVERY OTHER REVENUE STREAM",
     x = NULL, y = "Revenue (Billions USD)", fill = "Category",
-    caption  = "Chart concept: David Robinson, TidyTuesday Screencast 2019-07-22 | Data: TidyTuesday 2019-07-02\n— ARTOMETRICS"
+    caption = "Data: TidyTuesday 2019-07-02\n— ARTOMETRICS"
   )
 
-p1
-ggsave("chart1_top20_revenue.png", plot = p1, path = ".", width = 12, height = 7, dpi = 300, bg = "white")</pre>
+ggsave("chart1_top20_revenue.png", plot = p1,
+       path = "charts", width = 12, height = 7, dpi = 300, bg = "white")</pre>
+    <button class="art-copy-btn" onclick="copyBlock('r-block-1', this)">Copy</button>
   </details>
 </div>
 ```
 
-### THE PODIUM
-
-Pokémon at \$91B is not just the top of this chart — it is a different
-kind of number. The gap between Pokémon and second-place Hello Kitty
-(\$80B) is itself larger than the total lifetime revenue of Batman,
-Spider-Man, or Dragon Ball. This is what it looks like when a franchise
-achieves structural escape velocity: merchandise revenue compounding
-over decades, driven by a product line that expands into every available
-category simultaneously — cards, video games, plush, clothing, themed
-food, and an anime that has functioned primarily as a 25-year commercial
-for the card game. Pokémon was not built to be a franchise. It was built
-to be an economy.
-
-### THE RED THAT RUNS THROUGH EVERYTHING
-
-The color logic of this chart is the argument. Merchandise, Licensing &
-Retail (red) dominates the fill for nearly every bar in the top 20.
-This is not a quirk of how Wikipedia compiles revenue — it is a
-structural feature of how large-scale IP actually makes money. The
-content — films, games, episodes — functions primarily as **marketing
-infrastructure** for the real product, which is the license. The
-entertainment generates demand. Merchandise captures it.
-
-### THE EXCEPTIONS
-
-Three franchises break visibly from the red-dominant pattern. **Mario**
-is mostly dark blue — Nintendo has spent decades resisting the licensing
-temptation that Disney and Sanrio embraced fully, keeping the IP tightly
-coupled to its own hardware ecosystem. **Shōnen Jump / Jump Comics** is
-mostly purple (Comic or Manga) because its revenue structure is a
-publishing business — magazines and tankōbon volumes, not T-shirts. And
-**Star Wars** shows the most balanced mix: box office, merchandise, home
-video, and games each contributing meaningfully. Star Wars is the model
-of a fully diversified franchise — which is why Disney paid \$4B for
-Lucasfilm in 2012.
-
 ## CHART 2 — REVENUE PER YEAR OF EXISTENCE
-
-### Which Franchise Is the Most Efficient Money-Making Machine?
 
 ```{r chart2-lollipop}
 #| echo: false
@@ -538,80 +570,22 @@ p2
 ggsave(
   filename = "chart2_revenue_per_year.png",
   plot     = p2,
-  path     = ".",
+  path     = "charts",
   width    = 12, height = 7, dpi = 300, bg = "white"
 )
 ```
 
-```{=html}
-<div class="art-code-block">
-  <details>
-    <summary class="art-code-summary">
-      ▶ VIEW R CODE — Chart 2: Revenue Per Year of Existence
-      <button class="art-copy-btn" onclick="copyBlock('chart2-code', this)">Copy</button>
-    </summary>
-    <pre class="art-code-pre" id="chart2-code">chart2_data <- franchises %>%
-  mutate(
-    years_active     = 2019 - year_created,
-    revenue_per_year = total_revenue / years_active,
-    is_top           = as.character(franchise == "Pokémon")
-  ) %>%
-  slice_max(revenue_per_year, n = 15) %>%
-  mutate(franchise = fct_reorder(franchise, revenue_per_year))
-
-p2 <- ggplot(chart2_data, aes(x = franchise, y = revenue_per_year)) +
-  geom_hline(yintercept = 2, color = "#C0392B", linetype = "dashed",
-             linewidth = 0.5, alpha = 0.6) +
-  geom_segment(
-    aes(xend = franchise, y = 0, yend = revenue_per_year, color = is_top),
-    linewidth = 0.8
-  ) +
-  geom_point(aes(color = is_top, size = is_top)) +
-  geom_text(
-    aes(label = paste0("$", round(revenue_per_year, 1), "B/yr")),
-    hjust = -0.2, size = 3, color = "#1C1C1E"
-  ) +
-  scale_color_manual(values = c("TRUE" = "#C0392B", "FALSE" = "#2C3E6B"), guide = "none") +
-  scale_size_manual(values = c("TRUE" = 7, "FALSE" = 4.5), guide = "none") +
-  scale_y_continuous(labels = dollar, expand = expansion(mult = c(0, 0.28))) +
-  coord_flip() +
-  theme_artometrics() +
-  theme(panel.grid.major.y = element_blank()) +
-  labs(
-    title    = "<span style='color:#C0392B'>POKÉMON</span> EARNS MORE PER YEAR THAN MOST FRANCHISES EARN IN A LIFETIME",
-    subtitle = "~$4B ANNUALLY SINCE 1996 — MORE THAN HELLO KITTY, WHICH IS TWICE ITS AGE",
-    x = NULL, y = "Revenue Per Year (Billions USD)",
-    caption  = "Data: TidyTuesday 2019-07-02 | Revenue ÷ (2019 − year created)\n— ARTOMETRICS"
-  )
-
-p2
-ggsave("chart2_revenue_per_year.png", plot = p2, path = ".", width = 12, height = 7, dpi = 300, bg = "white")</pre>
-  </details>
-</div>
-```
-
-### THE EFFICIENCY REFRAME
-
 Total revenue rewards longevity. Revenue per year rewards efficiency.
 Normalizing by age puts a 1928 franchise and a 1996 franchise on
 comparable footing — and the resulting ranking surfaces something the
-raw totals hide. **How much value does this franchise generate per year
-of its existence?** The answer reshuffles the leaderboard significantly.
-Several juggernauts that dominate Chart 1 quietly fall here, while
-younger, faster-earning properties rise.
-
-### POKÉMON'S STRUCTURAL ANOMALY
-
-Pokémon's \$4B/yr is not explained by any single hit. It is explained by
-a system: the video games create new entry points every hardware
-generation; the trading card game creates perpetual demand for new
-product; the anime provides continuous character exposure that drives
-card and game sales. Each component feeds the others in a loop that
-doesn't require any single cultural moment to sustain. Pokémon doesn't
-just earn well — it earns continuously, from multiple directions, at the
-same time.
-
-### THE AGE PENALTY IN REVERSE
+raw totals hide. Pokémon's \$4B/yr is not explained by any single hit.
+It is explained by a system: the video games create new entry points
+every hardware generation; the trading card game creates perpetual
+demand for new product; the anime provides continuous character exposure
+that drives card and game sales. Each component feeds the others in a
+loop that doesn't require any single cultural moment to sustain. Pokémon
+doesn't just earn well — it earns continuously, from multiple
+directions, at the same time.
 
 Several franchises that ranked very high on total revenue drop here when
 normalized by time. **Hello Kitty** (\$80B total, second overall) falls
@@ -623,22 +597,63 @@ operation. The per-year lens is unforgiving to age: a franchise that
 earns \$1B/yr for 90 years scores lower on this chart than one earning
 \$2B/yr for 25.
 
+The franchises that rise on this chart share a structural trait: they
+earn across multiple simultaneous streams rather than sequentially. A
+film franchise earns at release, then waits for the next film. A
+trading-card-plus-video-game-plus-anime ecosystem earns every month,
+every quarter, at every retail touchpoint. The per-year chart is really
+a chart of business model design.
+
+```{=html}
+<div class="art-code-block">
+  <details>
+    <summary class="art-code-summary">
+      <span class="art-lang-tag art-lang-r">R</span>
+      &nbsp;View Chart 2 code
+    </summary>
+    <pre class="art-code-pre" id="r-block-2">chart2_data <- franchises %>%
+  mutate(
+    years_active     = 2019 - year_created,
+    revenue_per_year = total_revenue / years_active,
+    is_top           = as.character(franchise == "Pokémon")
+  ) %>%
+  slice_max(revenue_per_year, n = 15) %>%
+  mutate(franchise = fct_reorder(franchise, revenue_per_year))
+
+p2 <- ggplot(chart2_data, aes(x = franchise, y = revenue_per_year)) +
+  geom_hline(yintercept = 2, color = art_highlight, linetype = "dashed",
+             linewidth = 0.5, alpha = 0.6) +
+  geom_segment(
+    aes(xend = franchise, y = 0, yend = revenue_per_year, color = is_top),
+    linewidth = 0.8
+  ) +
+  geom_point(aes(color = is_top, size = is_top)) +
+  geom_text(
+    aes(label = paste0("$", round(revenue_per_year, 1), "B/yr")),
+    hjust = -0.2, size = 3, color = art_dark
+  ) +
+  scale_color_manual(values = c("TRUE" = art_highlight, "FALSE" = art_secondary),
+                     guide = "none") +
+  scale_size_manual(values = c("TRUE" = 7, "FALSE" = 4.5), guide = "none") +
+  scale_y_continuous(labels = dollar, expand = expansion(mult = c(0, 0.28))) +
+  coord_flip() +
+  theme_artometrics() +
+  theme(panel.grid.major.y = element_blank()) +
+  labs(
+    title    = "&lt;span style='color:#C0392B'&gt;POKÉMON&lt;/span&gt; EARNS MORE PER YEAR THAN MOST FRANCHISES EARN IN A LIFETIME",
+    subtitle = "~$4B ANNUALLY SINCE 1996 — MORE THAN HELLO KITTY, WHICH IS TWICE ITS AGE",
+    x = NULL, y = "Revenue Per Year (Billions USD)",
+    caption = "Data: TidyTuesday 2019-07-02 | Revenue ÷ (2019 − year created)\n— ARTOMETRICS"
+  )
+
+ggsave("chart2_revenue_per_year.png", plot = p2,
+       path = "charts", width = 12, height = 7, dpi = 300, bg = "white")</pre>
+    <button class="art-copy-btn" onclick="copyBlock('r-block-2', this)">Copy</button>
+  </details>
+</div>
+```
+
 ## CHART 3 — THE DISNEY EMPIRE, CONSOLIDATED
-
-### THE SETUP
-
-The raw data lists "The Walt Disney Company," "Marvel Entertainment (The
-Walt Disney Company)," and "20th Century Fox (The Walt Disney Company)"
-as three separate owners. Technically accurate. Strategically misleading.
-Marvel was acquired in 2009 for \$4B. Fox was acquired in 2019 for \$71B.
-Both are now wholly owned subsidiaries. Their revenue goes to the same
-place.
-
-This is how corporate IP ownership actually works. You don't buy
-franchises — you buy the companies that own franchises, and those
-companies keep operating under their own names. Marvel Studios still
-greenlit its own films. Fox kept its lot in Century City. But the
-revenue goes to Burbank.
 
 ```{r chart3-disney-non-consolidated}
 #| echo: false
@@ -666,7 +681,7 @@ non_consolidated <- media_franchises |>
     )
   )
 
-ggplot(non_consolidated,
+p3a <- ggplot(non_consolidated,
        aes(x = owners, y = total_revenue, fill = disney_flag)) +
   geom_col(width = 0.65, show.legend = FALSE) +
   geom_text(
@@ -697,72 +712,26 @@ ggplot(non_consolidated,
     caption  = "Data: Wikipedia via TidyTuesday 2019-07-02\n— ARTOMETRICS"
   )
 
+p3a
+
 ggsave(
   "chart3a_disney_non_consolidated.png",
+  plot  = p3a,
+  path  = "charts",
   width = 12, height = 7, dpi = 300, bg = "white"
 )
 ```
 
-```{=html}
-<div class="art-code-block">
-  <details>
-    <summary class="art-code-summary">
-      ▶ VIEW R CODE — Chart 3a: Disney Non-Consolidated
-      <button class="art-copy-btn" onclick="copyBlock('chart3a-code', this)">Copy</button>
-    </summary>
-    <pre class="art-code-pre" id="chart3a-code">non_consolidated <- media_franchises |>
-  group_by(owners) |>
-  summarise(
-    total_revenue    = sum(revenue, na.rm = TRUE),
-    franchises_owned = n_distinct(franchise),
-    .groups          = "drop"
-  ) |>
-  filter(franchises_owned >= 2) |>
-  slice_max(total_revenue, n = 14) |>
-  mutate(
-    owners      = fct_reorder(owners, total_revenue),
-    disney_flag = case_when(
-      owners == "The Walt Disney Company"                        ~ "disney_direct",
-      owners == "Marvel Entertainment (The Walt Disney Company)" ~ "disney_marvel",
-      owners == "20th Century Fox (The Walt Disney Company)"     ~ "disney_fox",
-      TRUE                                                       ~ "other"
-    )
-  )
-
-ggplot(non_consolidated, aes(x = owners, y = total_revenue, fill = disney_flag)) +
-  geom_col(width = 0.65, show.legend = FALSE) +
-  geom_text(aes(label = paste0("$", round(total_revenue), "B")),
-            hjust = -0.12, color = "#1C1C1E", size = 3.2) +
-  scale_fill_manual(values = c(
-    "disney_direct" = "#C0392B", "disney_marvel" = "#D4695E",
-    "disney_fox" = "#E8A09A", "other" = "#2C3E6B"
-  )) +
-  scale_y_continuous(labels = dollar_format(suffix = "B"), expand = expansion(mult = c(0, 0.22))) +
-  coord_flip() + theme_artometrics() +
-  theme(axis.text.y = element_text(size = 9)) +
-  labs(
-    title    = "THREE OF THESE BARS BELONG TO <span style='color:#C0392B'>**THE SAME COMPANY**</span>",
-    subtitle = "MARVEL ENTERTAINMENT AND 20TH CENTURY FOX APPEAR AS SEPARATE COMPETITORS — BOTH ARE WHOLLY OWNED BY DISNEY",
-    x = NULL, y = "Total Revenue (Billions USD)",
-    caption  = "Data: Wikipedia via TidyTuesday 2019-07-02\n— ARTOMETRICS"
-  )
-
-ggsave("chart3a_disney_non_consolidated.png", width = 12, height = 7, dpi = 300, bg = "white")</pre>
-  </details>
-</div>
-```
-
-### THE REVEAL
-
-Add them up and Disney's true total is **\$426 billion**. Nintendo at
-\$49B — still second — now represents about 11 cents on Disney's dollar.
-But here's what the math actually surfaces: Marvel (\$20B) plus Fox
-(\$17B) should consolidate to \$296B. The remaining **\$130 billion
-comes from Disney-owned entities too small to crack the top 14
-individually** — Pixar, Lucasfilm, ABC, ESPN. Subsidiaries whose
-franchise rows exist in the dataset but don't rank highly enough to
-appear as standalone bars. Individually invisible. Collectively, they
-add up to more than Nintendo's entire lifetime output.
+The raw data lists "The Walt Disney Company," "Marvel Entertainment (The
+Walt Disney Company)," and "20th Century Fox (The Walt Disney Company)"
+as three separate owners. Technically accurate. Strategically misleading.
+Marvel was acquired in 2009 for \$4B. Fox was acquired in 2019 for \$71B.
+Both are now wholly owned subsidiaries. Their revenue goes to the same
+place. This is how corporate IP ownership actually works. You don't buy
+franchises — you buy the companies that own franchises, and those
+companies keep operating under their own names. Marvel Studios still
+greenlit its own films. Fox kept its lot in Century City. But the
+revenue goes to Burbank.
 
 ```{r chart3-disney-consolidated}
 #| echo: false
@@ -791,7 +760,7 @@ disney_consolidated <- media_franchises |>
     is_disney      = str_detect(parent_company, "Walt Disney")
   )
 
-ggplot(disney_consolidated,
+p3b <- ggplot(disney_consolidated,
        aes(x = parent_company, y = total_revenue, fill = is_disney)) +
   geom_col(width = 0.65, show.legend = FALSE) +
   geom_text(
@@ -819,60 +788,25 @@ ggplot(disney_consolidated,
     caption  = "Data: Wikipedia via TidyTuesday 2019-07-02\n— ARTOMETRICS"
   )
 
+p3b
+
 ggsave(
   "chart3b_disney_consolidated.png",
+  plot  = p3b,
+  path  = "charts",
   width = 12, height = 7, dpi = 300, bg = "white"
 )
 ```
 
-```{=html}
-<div class="art-code-block">
-  <details>
-    <summary class="art-code-summary">
-      ▶ VIEW R CODE — Chart 3b: Disney Consolidated
-      <button class="art-copy-btn" onclick="copyBlock('chart3b-code', this)">Copy</button>
-    </summary>
-    <pre class="art-code-pre" id="chart3b-code">disney_consolidated <- media_franchises |>
-  mutate(
-    parent_company = case_when(
-      str_detect(owners, "Walt Disney") ~ "The Walt Disney Company\n(consolidated)",
-      TRUE ~ owners
-    )
-  ) |>
-  group_by(parent_company) |>
-  summarise(
-    total_revenue    = sum(revenue, na.rm = TRUE),
-    franchises_owned = n_distinct(franchise),
-    .groups          = "drop"
-  ) |>
-  filter(franchises_owned >= 2) |>
-  slice_max(total_revenue, n = 12) |>
-  mutate(
-    parent_company = fct_reorder(parent_company, total_revenue),
-    is_disney      = str_detect(parent_company, "Walt Disney")
-  )
-
-ggplot(disney_consolidated, aes(x = parent_company, y = total_revenue, fill = is_disney)) +
-  geom_col(width = 0.65, show.legend = FALSE) +
-  geom_text(aes(label = paste0("$", round(total_revenue), "B")),
-            hjust = -0.12, color = "#1C1C1E", size = 3.2) +
-  scale_fill_manual(values = c("FALSE" = "#2C3E6B", "TRUE" = "#C0392B")) +
-  scale_y_continuous(labels = dollar_format(suffix = "B"), expand = expansion(mult = c(0, 0.22))) +
-  coord_flip() + theme_artometrics() +
-  theme(axis.text.y = element_text(size = 9)) +
-  labs(
-    title    = "<span style='color:#C0392B'>**DISNEY**</span> DOESN'T JUST OWN THE MOST IP — IT OWNS THE COMPANIES THAT OWN THE IP",
-    subtitle = "CONSOLIDATED BY PARENT COMPANY — MARVEL ENTERTAINMENT AND 20TH CENTURY FOX FOLDED INTO DISNEY'S TRUE TOTAL",
-    x = NULL, y = "Total Revenue (Billions USD)",
-    caption  = "Data: Wikipedia via TidyTuesday 2019-07-02\n— ARTOMETRICS"
-  )
-
-ggsave("chart3b_disney_consolidated.png", width = 12, height = 7, dpi = 300, bg = "white")</pre>
-  </details>
-</div>
-```
-
-### WHAT THIS MEANS FOR THE INDUSTRY
+Add them up and Disney's true total is **\$426 billion**. Nintendo at
+\$49B — still second — now represents about 11 cents on Disney's dollar.
+But here's what the math actually surfaces: Marvel (\$20B) plus Fox
+(\$17B) should consolidate to \$296B. The remaining **\$130 billion
+comes from Disney-owned entities too small to crack the top 14
+individually** — Pixar, Lucasfilm, ABC, ESPN. Subsidiaries whose
+franchise rows exist in the dataset but don't rank highly enough to
+appear as standalone bars. Individually invisible. Collectively, they
+add up to more than Nintendo's entire lifetime output.
 
 That is the actual scale of the Disney empire. Not one dominant company.
 Not even three. An ecosystem of wholly-owned studios, publishers, and
@@ -884,78 +818,50 @@ Disney didn't just build great IP. It bought the companies that owned
 great IP, let them keep their identities, and harvested everything
 upward.
 
-## PYTHON EDA
+```{=html}
+<div class="art-code-block">
+  <details>
+    <summary class="art-code-summary">
+      <span class="art-lang-tag art-lang-r">R</span>
+      &nbsp;View Chart 3 code
+    </summary>
+    <pre class="art-code-pre" id="r-block-3">non_consolidated <- media_franchises |>
+  group_by(owners) |>
+  summarise(total_revenue = sum(revenue, na.rm = TRUE),
+            franchises_owned = n_distinct(franchise), .groups = "drop") |>
+  filter(franchises_owned >= 2) |>
+  slice_max(total_revenue, n = 14) |>
+  mutate(owners = fct_reorder(owners, total_revenue),
+         disney_flag = case_when(
+           owners == "The Walt Disney Company"                        ~ "disney_direct",
+           owners == "Marvel Entertainment (The Walt Disney Company)" ~ "disney_marvel",
+           owners == "20th Century Fox (The Walt Disney Company)"     ~ "disney_fox",
+           TRUE                                                       ~ "other"
+         ))
 
-::: {style="text-align: left; font-family: Helvetica, sans-serif; font-size: 0.9rem; color: #6B6B6B; margin-bottom: 16px;"}
-The following script mirrors the EDA logic used to validate this dataset
-before the R analysis. It is included as a display-only portfolio piece
-— the same data, the same URL, a different tool.
-:::
+disney_consolidated <- media_franchises |>
+  mutate(parent_company = case_when(
+    str_detect(owners, "Walt Disney") ~ "The Walt Disney Company\n(consolidated)",
+    TRUE ~ owners
+  )) |>
+  group_by(parent_company) |>
+  summarise(total_revenue = sum(revenue, na.rm = TRUE),
+            franchises_owned = n_distinct(franchise), .groups = "drop") |>
+  filter(franchises_owned >= 2) |>
+  slice_max(total_revenue, n = 12) |>
+  mutate(parent_company = fct_reorder(parent_company, total_revenue),
+         is_disney = str_detect(parent_company, "Walt Disney"))
 
-```{python franchise-eda}
-#| eval: false
-#| warning: false
-#| message: false
+# Chart 3a — Non-consolidated
+ggsave("chart3a_disney_non_consolidated.png", path = "charts",
+       width = 12, height = 7, dpi = 300, bg = "white")
 
-import pandas as pd
-import numpy as np
-import requests
-from io import StringIO
-
-# ── Load data ─────────────────────────────────────────────────────
-url = (
-    "https://raw.githubusercontent.com/rfordatascience/tidytuesday/"
-    "main/data/2019/2019-07-02/media_franchises.csv"
-)
-df = pd.read_csv(StringIO(requests.get(url).text))
-
-print(f"Shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
-print(f"\nColumns: {list(df.columns)}")
-
-# ── Missing values ────────────────────────────────────────────────
-print("\n── MISSING VALUES ───────────────────────────────────────")
-missing = df.isnull().sum()
-print(missing[missing > 0] if missing.sum() > 0 else "None")
-
-# ── Revenue summary ───────────────────────────────────────────────
-print("\n── REVENUE SUMMARY (Billions USD) ───────────────────────")
-print(df["revenue"].describe().round(2))
-
-# ── Top 5 franchises by total revenue ────────────────────────────
-print("\n── TOP 5 FRANCHISES BY TOTAL REVENUE ───────────────────")
-top5 = (df.groupby("franchise")["revenue"]
-          .sum()
-          .sort_values(ascending=False)
-          .head(5)
-          .round(1))
-print(top5.to_string())
-
-# ── Revenue by category ───────────────────────────────────────────
-print("\n── REVENUE BY CATEGORY ──────────────────────────────────")
-by_cat = (df.groupby("revenue_category")["revenue"]
-            .sum()
-            .sort_values(ascending=False)
-            .round(1))
-print(by_cat.to_string())
-
-# ── Revenue by original media ─────────────────────────────────────
-print("\n── REVENUE BY ORIGINAL MEDIA ────────────────────────────")
-by_media = (df.groupby("original_media")["revenue"]
-              .agg(["sum", "count"])
-              .sort_values("sum", ascending=False)
-              .round(1))
-by_media.columns = ["total_rev_B", "n_rows"]
-print(by_media.to_string())
-
-# ── Disney subsidiaries in ownership column ───────────────────────
-print("\n── DISNEY-RELATED OWNERS ────────────────────────────────")
-disney_rows = df[df["owners"].str.contains("Walt Disney", na=False)]
-disney_summary = (disney_rows.groupby("owners")["revenue"]
-                  .sum()
-                  .sort_values(ascending=False)
-                  .round(1))
-print(disney_summary.to_string())
-print(f"\nDisney consolidated total: ${disney_summary.sum():.1f}B")
+# Chart 3b — Consolidated
+ggsave("chart3b_disney_consolidated.png", path = "charts",
+       width = 12, height = 7, dpi = 300, bg = "white")</pre>
+    <button class="art-copy-btn" onclick="copyBlock('r-block-3', this)">Copy</button>
+  </details>
+</div>
 ```
 
 ## LIMITATIONS
@@ -970,11 +876,23 @@ and creator fields reflect the state of the industry at the time of
 collection and do not account for subsequent acquisitions. Revenue
 categories were consolidated from over 60 raw Wikipedia subcategories
 into 8 groups, which involves judgment calls documented in the original
-TidyTuesday cleaning script. The "Merchandise, Licensing & Retail"
-category is particularly broad and may include revenue streams that
-other analyses would track separately. All revenue figures should be
-treated as order-of-magnitude approximations rather than audited
-financial data.
+TidyTuesday cleaning script.
+
+The "Merchandise, Licensing & Retail" category is particularly broad
+and may include revenue streams that other analyses would track
+separately. The dominance of merchandise in Chart 1 is structurally
+real, but the exact percentage share depends on how individual Wikipedia
+editors categorized edge cases — which is not fully auditable from this
+dataset alone. All revenue figures should be treated as
+order-of-magnitude approximations rather than audited financial data.
+
+Chart 2 divides total lifetime revenue by years of existence as of 2019.
+This is a simple normalization, not a modeled annual revenue figure.
+A franchise with uneven revenue across its lifespan — a massive recent
+hit, or decades of dormancy — will produce a per-year figure that doesn't
+reflect any actual year's performance. The metric rewards consistent
+earners and penalizes anything that earned most of its revenue in a
+concentrated burst.
 
 ## CONCLUSION
 
@@ -998,49 +916,72 @@ lifetime output. In IP, what you own is one thing. What your
 subsidiaries own is another. Disney understood the difference earlier
 and more completely than anyone.
 
+The two insights together describe the same underlying dynamic from
+different angles. Merchandise is how IP extracts value from audiences.
+Acquisition is how corporations extract value from IP. The companies
+that have mastered both — Disney chief among them — are not competing
+in the same game as everyone else. They are operating at a different
+level of the stack entirely.
+
 ## REFERENCES
 
 ```{=html}
 <div class="art-references">
   <div class="art-ref-item">
-    TidyTuesday (2019-07-02). <em>Media Franchise Revenues</em>. R for Data Science Community.
-    <a href="https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-07-02" target="_blank">
+    TidyTuesday (2019-07-02). <em>Media Franchise Revenues</em>.
+    R for Data Science Community.
+    <a href="https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-07-02"
+       target="_blank">
       github.com/rfordatascience/tidytuesday/…/2019-07-02
     </a>
   </div>
   <div class="art-ref-item">
-    Wikipedia. <em>List of Highest-Grossing Media Franchises</em>. Retrieved via TidyTuesday cleaning script (revenue.R).
+    Wikipedia. <em>List of Highest-Grossing Media Franchises</em>.
+    Retrieved via TidyTuesday cleaning script (revenue.R).
   </div>
   <div class="art-ref-item">
-    Robinson, D. (2019, July 22). <em>Analyzing Franchise Revenue — TidyTuesday Screencast</em>. YouTube.
-    <a href="https://youtu.be/1xsbTs9-a50" target="_blank">youtu.be/1xsbTs9-a50</a>
-    — Chart 1 concept adapted from this screencast with original Artometrics styling applied.
+    Robinson, D. (2019, July 22). <em>Analyzing Franchise Revenue —
+    TidyTuesday Screencast</em>. YouTube.
+    <a href="https://youtu.be/1xsbTs9-a50" target="_blank">
+      youtu.be/1xsbTs9-a50
+    </a>
+    — Chart 1 concept adapted from this screencast with original
+    Artometrics styling applied.
   </div>
 </div>
 ```
 
-## THANK YOU
-
-*Thanks for reading. If this report was useful, interesting, or
-challenged something you thought you knew about the media industry,
-share it with someone who cares about this stuff.*
-
-*[artometrics.com](https://www.artometrics.com)*
-
 ## EDITOR'S NOTE
 
-*This report was researched, written, designed, and produced in active
+```{=html}
+<p class="art-p">
+This report was researched, written, designed, and produced in active
 collaboration with Claude AI (Anthropic). The data pipeline, statistical
-analysis, chart design, written analysis, narrative structure, and
-visual styling were all developed through a directed partnership between
-human editorial judgment and AI execution. Artometrics was built on the
-premise that rigorous analysis and honest process are not in conflict.
-The research questions, editorial instincts, interpretive framing, and
-brand vision are ours. The execution — every line of R code, every
-paragraph of analysis, every design decision — was a collaboration. We
-document this not as a disclaimer but as a description of how we
-actually work, and as a position: we believe this is what serious data
-journalism looks like when the tools available are used honestly and at
-full capacity.*
-
-*— Artometrics Editorial*
+analysis, chart design, written analysis, narrative structure, and visual
+styling were all developed through a directed partnership between human
+editorial judgment and AI execution.
+</p>
+<p class="art-p">
+Artometrics was built on the premise that rigorous analysis and honest
+process are not in conflict. The research questions, editorial instincts,
+interpretive framing, and brand vision are ours. The execution — every
+line of R code, every paragraph of analysis, every design decision — was
+a collaboration. We document this not as a disclaimer but as a
+description of how we actually work, and as a position: we believe this
+is what serious data journalism looks like when the tools available are
+used honestly and at full capacity.
+</p>
+<p class="art-p">— Artometrics Editorial</p>
+<p style="text-align:center; margin: 2rem 0 1rem;">
+  <a href="https://github.com/Artometrics/franchise"
+     target="_blank" rel="noopener"
+     style="display:inline-block; font-family:'DM Sans',sans-serif;
+            font-size:0.85rem; font-weight:600; letter-spacing:1px;
+            text-transform:uppercase; color:#FFFFFF; background:#1C1C1E;
+            border:2px solid #1C1C1E; border-radius:3px;
+            padding:10px 24px; text-decoration:none;
+            transition:background 0.15s, color 0.15s;">
+    View on GitHub
+  </a>
+</p>
+```

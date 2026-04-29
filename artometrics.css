@@ -27,7 +27,7 @@ body {
   line-height: 1.75;
   margin: 0;
   padding: 0;
-  text-align: center; /* Centers all root text */
+  text-align: center;
 }
 
 /* ── Layout ───────────────────────────────────────────────── */
@@ -83,8 +83,11 @@ main.content {
   #quarto-content {
     flex-direction: column !important;
   }
+  /* Also hide the toggle button on mobile */
+  #art-sidebar-btn {
+    display: none !important;
+  }
 }
-
 
 /* ── Hero Title Block ─────────────────────────────────────── */
 #title-block-header {
@@ -171,7 +174,7 @@ p {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  max-width: 700px; /* Keeps text lines from getting too long to read */
+  max-width: 700px;
 }
 
 strong {
@@ -179,7 +182,7 @@ strong {
   color: var(--art-dark);
 }
 
-/* ── Fast Facts section — styled as a stat strip ──────────── */
+/* ── Fast Facts section ───────────────────────────────────── */
 h2:first-of-type + ul,
 h2#fast-facts + ul {
   display: grid;
@@ -188,7 +191,7 @@ h2#fast-facts + ul {
   list-style: none;
   padding: 0;
   margin: 1.5rem 0 2.5rem;
-  justify-content: center; /* Centers the grid blocks */
+  justify-content: center;
 }
 
 h2#fast-facts + ul li {
@@ -198,7 +201,7 @@ h2#fast-facts + ul li {
   font-size: 0.95rem;
   line-height: 1.5;
   border-radius: 0 4px 4px 0;
-  text-align: left; /* Keeps the text inside the boxes legible */
+  text-align: left;
 }
 
 /* ── Charts — full width ──────────────────────────────────── */
@@ -286,7 +289,6 @@ nav.toc-left {
   padding: 1.2rem 0 1.2rem 0;
 }
 
-/* TOC title */
 #toc-title,
 .toc-title {
   font-family: 'DM Sans', sans-serif;
@@ -301,7 +303,6 @@ nav.toc-left {
   display: block;
 }
 
-/* TOC links — default state */
 #TOC a,
 .sidebar nav a {
   color: var(--art-mid);
@@ -313,7 +314,6 @@ nav.toc-left {
   line-height: 1.45;
 }
 
-/* TOC hover */
 #TOC a:hover,
 .sidebar nav a:hover {
   color: var(--art-highlight);
@@ -321,7 +321,6 @@ nav.toc-left {
   padding-left: 16px;
 }
 
-/* TOC active section — Quarto adds .active class natively */
 #TOC a.active,
 .sidebar nav a.active,
 #TOC li.active > a,
@@ -332,7 +331,6 @@ nav.toc-left {
   padding-left: 16px;
 }
 
-/* TOC nested items (h3 level) */
 #TOC ul ul a,
 .sidebar nav ul ul a {
   font-size: 0.78rem;
@@ -345,7 +343,6 @@ nav.toc-left {
   color: var(--art-highlight);
 }
 
-/* Remove default list styling from TOC */
 #TOC ul,
 .sidebar nav ul {
   list-style: none;
@@ -357,7 +354,6 @@ nav.toc-left {
 .sidebar nav li {
   margin: 2px 0;
 }
-
 
 /* ── Artometrics wordmark in footer ──────────────────────── */
 body::after {
@@ -373,8 +369,6 @@ body::after {
 }
 
 /* ── Collapsible Code Blocks ──────────────────────────────── */
-
-/* The toggle button Quarto renders for code-fold */
 .code-fold-btn {
   display: inline-flex;
   align-items: center;
@@ -398,7 +392,6 @@ body::after {
   border-color: var(--art-highlight);
 }
 
-/* Code block container */
 details.code-fold > summary {
   display: inline-flex;
   align-items: center;
@@ -427,7 +420,6 @@ details.code-fold > summary::-webkit-details-marker {
   display: none;
 }
 
-/* The code block itself when expanded */
 details.code-fold > div {
   border: 1px solid var(--art-muted);
   border-radius: 0 4px 4px 4px;
@@ -435,7 +427,6 @@ details.code-fold > div {
   margin-bottom: 1rem;
 }
 
-/* Code block styling */
 pre {
   background: var(--art-cream);
   border: 1px solid var(--art-muted);
@@ -456,8 +447,6 @@ pre code {
   border-radius: 0;
 }
 
-/* SQL exhibit block — slightly different treatment */
-/* Quarto places the language class on <code>, not <pre>, so we use :has() */
 pre:has(> code.sourceCode.sql),
 pre:has(> code[class*="language-sql"]) {
   border-left: 3px solid var(--art-secondary);
