@@ -1,0 +1,29 @@
+---
+import { marked } from 'marked';
+import Base from '../layouts/Base.astro';
+import { rawFile } from '../lib/data';
+
+const md = rawFile('CHANGELOG.md');
+const html = (marked.parse(md, { gfm: true, async: false }) as string)
+  .replace(/^<h1[^>]*>[\s\S]*?<\/h1>/, '')
+  .replace(/<table>/g, '<div class="tablewrap"><table class="dt">')
+  .replace(/<\/table>/g, '</table></div>');
+---
+
+<Base title="Changelog" current="sources" description="Figure-by-figure changes to the FRANCHISE report between the 12 October and 10 November 2026 readings.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="crumb"><a href="/sources">&larr; Sources &amp; method</a></p>
+      <p class="kicker">Changelog</p>
+      <h1>Figures, before and after</h1>
+    </header>
+    <div class="prose changelog" style="max-width:none" set:html={html} />
+  </div>
+</Base>
+
+<style is:global>
+  .changelog .tablewrap { overflow-x: auto; margin: 12px 0 28px; border: 1px solid var(--hairline); }
+  .changelog table { min-width: 640px; }
+  .changelog td, .changelog th { vertical-align: top; }
+  .changelog h2 { font-size: clamp(1.5rem, 5vw, 2rem); margin-top: 40px; }
+</style>

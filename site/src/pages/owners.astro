@@ -1,0 +1,170 @@
+---
+import Base from '../layouts/Base.astro';
+import ChartFigure from '../components/ChartFigure.astro';
+import { blockHtml, chartFigure, type ChartFigureData } from '../lib/article';
+import { GROUPS, concentration, deals, disneySegments, franchises, headline, originMix, parents, regionSummary, streamByKey } from '../lib/data';
+import { fmtAmt, fmtB, fmtTotal } from '../lib/format';
+import type { BarsSpec, Role, StackedSpec } from '../lib/charts';
+import { report } from '../report.config';
+
+const h = headline();
+const ps = parents();
+const top5 = ps.slice(0, 5);
+const conc = concentration();
+const c2019 = conc.filter((c) => c.ledger.startsWith('2019'));
+
+const parentsFig: ChartFigureData = {
+  key: 'parents-top10',
+  title: 'Who the list belongs to',
+  subtitle: 'Top ten first-listed parents by lifetime total. Disney is the pink bar.',
+  description: '',
+  sourceLine: `Wikipedia list, revision ${report.vintage.revision}, grouped by first-listed parent [S017]. Not a legal ownership audit.`,
+  headline: 'Parents',
+  data: [{ label: 'Franchise ledger with owners (CSV)', href: '/downloads/franchise_entities_2026-10.csv', external: true }],
+  spec: {
+    type: 'bars',
+    ariaLabel: `Top ten parents: ${ps.slice(0, 10).map((p) => `${p.name} ${fmtB(p.total, 1)}`).join('; ')}`,
+    rows: ps.slice(0, 10).map((p, i) => ({ label: p.name, sub: `${p.share.toFixed(1)}% · ${p.count} ${p.count === 1 ? 'franchise' : 'franchises'}`, value: p.total, text: fmtB(p.total, 1), role: (i === 0 ? 'accent' : 'base') as Role })),
+  } satisfies BarsSpec,
+};
+
+const mix = originMix().filter((m) => m.n >= 1);
+const reg = Object.fromEntries(regionSummary().map((r) => [r.origin, r]));
+const legend = GROUPS.map((g) => ({ role: g.key as Role, label: g.label }));
+const originFig: ChartFigureData = {
+  key: 'origin-mix',
+  title: 'Where each origin makes its money',
+  subtitle: 'Each bar is one origin country, split by stream group. The published merchandise share is in the label.',
+  description: '',
+  sourceLine: `Derived on this site from the list's stream rows [S017]. Published merchandise shares: Japan, United States, UK, Canada, Sweden [S017]. Small groups swing: one row changes Canada or Sweden.`,
+  headline: 'Origin mix',
+  data: [{ label: 'Origin summary (CSV)', href: '/downloads/region_summary_2026-10.csv', external: true }],
+  spec: {
+    type: 'stacked',
+    legend,
+    ariaLabel: 'Revenue mix by origin country',
+    rows: mix.map((m) => ({
+      label: m.name,
+      sub: `${m.n} ${m.n === 1 ? 'franchise' : 'franchises'} · ${fmtB(m.total, 1)}${reg[m.origin]?.merchShare != null ? ` · merchandise ${reg[m.origin]!.merchShare}% (published)` : ''}`,
+      parts: GROUPS.map((g) => ({ role: g.key as Role, value: m.groups[g.key], label: `${Math.round((m.groups[g.key] / (Object.values(m.groups).reduce((a, b) => a + b, 0) || 1)) * 100)}%` })),
+    })),
+  } satisfies StackedSpec,
+};
+
+const top15 = [...franchises].sort((a, b) => b.total - a.total).slice(0, 15);
+const styleFig: ChartFigureData = {
+  key: 'style-top15',
+  title: 'Merchandising styles in the 15 largest franchises',
+  subtitle: 'Each bar splits one franchise by stream group. Read down the pink to see who leans on goods and who leans on films or games.',
+  description: '',
+  sourceLine: `Derived on this site from the list's stream rows [S017]. The article does not publish per-franchise shares.`,
+  headline: 'Styles',
+  data: [{ label: 'Stream rows (CSV)', href: '/downloads/franchise_revenue_long_2026-10.csv', external: true }],
+  spec: {
+    type: 'stacked',
+    legend,
+    ariaLabel: 'Revenue mix of the fifteen largest franchises',
+    rows: top15.map((f) => {
+      const t = f.streams.reduce((a, s) => a + s.amount, 0);
+      const g = new Map<string, number>();
+      for (const s of f.streams) g.set(streamByKey.get(s.key)!.group, (g.get(streamByKey.get(s.key)!.group) ?? 0) + s.amount);
+      return { label: f.name, sub: `${fmtTotal(f.total)} · ${f.owner}`, parts: GROUPS.map((gr) => ({ role: gr.key as Role, value: g.get(gr.key) ?? 0, label: `${Math.round(((g.get(gr.key) ?? 0) / t) * 100)}%` })) };
+    }),
+  } satisfies StackedSpec,
+};
+
+const dealRows = deals();
+const seg = disneySegments();
+const htmlConsolidation = blockHtml('ip-consolidation');
+const htmlMerch = blockHtml('ip-merchandise');
+const htmlCaveats = blockHtml('ip-caveats');
+const dc = chartFigure('c16_dc', { card: { key: 'c16_dc', title: 'DC is three rows. Harry Potter is a fourth.', description: '', source: 'Wikipedia list, revision 1384334611 [S017]', alt: 'DC rows beside Wizarding World.' } });
+---
+
+<Base title="Owners" current="owners" description="Ownership concentration on the franchise list: who owns what, how each owner and origin handles merchandise, and what to check before you license.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Owners &middot; IP and marketing</p>
+      <h1>Who holds the ledger</h1>
+      <p class="lead">Five first-listed parents sit behind {h.top5.share}% of the list. Disney alone is {h.top1.share}%. Below: who owns what, how merchandising differs by owner and origin, and what to check before you sign.</p>
+    </header>
+
+    <section class="section" aria-labelledby="conc">
+      <h2 id="conc">Concentration</h2>
+      <ul class="cards" style="margin-top:14px">
+        <li class="box card"><span class="v">{h.top1.share}%</span><span class="l">Disney, first-listed parent. Range {h.top1.lo.toFixed(1)}–{h.top1.hi}%.</span><span class="c"><a class="cite" href="/sources#S017">S017</a></span></li>
+        <li class="box card"><span class="v">{h.top5.share}%</span><span class="l">The top five parents. Range {h.top5.lo}–{h.top5.hi}%.</span><span class="c"><a class="cite" href="/sources#S017">S017</a></span></li>
+        <li class="box card"><span class="v">{ps.length}</span><span class="l">first-listed parents behind {franchises.length} franchises.</span><span class="c">derived from the ledger</span></li>
+      </ul>
+      <p class="small muted" style="margin-top:14px">Ranges come from resampling the franchises 5,000 times. They show how much a share depends on which rows are on the list; they are not sampling error. The 2019 file, with today's parent labels, put the top five at {c2019.find((c) => c.topK === 5)?.share}% (range {c2019.find((c) => c.topK === 5)?.lo}–{c2019.find((c) => c.topK === 5)?.hi}). Consolidation changes the answer. <a class="cite" href="/sources#S001">S001</a> <a class="cite" href="/sources#S017">S017</a></p>
+      <div style="margin-top:22px"><ChartFigure fig={parentsFig} level={3} noDesc /></div>
+    </section>
+
+    <section class="section" aria-labelledby="who">
+      <h2 id="who">Who owns what</h2>
+      <p class="muted" style="margin:8px 0 12px">Every franchise sits under the first company on its owner line. Open a parent for its list. Rights are often shared, so check the property, not the studio name.</p>
+      <div>
+        {ps.map((p, i) => (
+          <details class="more" open={i === 0}>
+            <summary><span>{p.name}<span class="meta">{p.count} {p.count === 1 ? 'franchise' : 'franchises'} · {fmtB(p.total, 1)} · {p.share.toFixed(1)}% of list{p.merchShare === null || p.merchShare < 0.5 ? ' · no merchandise row' : ` · merchandise ${p.merchShare.toFixed(0)}%`}</span></span></summary>
+            <div class="inner">
+              <ul class="link-list" style="margin-top:10px">
+                {p.franchises.map((f) => (<li><a href={`/explore/${f.slug}`}>{f.name}<span>{fmtTotal(f.total)} · {f.originName}</span></a></li>))}
+              </ul>
+            </div>
+          </details>
+        ))}
+      </div>
+      <p class="small muted" style="margin-top:14px">Merchandise share per parent is derived on this site from the list's stream rows. It is not a figure from the article.</p>
+      <div class="prose" style="margin-top:22px"><Fragment set:html={htmlConsolidation} /></div>
+    </section>
+
+    <section class="section" id="styles" aria-labelledby="styles-h">
+      <h2 id="styles-h">Merchandising styles</h2>
+      <p class="lead" style="margin-top:8px">The article reads the gap between Japan and the United States as two merchandising styles, not two national industries. Japan-origin merchandise share is 71.4% to the United States' 51.5%.</p>
+      <div style="margin-top:20px"><ChartFigure fig={originFig} level={3} noDesc /></div>
+      <div style="margin-top:26px"><ChartFigure fig={styleFig} level={3} noDesc /></div>
+      <div class="prose" style="margin-top:22px"><Fragment set:html={htmlMerch} /></div>
+    </section>
+
+    <section class="section" aria-labelledby="deals">
+      <h2 id="deals">What the buying bought</h2>
+      <p class="muted" style="margin:8px 0 12px">Part of Disney's share was bought. The prices below are filed amounts; the right-hand figure is the anchor franchise's lifetime total in the 2019 file. A price is not lifetime consumer spending, and putting them side by side does not give a return. <a class="cite" href="/sources#S009">S009</a>–<a class="cite" href="/sources#S012">S012</a></p>
+      <div class="tablewrap">
+        <table class="dt stack">
+          <thead><tr><th scope="col">Target</th><th scope="col" class="num">Closed</th><th scope="col" class="num">Filed price</th><th scope="col">Anchor franchise</th><th scope="col" class="num">Anchor, 2019 file</th></tr></thead>
+          <tbody>
+            {dealRows.map((d) => (
+              <tr>
+                <th scope="row" data-label="Target">{d.target}</th>
+                <td data-label="Closed" class="num">{d.year}</td>
+                <td data-label="Filed price" class="num"><strong>{fmtTotal(d.price)}</strong></td>
+                <td data-label="Anchor franchise">{d.anchor}</td>
+                <td data-label="Anchor, 2019 file" class="num">{fmtB(d.anchor2019, 1)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:12px">Fox's $71.3 billion was cash and stock, in the exhibit's own words, and also covered cable, a Hulu stake and a library. It is not relabelled as enterprise value. <a class="cite" href="/sources#S012">S012</a></p>
+      <p style="margin-top:16px">
+        Disney's own annual reporting shows a different route to the shopper. For the year ended 27 September 2025, Experiences (parks, resorts, cruises and merchandise) was <strong>{fmtB(seg.find((s) => s.name === 'Experiences')!.revenue, 1)}</strong> beside Entertainment at <strong>{fmtB(seg.find((s) => s.name === 'Entertainment')!.revenue, 1)}</strong> and Sports at <strong>{fmtB(seg.find((s) => s.name === 'Sports')!.revenue, 1)}</strong>. These are annual segments, not lifetime franchise totals. <a class="cite" href="/sources#S093">S093</a>
+      </p>
+      <div style="margin-top:22px"><ChartFigure fig={dc} level={3} noDesc /></div>
+    </section>
+
+    <section class="section" aria-labelledby="limits">
+      <h2 id="limits">What the data cannot tell you</h2>
+      <div class="prose" style="margin-top:14px"><Fragment set:html={htmlCaveats.replace(/<h3[^>]*>[\s\S]*?<\/h3>/, '')} /></div>
+    </section>
+
+    <section class="section">
+      <h2>Keep going</h2>
+      <div class="row" style="margin-top:12px">
+        <a class="btn primary" href="/read#own-or-market-an-ip">Read the full IP section</a>
+        <a class="btn" href="/explore">Explore all {franchises.length}</a>
+        <a class="btn" href="/sources">Sources &amp; method</a>
+      </div>
+    </section>
+  </div>
+</Base>

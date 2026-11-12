@@ -1,0 +1,293 @@
+{
+  "fetched": "2026-11-12T17:16:41.837Z",
+  "files": [
+    {
+      "file": "article/franchise.md",
+      "url": "https://raw.githubusercontent.com/Artometrics/artometrics/main/src/content/blog/franchise.md",
+      "bytes": 51775,
+      "sha256": "60f08344f4eba3f16f913f35fb8bd032a9af60fb1e2edeb4c4a940c3f4d814b7"
+    },
+    {
+      "file": "article/franchise.meta.json",
+      "url": "https://raw.githubusercontent.com/Artometrics/artometrics/main/src/content/blog/franchise.meta.json",
+      "bytes": 29979,
+      "sha256": "ab9a73a8eb094b02e57762a68a2c05e959ee1a56a794845e503609c7c1f2c8de"
+    },
+    {
+      "file": "data/franchise_entities_2026-10.csv",
+      "url": "https://artometrics.com/data/articles/franchise/clean/franchise_entities_2026-10.csv",
+      "bytes": 15146,
+      "sha256": "0253a6b6108c29b4648068736070ea92e341fb67fdb8e327667e7e53e602ac55"
+    },
+    {
+      "file": "data/franchise_revenue_long_2026-10.csv",
+      "url": "https://artometrics.com/data/articles/franchise/clean/franchise_revenue_long_2026-10.csv",
+      "bytes": 19721,
+      "sha256": "03bd482e825819b4c6edc1f26f76d680b57a3bb32763c45d8808c918179ed055"
+    },
+    {
+      "file": "data/category_shares_bootstrap.csv",
+      "url": "https://artometrics.com/data/articles/franchise/clean/category_shares_bootstrap.csv",
+      "bytes": 638,
+      "sha256": "9007c5c12f3e45b5fe21bdd7a0720197984591190e8c2d6a3e6e3d0e5899300e"
+    },
+    {
+      "file": "data/owner_concentration_bootstrap.csv",
+      "url": "https://artometrics.com/data/articles/franchise/clean/owner_concentration_bootstrap.csv",
+      "bytes": 387,
+      "sha256": "4ff5ef4dca7e3082a1509e57a2fa3a4e74c2fc3efcdff81975cc1e821349c8cb"
+    },
+    {
+      "file": "data/region_summary_2026-10.csv",
+      "url": "https://artometrics.com/data/articles/franchise/clean/region_summary_2026-10.csv",
+      "bytes": 228,
+      "sha256": "77c15718df93b572084d0d9a24a4af18fbbc48d5d191aaae528c6d2f3b6a62dc"
+    },
+    {
+      "file": "data/old_vs_new.csv",
+      "url": "https://artometrics.com/data/articles/franchise/clean/old_vs_new.csv",
+      "bytes": 4427,
+      "sha256": "cde4f84931bce28db87ed329c8390612b45553fe18158d00b6a9934dff2081cf"
+    },
+    {
+      "file": "data/wikipedia_franchise_revenue_2026.csv",
+      "url": "https://artometrics.com/data/articles/franchise/wikipedia_franchise_revenue_2026.csv",
+      "bytes": 7336,
+      "sha256": "092d5c7444927905a48630685658c29942151ead4de26ea1af8a752e0910a22d"
+    },
+    {
+      "file": "data/owner_totals_derived.csv",
+      "url": "https://artometrics.com/data/articles/franchise/owner_totals_derived.csv",
+      "bytes": 2700,
+      "sha256": "00a4d74faad5b55dbf5ec00f7b769c76d2870312fdee6e40557f5ff3a1c14642"
+    },
+    {
+      "file": "data/owner_consolidation_rules.csv",
+      "url": "https://artometrics.com/data/articles/franchise/owner_consolidation_rules.csv",
+      "bytes": 338,
+      "sha256": "6f01be328c8bd4333ee4d017dafc215e7099119ef23e5b592107e085193e0bb9"
+    },
+    {
+      "file": "data/disney_acquisitions.csv",
+      "url": "https://artometrics.com/data/articles/franchise/disney_acquisitions.csv",
+      "bytes": 592,
+      "sha256": "127c774115e63240ef7fe0cae9abff7596a4cdb7b565c5732203e2542c137c90"
+    },
+    {
+      "file": "data/disney_segment_revenue_fy2025.csv",
+      "url": "https://artometrics.com/data/articles/franchise/disney_segment_revenue_fy2025.csv",
+      "bytes": 1067,
+      "sha256": "a80967928d34c51b73b899ffc7b3e8ac8609581755792e7d4db9e14e9c770e58"
+    },
+    {
+      "file": "data/franchise_failures.csv",
+      "url": "https://artometrics.com/data/articles/franchise/franchise_failures.csv",
+      "bytes": 1106,
+      "sha256": "5673997507e300ecbb14dd958afb736a88698d149638e37209ff4d047d926a1f"
+    },
+    {
+      "file": "data/franchise_revenue_2019_vs_2026.csv",
+      "url": "https://artometrics.com/data/articles/franchise/franchise_revenue_2019_vs_2026.csv",
+      "bytes": 7499,
+      "sha256": "6a81c3ac31e42aff7a432db76bb46fae163a9a67086a8db183177b6b0ee496c7"
+    },
+    {
+      "file": "data/top10_franchise_share_by_year.csv",
+      "url": "https://artometrics.com/data/articles/franchise/top10_franchise_share_by_year.csv",
+      "bytes": 827,
+      "sha256": "635dab75a8b85602948621f5a52eed3f59162aab03cf91930b18fbd32f5174a7"
+    },
+    {
+      "file": "data/box_office_top10_snapshot_2026-11-10.csv",
+      "url": "https://artometrics.com/data/articles/franchise/box_office_top10_snapshot_2026-11-10.csv",
+      "bytes": 6300,
+      "sha256": "28fd4fd245d955e5b19592f020aff9093d662443489188225f4f1a3bc2b320a9"
+    },
+    {
+      "file": "data/sources.csv",
+      "url": "https://artometrics.com/data/articles/franchise/sources.csv",
+      "bytes": 17900,
+      "sha256": "04efa20dad52994f80cd8d54df6b6e101452a7a10ff50b247cf993a23888406f"
+    },
+    {
+      "file": "data/verified_numbers.csv",
+      "url": "https://artometrics.com/data/articles/franchise/verified_numbers.csv",
+      "bytes": 21783,
+      "sha256": "4f681743d89bdada9b54e5d1c0411d25bb940e3fac16ac0c05485bbe5c5c0120"
+    },
+    {
+      "file": "data/CHANGELOG.md",
+      "url": "https://artometrics.com/data/articles/franchise/CHANGELOG.md",
+      "bytes": 5815,
+      "sha256": "efdf2e9bbd07b7d907b41a6fab919a872d22eb63e3ab4fe6370c62015ee3cfe2"
+    },
+    {
+      "file": "charts/c02_pokemon_vs_two.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c02_pokemon_vs_two.plotly.json",
+      "bytes": 1330,
+      "sha256": "9bc8d9d025d5ec148182359453b4d6adea6fccd72e5ea770ae0b2c3df00c1963"
+    },
+    {
+      "file": "charts/chart6_revenue_streams_2026.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart6_revenue_streams_2026.plotly.json",
+      "bytes": 1585,
+      "sha256": "aed9bf2e048af65efb2fef1a121b792002e1471db6efa094d77883ece52db1b8"
+    },
+    {
+      "file": "charts/chart1_top20_revenue_2026.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart1_top20_revenue_2026.plotly.json",
+      "bytes": 1865,
+      "sha256": "18ca1611b7ff83baa542bbc7d09a2b8bb6ef74409084d30e4323ee6e312a6e2f"
+    },
+    {
+      "file": "charts/c03_revisions.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c03_revisions.plotly.json",
+      "bytes": 1333,
+      "sha256": "923d88801b5b1971851be0a77a4aed87a3b3479f5e18a20fa47912ce7348a24c"
+    },
+    {
+      "file": "charts/chart10_wiki_2019_vs_2026.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart10_wiki_2019_vs_2026.plotly.json",
+      "bytes": 1672,
+      "sha256": "446dd0e8e448bb32b9c83b0f906d38e616b2c62e4fce42dc0f2e0b38fdd7d48f"
+    },
+    {
+      "file": "charts/c04_what_moved.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c04_what_moved.plotly.json",
+      "bytes": 1475,
+      "sha256": "bd9d987b61797ace4a5165212af919ae70d7398e2a30671cc90ea4ce9d89f80c"
+    },
+    {
+      "file": "charts/chart15_region_2026.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart15_region_2026.plotly.json",
+      "bytes": 1748,
+      "sha256": "df2318f7a041059eb3f6fe715c53f3e942b66b3d0f6b2ff9e455ef3915db9e84"
+    },
+    {
+      "file": "charts/chart5_original_media_revenue.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart5_original_media_revenue.plotly.json",
+      "bytes": 1627,
+      "sha256": "d20a9671ad5cc7f63c95df2a7f259a14ec4ea0912db1bf3682eae962478d5d8b"
+    },
+    {
+      "file": "charts/chart11_mix_by_original_medium.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart11_mix_by_original_medium.plotly.json",
+      "bytes": 1611,
+      "sha256": "779b9e778d390c332158db4266554a74893fd1c10198a7b23e87bd5b7e498838"
+    },
+    {
+      "file": "charts/chart14_box_office_share_top20.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart14_box_office_share_top20.plotly.json",
+      "bytes": 1920,
+      "sha256": "8a823ba01aa33effec6800ad101e73d2146ebad5cf2cc81938c783088cfdc444"
+    },
+    {
+      "file": "charts/chart2_revenue_per_year.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart2_revenue_per_year.plotly.json",
+      "bytes": 2038,
+      "sha256": "d3a3f0e8fb29fbd5612b810a386fa5c004aa74b4c3a80692cf8f8ca652d453ff"
+    },
+    {
+      "file": "charts/chart3a_disney_non_consolidated.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart3a_disney_non_consolidated.plotly.json",
+      "bytes": 1668,
+      "sha256": "40d3882c2da5dd9a82b50ed5890d51a0da991c2ad7b48fdd6c72888c62232042"
+    },
+    {
+      "file": "charts/chart3b_disney_consolidated.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart3b_disney_consolidated.plotly.json",
+      "bytes": 1713,
+      "sha256": "e065ca581a259a4a57b89a630dcbdb854bb28b52db6126f9677334dcdaf6c29e"
+    },
+    {
+      "file": "charts/chart12_owner_concentration_2026.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart12_owner_concentration_2026.plotly.json",
+      "bytes": 1800,
+      "sha256": "cab3f5a7b92825039a6770dcb7daa07d7725b781f698607c361227a1de664e26"
+    },
+    {
+      "file": "charts/chart8_disney_acquisitions.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart8_disney_acquisitions.plotly.json",
+      "bytes": 1605,
+      "sha256": "6bd6381a67056eb5fb32beefea6917643352c4cc4fa646d924463c5488197086"
+    },
+    {
+      "file": "charts/chart13_deal_price_vs_revenue.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart13_deal_price_vs_revenue.plotly.json",
+      "bytes": 1413,
+      "sha256": "574be13270b5a3cda1dc5c94f7fb13cc0fbffcc041661824b9d58e444dd4832c"
+    },
+    {
+      "file": "charts/chart9_disney_segments_fy2025.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart9_disney_segments_fy2025.plotly.json",
+      "bytes": 1469,
+      "sha256": "8e16d482d70df22457fd5f1700a7b21f0c31811e7b9b2d56e69d2c44221c3e83"
+    },
+    {
+      "file": "charts/chart7_top10_franchise_share.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart7_top10_franchise_share.plotly.json",
+      "bytes": 1387,
+      "sha256": "9098d7a895d5e999406833b3a13b6c19d87988b9fe30e8f75e5599345f622430"
+    },
+    {
+      "file": "charts/c05_nezha_trackers.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c05_nezha_trackers.plotly.json",
+      "bytes": 1381,
+      "sha256": "09a0be463ebd7fee0915d37597644582c17d8f398caeb669b4131d0f4244f732"
+    },
+    {
+      "file": "charts/chart16_worldwide_top10_2025_2026.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/chart16_worldwide_top10_2025_2026.plotly.json",
+      "bytes": 1888,
+      "sha256": "e12862b277277cec8ae6abe5f65cb6fd9f731ce36efebef70169cfd745b49931"
+    },
+    {
+      "file": "charts/c06_parents.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c06_parents.plotly.json",
+      "bytes": 1617,
+      "sha256": "433ed07d34d4321c342bc626b8b0332983b839efc6cf99070c951ebc7e0d6c5e"
+    },
+    {
+      "file": "charts/c07_us_japan.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c07_us_japan.plotly.json",
+      "bytes": 1291,
+      "sha256": "c9ee51c3a9a6898b658192d17acc48d34b5e7acd990c835aeff9bd43b8b9a6b9"
+    },
+    {
+      "file": "charts/c08_segments.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c08_segments.plotly.json",
+      "bytes": 1330,
+      "sha256": "07a5987a4fa073b8032f04d2887fa168d6935ecfbbe43e97cef5ecfced57c293"
+    },
+    {
+      "file": "charts/c16_dc.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c16_dc.plotly.json",
+      "bytes": 1387,
+      "sha256": "be85140e322a1c4f90821e5911072dd74e920ce557bc0f457f0af584cf1d196d"
+    },
+    {
+      "file": "charts/c18_2025_count.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c18_2025_count.plotly.json",
+      "bytes": 1275,
+      "sha256": "b13e8c7d394c50211b43bf5c9f57d8df393a795ebef2891b6c6c479635179688"
+    },
+    {
+      "file": "charts/c19_2026_count.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c19_2026_count.plotly.json",
+      "bytes": 1299,
+      "sha256": "8005af0f7a74fbe3f5f504ff80c3004cbca00a66e0aaa2ef40a94d52e64556eb"
+    },
+    {
+      "file": "charts/c22_hello_levels.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c22_hello_levels.plotly.json",
+      "bytes": 1277,
+      "sha256": "ee420fdef8966be352344f4b8fab7409be4060aa4ac4c72aab1d09e5b7c61362"
+    },
+    {
+      "file": "charts/c24_ledger_total.plotly.json",
+      "url": "https://artometrics.com/data/articles/franchise/charts/candidates/c24_ledger_total.plotly.json",
+      "bytes": 1284,
+      "sha256": "7b55c3fd276dcb49b1f78c487366c77c9d80f8aafcfd4514b244999b5b370208"
+    }
+  ]
+}

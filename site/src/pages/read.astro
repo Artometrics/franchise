@@ -1,0 +1,66 @@
+---
+import Base from '../layouts/Base.astro';
+import ChartFigure from '../components/ChartFigure.astro';
+import { chartFigure, editorsNote, frontmatter, inlineHtml, meta, segments, toc } from '../lib/article';
+import { report } from '../report.config';
+
+const fmt = (d: string | Date) => new Date(d).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const [pre, ...rest] = [frontmatter.title.replace(/^FRANCHISE:/, 'Franchise:')];
+void pre; void rest;
+---
+
+<Base title="Read the article" current="read" description={frontmatter.description}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Read &middot; Arts &middot; Film</p>
+      <h1>{report.title}</h1>
+      <p class="lead">{frontmatter.description}</p>
+      <p class="small mono muted" style="margin-top:14px">By {report.author} &middot; Published {fmt(frontmatter.pubDate)} &middot; Updated {fmt(frontmatter.updatedDate)}</p>
+    </header>
+
+    <div class="callout">
+      <p><strong>{meta.status.label}.</strong> {meta.status.note}</p>
+      <p class="small"><strong>What changed:</strong> {meta.whatChanged} <a href="/changelog">Read the changelog</a>.</p>
+      <p class="small">The audio narration lives on the <a href={report.parentUrl} rel="noopener" target="_blank">original article</a> and reads the October text.</p>
+    </div>
+
+    <nav class="toc box act" aria-label="In this article" style="margin:20px 0 32px">
+      <p class="kicker">In this article</p>
+      <ol>
+        <li><a href="#findings">Five findings</a></li>
+        {toc.map((t) => (<li><a href={`#${t.id}`}>{t.text}</a></li>))}
+        <li><a href="#faq">Questions and answers</a></li>
+      </ol>
+    </nav>
+
+    <article class="prose">
+      {segments.map((s) =>
+        s.type === 'html' ? (
+          <Fragment set:html={s.html} />
+        ) : s.type === 'chart' ? (
+          <ChartFigure fig={chartFigure(s.key, { ariaLabel: s.ariaLabel, caption: s.caption })} level={3} />
+        ) : (
+          <div class="gallery" style="margin:20px 0 32px">
+            {s.cards.map((c) => (<ChartFigure fig={chartFigure(c.key, { card: c })} level={3} />))}
+          </div>
+        ),
+      )}
+
+      <h2 id="faq">Questions and answers</h2>
+      <div class="faq">
+        {frontmatter.faq.map((q) => (
+          <details>
+            <summary>{q.question}</summary>
+            <p set:html={inlineHtml(q.answer)} />
+          </details>
+        ))}
+      </div>
+    </article>
+
+    <p class="row" style="margin-top:32px">
+      <a class="btn" href="/sources">Sources &amp; method</a>
+      <a class="btn" href="/downloads">Downloads</a>
+      <a class="btn" href={report.parentUrl} rel="noopener" target="_blank">Original on artometrics.com &#8599;</a>
+    </p>
+  </div>
+</Base>

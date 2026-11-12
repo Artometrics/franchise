@@ -1,0 +1,141 @@
+franchise,franchise_2019_name,year_created,total_usd_b,breakdown_sum_usd_b,unallocated_usd_b,breakdown_exceeds_total,original_media,owners_raw,owner_parent_2026,region_origin,in_2019_ledger
+Pokémon,Pokémon,1996,130.7,130.733,0.0,False,Video game,The Pokémon Company Nintendo,The Pokémon Company,Japan,True
+Mickey Mouse & Friends,Mickey Mouse & Friends,1928,61.2,61.2097,0.0,False,Animated cartoon,The Walt Disney Company,Disney,US,True
+Winnie-the-Pooh,Winnie the Pooh,1924,50.2,50.245,0.0,False,Book,The Walt Disney Company,Disney,UK,True
+Star Wars,Star Wars,1977,46.7,46.785,0.0,False,Film,Lucasfilm,Disney,US,True
+Disney Princess,Disney Princess,2000,45.4,45.4827,0.0,False,Animated films,The Walt Disney Company,Disney,US,True
+Call of Duty,Call of Duty,2003,40.0,40.0,0.0,False,Video game,Activision Blizzard,Microsoft,US,True
+Anpanman,Anpanman,1973,38.4,38.4345,0.0,False,Picture book,,Unknown,Japan,True
+Marvel Cinematic Universe (MCU),Marvel Cinematic Universe,2008,37.5,37.486,0.014,False,Film,Walt Disney Studios Sony Pictures,Disney,US,True
+Barbie,Barbie,1987,36.3,36.367,0.0,False,|Television special,Mattel,Mattel,US,True
+Wizarding World (Harry Potter),Wizarding World / Harry Potter,1997,35.1,35.1417,0.0,False,Novel,J. K. Rowling Warner Bros.,Warner Bros. Discovery,UK,True
+Hello Kitty,Hello Kitty,1974,33.5,33.5,0.0,False,Cartoon character,Sanrio,Sanrio,Japan,True
+Batman,Batman,1939,29.9,29.932,0.0,False,Comic book,DC Entertainment,Warner Bros. Discovery,US,True
+Spider-Man,Spider-Man,1962,26.8,26.86,0.0,False,Comic book,Marvel Entertainment Sony Pictures,Disney,US,True
+Transformers,Transformers,1984,25.0,10.136,14.864,False,Toy line,Takara Tomy Hasbro,Hasbro,US,True
+Naruto,Naruto,1999,22.8,22.8,0.0,False,Manga,Masashi Kishimoto (manga) Shueisha Studio Pierrot (anime) TV Tokyo (anime),Hitotsubashi Group (Shueisha/Shogakukan),Japan,True
+Dungeon Fighter Online (DFO),Dungeon Fighter Online,2005,22.0,22.0,0.0,False,Video game,Nexon Tencent,Tencent,Korea,True
+Cars,Cars,2006,21.5,21.547,0.0,False,Animated film,Pixar,Disney,US,True
+Candy Crush,Candy Crush Saga,2012,20.0,20.0,0.0,False,Video game,Activision Blizzard,Microsoft,Sweden,True
+Paw Patrol,PAW Patrol,2013,18.4,18.4127,0.0,False,Animated series,Spin Master,Spin Master,Canada,True
+Looney Tunes,Looney Tunes,1930,17.46,17.468,0.0,False,Animated cartoon,Warner Bros.,Warner Bros. Discovery,US,True
+Teenage Mutant Ninja Turtles,Teenage Mutant Ninja Turtles,1984,17.4,17.4006,0.0,False,Comic book,Nickelodeon,Paramount Skydance,US,True
+SpongeBob SquarePants,SpongeBob SquarePants,1999,16.6,16.667,0.0,False,Animated series,Nickelodeon,Paramount Skydance,US,True
+Toy Story,Toy Story,1995,16.0,14.813,1.187,False,Animated film,The Walt Disney Company,Disney,US,True
+The Lion King,The Lion King,1994,15.9,15.952,0.0,False,Animated film,The Walt Disney Company,Disney,US,True
+Dora the Explorer,Dora the Explorer,2000,15.8,15.781,0.019,False,Animated series,Nickelodeon,Paramount Skydance,US,True
+Pac-Man,Pac-Man,1980,15.43,15.439,0.0,False,Video game,Bandai Namco Entertainment,Bandai Namco,Japan,True
+Peanuts,Peanuts,1950,14.4,14.492,0.0,False,Comic strip,Peanuts Holdings,Peanuts Holdings,US,True
+Avengers,Avengers,1963,14.3,14.321,0.0,False,Comic book,Marvel Entertainment,Disney,US,True
+Frozen,Frozen,2013,13.9,13.939,0.0,False,Animated film,The Walt Disney Company,Disney,US,True
+Space Invaders,Space Invaders,1978,13.9,13.93,0.0,False,Video game,Taito,Square Enix,Japan,True
+Warcraft,Warcraft,1994,12.4,12.4554,0.0,False,Video game,Activision Blizzard,Microsoft,US,True
+Despicable Me (Minions),Despicable Me / Minions,2010,12.3,12.335,0.0,False,Animated film,Illumination Universal Pictures,Comcast (Universal),US,True
+Star Trek,Star Trek,1966,11.2,11.245,0.0,False,Television series,Paramount Skydance,Paramount Skydance,US,True
+Dragon Ball,Dragon Ball,1984,10.7,10.746,0.0,False,Manga,Akira Toriyama (Bird Studio) Shueisha Toei Animation Fuji TV (anime) Bandai Namco,Hitotsubashi Group (Shueisha/Shogakukan),Japan,True
+Street Fighter,Street Fighter,1987,10.7,10.821,0.0,False,Video game,Capcom,Capcom,Japan,True
+Grand Theft Auto (GTA),Grand Theft Auto,1997,10.3,10.3,0.0,False,Video game,Rockstar Games,Rockstar Games,UK,True
+Demon Slayer: Kimetsu no Yaiba,,2016,10.1,10.1648,0.0,False,Manga,Koyoharu Gotōge and Shueisha ufotable (anime) Aniplex (anime),Hitotsubashi Group (Shueisha/Shogakukan),Japan,False
+Jurassic Park,Jurassic Park,1990,10.1,10.111,0.0,False,Novel,Alfred A. Knopf Universal Pictures Amblin,Comcast (Universal),US,True
+Rilakkuma,,2003,10.0,10.0,0.0,False,Manga,San-X,San-X,Japan,False
+Monster Strike,Monster Strike,2013,10.0,10.0,0.0,False,Video game,Mixi,Mixi,Japan,True
+James Bond,James Bond,1953,9.75,9.752,0.0,False,Novel,Danjaq Ian Fleming Publications Metro-Goldwyn-Mayer,Danjaq Ian Fleming Publications Metro-Goldwyn-Mayer,UK,True
+Mario,Mario,1981,9.74,9.741,0.0,False,Video game,Nintendo,Nintendo,Japan,True
+Angry Birds,Angry Birds,2009,9.54,9.5475,0.0,False,Video game,Rovio Entertainment,Rovio Entertainment,Finland,True
+The Railway Series / Thomas & Friends,Thomas & Friends,1945,9.12,9.1267,0.0,False,Book,Mattel,Mattel,UK,True
+Fortnite,,2017,9.0,9.0,0.0,False,Video game,Epic Games,Epic Games,US,False
+Super Sentai / Power Rangers,Super Sentai / Power Rangers,1975,8.67,8.67,0.0,False,Television series,Toei Company Bandai Namco Holdings Hasbro,Bandai Namco,Japan,True
+Middle-earth (The Lord of the Rings),Middle-earth / Lord of the Rings,1937,8.46,8.463,0.0,False,Novel,Tolkien Estate Middle-earth Enterprises New Line Cinema,Tolkien Estate Middle-earth Enterprises New Line Cinema,UK,True
+X-Men,X-Men,1963,8.35,8.3586,0.0,False,Comic book,Marvel Entertainment,Disney,US,True
+Superman,Superman,1938,8.2,8.221,0.0,False,Comic book,DC Entertainment,Warner Bros. Discovery,US,True
+DC Extended Universe (DCEU),DC Extended Universe,2013,8.0,8.0004,0.0,False,Film,DC Entertainment,Warner Bros. Discovery,US,True
+Fast & Furious,Fast & Furious,2001,7.98,7.928,0.052,False,Film,Universal Pictures,Comcast (Universal),US,True
+Lilo & Stitch (Stitch),,2002,7.92,7.9259,0.0,False,Animated film,The Walt Disney Company,Disney,US,False
+Pirates of the Caribbean,Pirates of the Caribbean,2003,7.9,7.903,0.0,False,Film,The Walt Disney Company,Disney,US,True
+Ben 10,Ben 10,2005,7.85,7.853,0.0,False,Animated series,Cartoon Network,Warner Bros. Discovery,US,True
+Sesame Street (The Muppets),Sesame Street / The Muppets,1955,7.72,7.725,0.0,False,Television series,The Muppets Studio Sesame Workshop,The Muppets Studio Sesame Workshop,US,True
+Ultra Series (Ultraman),Ultraman,1966,7.4,7.4025,0.0,False,Television series,Tsuburaya Productions,Bandai Namco,Japan,True
+Sonic the Hedgehog,Sonic the Hedgehog,1991,7.37,7.376,0.0,False,Video game,Sega,Sega Sammy,Japan,True
+Avatar,,2009,7.32,7.321,0.0,False,Film,20th Century Studios,Disney,US,False
+Puzzle & Dragons,Puzzle & Dragons,2012,7.0,7.0,0.0,False,Video game,GungHo Online Entertainment,GungHo Online Entertainment,Japan,True
+Madden NFL,,1998,7.0,7.0,0.0,False,Video game,Electronic Arts National Football League (NFL),Electronic Arts National Football League,US,False
+Fate,Fate,2004,7.0,7.0,0.0,False,Video game,Type-Moon Aniplex,Sony,Japan,True
+Halo,Halo,2001,6.8,6.8,0.0,False,Video game,Xbox Game Studios,Xbox Game Studios,US,True
+Ice Age,Ice Age,2002,6.42,4.847,1.573,False,Animated film,20th Century Studios,Disney,US,True
+Genshin Impact,,2020,6.3,6.3,0.0,False,Video game,miHoYo,miHoYo,China,False
+Shrek,Shrek,1990,6.3,6.3023,0.0,False,Picture book,"Farrar, Straus and Giroux Universal Pictures",Comcast (Universal),US,True
+The Phantom of the Opera,The Phantom of the Opera,1986,6.15,6.155,0.0,False,Gothic horror novel,Andrew Lloyd Webber Gaston Leroux,Andrew Lloyd Webber Gaston Leroux,UK,True
+My Little Pony,My Little Pony,1984,5.98,5.9876,0.0,False,Toy line,Hasbro,Hasbro,US,True
+Scooby-Doo,,1969,5.43,5.4374,0.0,False,Animated series,Warner Bros.,Warner Bros. Discovery,US,False
+Yu-Gi-Oh!,Yu-Gi-Oh!,1996,5.42,5.4263,0.0,False,Manga,Kazuki Takahashi Shueisha Konami (games and cards),Hitotsubashi Group (Shueisha/Shogakukan),Japan,True
+Mamma Mia,,1975,5.16,5.168,0.0,False,Song,Polar / Epic Universal Pictures,Comcast (Universal),US,False
+Mortal Kombat,Mortal Kombat,1992,5.06,4.3129,0.7471,False,Video game,Warner Bros.,Warner Bros. Discovery,US,True
+Gundam,Gundam,1979,5.0,5.0,0.0,False,Anime series,"Bandai Namco Filmworks, directly and through Sotsu",Bandai Namco,Japan,True
+The Sims,,2000,5.0,5.0,0.0,False,Video game,Electronic Arts,Electronic Arts,US,False
+Bob the Builder,Bob the Builder,1998,5.0,5.0,0.0,False,Animated series,Mattel,Mattel,UK,True
+MapleStory,,2003,5.0,5.0,0.0,False,Video game,Nexon,Nexon,Korea,False
+The Simpsons,The Simpsons,1987,4.9,4.9,0.0,False,Animated series,20th Century Studios,Disney,US,True
+Assassin's Creed,Assassin's Creed,2007,4.7,1.252,3.448,False,Video game,Ubisoft,Ubisoft,Canada,True
+Mission: Impossible,Mission: Impossible,1966,4.7,4.709,0.0,False,Television series,Paramount Pictures,Paramount Skydance,US,True
+Beyblade,Beyblade,1999,4.6,4.6097,0.0,False,Manga,Takao Aoki Shogakukan,Hitotsubashi Group (Shueisha/Shogakukan),Japan,True
+The Big Bang Theory,The Big Bang Theory,2007,4.57,4.57,0.0,False,Television series,Warner Bros.,Warner Bros. Discovery,US,True
+Seinfeld,,1989,4.56,4.56,0.0,False,Television series,Sony Pictures Television,Sony,US,False
+Minecraft,Minecraft,2009,4.32,4.323,0.0,False,Video game,Mojang Studios,Microsoft,Sweden,True
+Twilight,Twilight,2005,4.31,4.314,0.0,False,Novel,"Little, Brown and Company Summit Entertainment","Little, Brown and Company Summit Entertainment",US,True
+Gran Turismo,Gran Turismo,1997,4.1,4.117,0.0,False,Video game,Sony Interactive Entertainment,Sony,Japan,True
+Strawberry Shortcake,Strawberry Shortcake,1979,4.0,4.0026,0.0,False,Greeting card,WildBrain,WildBrain,US,True
+The Smurfs,,1958,4.0,1.2074,2.7926,False,Comic,Studio Peyo,Studio Peyo,Belgium,False
+Cabbage Patch Kids,,1982,4.0,4.0,0.0,False,television special,Wicked Cool Toys,Wicked Cool Toys,US,False
+G.I. Joe,,1967,3.95,3.951,0.0,False,Comic,Hasbro,Hasbro,US,False
+The Hunger Games,The Hunger Games,2008,3.83,3.837,0.0,False,Novel,Scholastic Corporation Lionsgate,Scholastic Corporation Lionsgate,US,True
+Blue's Clues,,1996,3.6,3.6,0.0,False,Television series,Nickelodeon,Paramount Skydance,US,False
+Beauty and the Beast,,1991,3.52,3.5216,0.0,False,Animated film,The Walt Disney Company,Disney,US,False
+Skylanders,,2011,3.5,1.858,1.642,False,Video game,Activision Blizzard,Microsoft,US,False
+Titanic,,1997,3.45,3.457,0.0,False,Film,Paramount Pictures 20th Century Studios,Paramount Skydance,US,False
+Titanfall,,2014,3.4,3.4,0.0,False,Video game,Electronic Arts,Electronic Arts,US,False
+Bratz,,2001,3.23,3.2327,0.0,False,Doll,MGA Entertainment,MGA Entertainment,US,False
+Fengshen Cinematic Universe,,2019,3.2,3.2212,0.0,False,Film,Beijing Enlight Pictures,Beijing Enlight Pictures,China,False
+Care Bears,Care Bears,1981,3.05,3.054,0.0,False,Greeting card,Cloudco Entertainment,Cloudco Entertainment,US,True
+Hamtaro,,1997,3.02,3.025,0.0,False,Manga,Shogakukan,Hitotsubashi Group (Shueisha/Shogakukan),Japan,False
+Terminator,,1984,3.0,2.21,0.79,False,Film,Skydance Media,Skydance Media,US,False
+Astro Boy,,1952,3.0,3.0522,0.0,False,Manga,Tezuka Productions,Tezuka Productions,Japan,False
+Thor,,1962,2.98,2.989,0.0,False,Comic book,Marvel Entertainment,Disney,US,False
+Zootopia (Zootropolis),,2016,2.9,2.908,0.0,False,Animated film,The Walt Disney Company,Disney,US,False
+Iron Man,,1963,2.89,2.896,0.0,False,Comic book,Marvel Entertainment,Disney,US,False
+Guardians of the Galaxy,,1969,2.71,2.717,0.0,False,Comic book,Marvel Entertainment,Disney,US,False
+Inside Out,,2015,2.67,2.6712,0.0,False,Animated film,Pixar (,Disney,US,False
+The Elder Scrolls,,1994,2.65,2.65,0.0,False,Video game,ZeniMax Media,ZeniMax Media,US,False
+Godzilla (Gojira),,1954,2.63,2.6314,0.0,False,Film,Toho,Toho,Japan,False
+Indiana Jones,,1981,2.6,2.606,0.0,False,Film,Lucasfilm,Disney,US,False
+Madagascar,,2005,2.59,2.599,0.0,False,Animated film,DreamWorks Animation,Comcast (Universal),US,False
+Captain America,,1941,2.55,2.556,0.0,False,Comic book,Marvel Comics,Disney,US,False
+Kung Fu Panda,,2008,2.54,2.54,0.0,False,Animated film,Universal Pictures,Comcast (Universal),US,False
+Winx Club,,2004,2.53,2.534,0.0,False,Animated series,Rainbow S.p.A.,Rainbow S.p.A.,Italy,False
+The Powerpuff Girls,,1998,2.52,2.5164,0.0036,False,Animated series,Cartoon Network,Warner Bros. Discovery,US,False
+Friends,Friends,1994,2.5,2.5,0.0,False,Television series,Bright/Kauffman/Crane Productions Warner Bros.,Warner Bros. Discovery,US,True
+Sailor Moon,Sailor Moon,1991,2.5,2.5,0.0,False,Manga,Naoko Takeuchi Kodansha Toei Animation,Naoko Takeuchi Kodansha Toei Animation,Japan,True
+The Incredibles,,2004,2.37,2.372,0.0,False,Animated film,The Walt Disney Company,Disney,US,False
+Kumamon,Kumamon,2010,2.36,2.36,0.0,False,Cartoon,Kumamoto Prefecture,Kumamoto Prefecture,Japan,True
+Aladdin,Aladdin,1992,2.33,2.3258,0.0042,False,Animated film,The Walt Disney Company,Disney,Japan,True
+Black Panther,,1966,2.31,2.313,0.0,False,Comic book,Marvel Entertainment,Disney,US,False
+Planet of the Apes,,1963,2.27,2.272,0.0,False,Novel,Éditions Julliard 20th Century Studios,Disney,US,False
+Jumanji,,1981,2.24,2.244,0.0,False,Picture book,Sony,Sony,US,False
+The Little Mermaid,,1989,2.21,2.214,0.0,False,Animated film,The Walt Disney Company,Disney,US,False
+The Conjuring Universe,,2013,2.18,2.186,0.0,False,Film,Warner Bros.,Warner Bros. Discovery,US,False
+Ghostbusters,,1984,2.18,2.185,0.0,False,Film,Sony,Sony,US,False
+Finding Nemo,,2003,2.15,2.157,0.0,False,Animated film,The Walt Disney Company,Disney,US,False
+The Matrix,,1999,2.11,2.117,0.0,False,Film,Warner Bros.,Warner Bros. Discovery,US,False
+Rocky,,1976,2.11,2.1125,0.0,False,Film,Metro-Goldwyn-Mayer,Metro-Goldwyn-Mayer,US,False
+MonsterVerse,,2014,2.09,2.099,0.0,False,Film,Warner Bros. Legendary Entertainment Toho (Godzilla),Warner Bros. Discovery,US,False
+Yo-kai Watch,Yo-kai Watch,2013,2.09,2.0994,0.0,False,Video game,Level-5,Level-5,Japan,True
+The Chronicles of Narnia,,2005,2.06,2.062,0.0,False,Film,Netflix,Netflix,UK,False
+E.T. the Extra-Terrestrial,,1982,2.04,2.047,0.0,False,Film,Universal Pictures,Comcast (Universal),US,False
+Robert Langdon,,2000,2.04,2.0421,0.0,False,Book,Doubleday Sony (film series),Sony,US,False
+Bourne,,1980,2.03,2.039,0.0,False,Novel,Eric Van Lustbader Universal Pictures,Comcast (Universal),US,False
+Men in Black,,1990,2.02,2.023,0.0,False,Comic book,Marvel Comics Sony,Disney,US,False
+Resident Evil (Biohazard),Resident Evil,1996,2.0,2.003,0.0,False,Video game,Capcom,Capcom,Japan,True
+Guitar Hero,,2005,2.0,2.0,0.0,False,Video game,Activision Blizzard,Microsoft,US,False
+Lego,,1995,2.0,2.0,0.0,False,Video game,TT Games,TT Games,Denmark,False
+NBA Jam,,1993,2.0,2.0,0.0,False,Video game,Electronic Arts National Basketball Association (NBA),Electronic Arts National Basketball Association,US,False
+Neon Genesis Evangelion,Neon Genesis Evangelion,1994,2.0,1.909,0.091,False,Anime,Khara,Khara,Japan,True
+Farm Heroes Saga,,2014,2.0,2.0,0.0,False,Video game,King,Microsoft,Sweden,False

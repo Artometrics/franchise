@@ -1,0 +1,5 @@
+ledger,top_k,share_pct,ci95_lo,ci95_hi,top_owners
+"2019 ledger, 2026 parents",1,28.0,16.1,42.8,Disney
+"2019 ledger, 2026 parents",5,62.8,56.4,77.0,Disney; Hitotsubashi Group (Shueisha/Shogakukan); Nintendo; Warner Bros. Discovery; Sanrio
+2026 ledger,1,29.5,18.0,42.9,Disney
+2026 ledger,5,58.3,52.3,72.7,Disney; Warner Bros. Discovery; The Pokémon Company; Microsoft; Paramount Skydance

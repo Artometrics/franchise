@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import ChartFigure from '../components/ChartFigure.astro';
+import { report } from '../report.config';
+import { callout, chartFigure, findings, firstParagraph, frontmatter, inlineHtml, keyFigures } from '../lib/article';
+import { fmtB } from '../lib/format';
+import { franchises, headline } from '../lib/data';
+
+const h = headline();
+
+const plan = [
+  { id: 'shopping', charts: ['chart6_revenue_streams_2026'], lead: firstParagraph('shopping'), more: { href: '/read#shopping', label: 'Read the section' } },
+  { id: 'pokemon', charts: ['c02_pokemon_vs_two'], lead: firstParagraph('pokemon'), more: { href: '/explore/pokemon', label: 'See Pokémon in the explorer' } },
+  { id: 'disney', charts: ['chart12_owner_concentration_2026'], lead: firstParagraph('disney', '29.5%'), more: { href: '/owners', label: 'Who owns what' } },
+  { id: 'region-origin', charts: ['chart15_region_2026'], lead: firstParagraph('region-origin'), more: { href: '/owners#styles', label: 'Merchandising styles by origin' } },
+  { id: 'theatrical', charts: ['c18_2025_count', 'c19_2026_count'], lead: firstParagraph('theatrical', 'The count is sturdier'), more: { href: '/read#theatrical', label: 'Read the section' } },
+];
+const blocks = findings.map((f, i) => ({ ...f, ...plan[i]!, figs: plan[i]!.charts.map((k) => chartFigure(k)) }));
+---
+
+<Base title="Home" current="home" description={frontmatter.description}>
+  <section class="hero">
+    <div class="hero-in">
+      <p class="kicker">Artometrics report &middot; Arts &middot; Film</p>
+      <h1><span class="bl">{report.titleAccent}</span>{report.titleRest}</h1>
+      <p class="lead">{frontmatter.description}</p>
+      <div class="row hero-cta">
+        <a class="btn primary" href="/explore">Explore all {franchises.length}</a>
+        <a class="btn" href="/read">Read the article</a>
+      </div>
+    </div>
+    <div class="stickers" aria-hidden="true">
+      <img src="/img/bear.webp" alt="" width="160" height="171" />
+      <img src="/img/controller.webp" alt="" width="160" height="160" />
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="section" aria-labelledby="figs">
+      <p class="kicker">Key figures &middot; read {report.vintage.read}</p>
+      <h2 id="figs" class="sr">Key figures</h2>
+      <ul class="cards">
+        {keyFigures.map((k) => (
+          <li class="box card">
+            <span class="v">{k.value}</span>
+            <span class="l">{k.label}</span>
+            <span class="c">
+              {k.cites.map((c, i) => (
+                <Fragment>{i > 0 && '; '}<a class="cite" href={`/sources#${c}`}>{c}</a></Fragment>
+              ))}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="section">
+      <div class="callout"><p class="art-p" set:html={callout} /></div>
+    </section>
+
+    <section class="section" id="findings" aria-labelledby="findings-h">
+      <p class="kicker">Five findings, each with a date on it</p>
+      <h2 id="findings-h">What the ledger says</h2>
+      <ul class="findnav" aria-label="Jump to a finding">
+        {blocks.map((b) => (<li><a href={`#finding-${b.n}`} aria-label={`Finding ${b.n}`}>{b.n}</a></li>))}
+      </ul>
+      {blocks.map((b) => (
+        <article class="finding" id={`finding-${b.n}`} aria-labelledby={`finding-${b.n}-h`}>
+          <div class="side">
+            <div class="n" aria-hidden="true">{String(b.n).padStart(2, '0')}</div>
+            <h3 id={`finding-${b.n}-h`}>{b.text}</h3>
+            <p class="small muted" set:html={b.html.match(/\[[^\]]*\]\s*$/)?.[0] ?? ''} />
+          </div>
+          <div class="body">
+            <p set:html={inlineHtml(b.lead)} />
+            {b.figs.map((f) => (<ChartFigure fig={f} level={4} noDesc />))}
+            <p class="row" style="margin-top:16px"><a class="btn small" href={b.more.href}>{b.more.label} &rarr;</a></p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="section" aria-labelledby="go">
+      <p class="kicker">Go further</p>
+      <h2 id="go">More ways in</h2>
+      <ul class="tiles" style="margin-top:14px">
+        <li><a class="box act" href="/explore"><span class="t">Explore</span><span class="d">Sort and filter all {franchises.length} franchises. One page each, with its revenue breakdown.</span></a></li>
+        <li><a class="box act" href="/compare?f=pokemon,star-wars,marvel-cinematic-universe-mcu"><span class="t">Compare</span><span class="d">Pick two or three and put the bars side by side.</span></a></li>
+        <li><a class="box act" href="/owners"><span class="t">Owners</span><span class="d">Who sits behind {h.top5.share}% of the list, and how each handles merchandise.</span></a></li>
+        <li><a class="box act" href="/read"><span class="t">Read</span><span class="d">The whole article, with every figure linked to its source.</span></a></li>
+        <li><a class="box act" href="/sources"><span class="t">Sources &amp; method</span><span class="d">Every citation, how the list was cleaned, and what it cannot tell you.</span></a></li>
+        <li><a class="box act" href="/downloads"><span class="t">Downloads</span><span class="d">CSV files behind every chart, and the article PDF.</span></a></li>
+      </ul>
+      <p class="small muted" style="margin-top:18px">The ledger lists {franchises.length} franchises and {fmtB(h.total, 1)} in total. A "billion" here is a lifetime consumer-spending estimate, not revenue the owner kept.</p>
+    </section>
+  </div>
+</Base>

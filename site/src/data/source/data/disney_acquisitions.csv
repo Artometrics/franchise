@@ -1,0 +1,5 @@
+target,year_closed,price_usd_b,primary_ip_anchor,franchise_lifetime_revenue_b_mid2019,price_source,franchise_revenue_source
+Pixar,2006,7.4,Toy Story,19.54,Disney 2006 8-K; Wikipedia List of Disney acquisitions,franchise.csv Toy Story row sum
+Marvel Entertainment,2009,4.0,Marvel Cinematic Universe,31.0,Disney 2009 8-K; Wikipedia,franchise.csv MCU row sum
+Lucasfilm,2012,4.05,Star Wars,63.004,Disney 2012 8-K; Wikipedia,franchise.csv Star Wars row sum
+21st Century Fox (film & TV),2019,71.3,The Simpsons (Fox library),13.527,Disney 2019 merger proxy; Wikipedia,franchise.csv Simpsons row sum

@@ -1,0 +1,82 @@
+figure,old_published,raw_new,clean_new_oct2026,unit
+Franchises in dataset,103,103,140,count
+"Total lifetime revenue, all 103",1522.2,1522.2,1460.1,USD billions
+"Merchandise, Licensing & Retail share",56.0,56.0,55.6 [43.2–65.8],percent of total
+Video games share,20.0,20.0,18.3 [11.4–27.0],percent
+Box office share,8.9,8.9,18.1 [12.7–25.5],percent
+Pokemon lifetime revenue,90.863,90.863,130.7,USD billions
+Hello Kitty lifetime revenue,80.026,80.026,33.5,USD billions
+Winnie the Pooh lifetime revenue,74.519,74.519,50.2,USD billions
+franchise.csv SHA-256,6e556287bad580be04e14d346036a8453f7ce975a7b26cf47d2057b873be1090,,,hash
+Wikipedia franchises parsed (2026 scrape),140,140,140,count
+2019↔2026 crosswalk rows,103,,,count
+2019 rows with 2026 Wikipedia pair,82,,,count
+2019↔2026 delta chart rows,82,,,count
+Pokemon 2019 lifetime (spoken vintage),90.863,,,USD billions
+Pokemon 2026 Wikipedia lifetime,130.7,,130.7,USD billions
+Pokemon 2019 to 2026 dollar change,39.837,,,USD billions
+Call of Duty 2019 lifetime,17.0,,,USD billions
+Call of Duty 2026 Wikipedia lifetime,31.0,,40.0,USD billions
+Call of Duty 2019 to 2026 dollar change,14.0,,,USD billions
+Naruto 2019 lifetime,8.854,,,USD billions
+Naruto 2026 Wikipedia lifetime,22.8,,22.8,USD billions
+Naruto 2019 to 2026 dollar change,13.946,,,USD billions
+Mortal Kombat 2019 lifetime,1.173,,,USD billions
+Mortal Kombat 2026 Wikipedia lifetime,5.06,,5.06,USD billions
+Mortal Kombat 2019 to 2026 dollar change,3.887,,,USD billions
+Star Wars 2019 lifetime,63.004,63.004,46.7,USD billions
+MCU 2019 lifetime,31.0,31.0,37.5,USD billions
+Pokemon revenue per year as of 2019,3.9506,,,USD billions per year
+MCU revenue per year as of 2019,2.8182,,,USD billions per year
+Disney unconsolidated owner total 2019,258.952,,,USD billions
+Disney consolidated owner total 2019,426.209,,430.69,USD billions
+Nintendo standalone owner total 2019,49.021,,,USD billions
+Pokemon Company owner-string total 2019,90.863,,,USD billions
+Top-five owner share after Fox consolidation,46.4,,58.3 [52.3–72.7],percent
+Top owner share after Fox consolidation,28.0,,29.5 [18.0–42.9],percent
+Batman 2019 lifetime,25.04,,,USD billions
+Superman 2019 lifetime,13.152,,,USD billions
+DCEU 2019 lifetime,6.204,,,USD billions
+DC Entertainment owner total 2019,44.396,,,USD billions
+Wizarding World 2019 lifetime,28.108,,,USD billions
+Simpsons 2019 lifetime,13.527,,,USD billions
+Simpsons 2026 Wikipedia lifetime,4.9,,4.9,USD billions
+Video-game origin lifetime 2019,334.9,,,USD billions
+Manga origin lifetime 2019,253.791,,,USD billions
+Animated series origin lifetime 2019,121.024,,,USD billions
+Film origin lifetime 2019,111.674,,,USD billions
+Japan region lifetime 2019,681.494,,394.46,USD billions
+Japan merchandise share 2019,49.1,,71.4,percent
+US region lifetime 2019,622.59,,825.47,USD billions
+US merchandise share 2019,64.6,,51.5,percent
+Japan franchise count 2019,42,,30,franchises
+US franchise count 2019,45,,88,franchises
+UK region lifetime 2019,163.425,,,USD billions
+UK merchandise share 2019,59.8,,,percent
+UK franchise count 2019,8,,,franchises
+Korea region lifetime 2019,20.0,,,USD billions
+China region lifetime 2019,6.0,,,USD billions
+Sweden region lifetime 2019,9.0,,,USD billions
+Finland region lifetime 2019,8.48,,,USD billions
+Canada region lifetime 2019,11.253,,,USD billions
+MCU box office share of its 2019 row,67.7,,,percent
+Hello Kitty 2026 Wikipedia lifetime,33.5,,33.5,USD billions
+Mario 2019 lifetime,35.021,,,USD billions
+Mario 2026 Wikipedia lifetime,9.74,,9.74,USD billions
+Gundam 2019 lifetime,25.525,,,USD billions
+Gundam 2026 Wikipedia lifetime,5.0,,5.0,USD billions
+Pixar acquisition price,7.4,,,USD billions
+Marvel acquisition price,4.0,,,USD billions
+Lucasfilm acquisition price,4.05,,,USD billions
+Fox enterprise value,71.3,,,USD billions
+Disney Entertainment FY2024,41.186,,,USD billions
+Disney Sports FY2024,17.619,,,USD billions
+Disney Experiences FY2024,34.151,,,USD billions
+Domestic top-10 franchise share 2010,60,,,percent
+Domestic top-10 franchise share 2015,70,,,percent
+Domestic top-10 franchise share 2019,80,,,percent
+Domestic top-10 franchise share 2024,90,,,percent
+Toy Story 2019 lifetime,19.54,19.54,16.0,USD billions
+"NEW: franchise share of worldwide top-10 gross, 2025 releases",,,94.3,percent
+"NEW: franchise share of worldwide top-10 gross, 2026 releases (to Nov 10)",,,61.9,percent
+NEW: franchises on Oct-2026 list not in 2019 ledger,,,58,count

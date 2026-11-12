@@ -1,0 +1,109 @@
+---
+import '../styles/global.css';
+import { report } from '../report.config';
+
+interface Props {
+  title: string;
+  description?: string;
+  current?: string;
+}
+const { title, description = `${report.title}. An Artometrics mini-site.`, current = '' } = Astro.props;
+
+const nav = [
+  { key: 'home', href: '/', label: 'Home' },
+  { key: 'explore', href: '/explore', label: 'Explore' },
+  { key: 'compare', href: '/compare', label: 'Compare' },
+  { key: 'owners', href: '/owners', label: 'Owners' },
+  { key: 'read', href: '/read', label: 'Read' },
+  { key: 'sources', href: '/sources', label: 'Sources & method' },
+  { key: 'downloads', href: '/downloads', label: 'Downloads' },
+];
+const fullTitle = current === 'home' ? `${report.title} · Artometrics` : `${title} · ${report.name} · Artometrics`;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0e1110" />
+    <link rel="preload" href="/fonts/Anton-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/DMSans.ttf" as="font" type="font/ttf" crossorigin />
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        var t = 'dark';
+        try {
+          t = localStorage.getItem('franchise-theme') || 'dark';
+        } catch (e) {}
+        d.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="notice">Preview build &middot; not indexed</div>
+    <header class="mast">
+      <div class="wrap mast-row">
+        <div>
+          <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" hidden>
+            <span class="sr">Menu</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+          </button>
+        </div>
+        <a class="wordmark" href="/" aria-label="Franchise report home">
+          <img src="/brand/wordmark-halftone.webp" alt="Artometrics" width="600" height="124" />
+          <span>{report.tagline}</span>
+        </a>
+        <div class="mast-end">
+          <button class="icon-btn" id="theme-btn" type="button" aria-label="Switch to light theme" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19zm0 2a7.5 7.5 0 0 1 0 15V4.5z"></path></svg>
+          </button>
+        </div>
+      </div>
+      <nav class="nav" id="site-nav" aria-label="Main">
+        <ul>
+          {nav.map((n) => (
+            <li>
+              <a href={n.href} aria-current={n.key === current ? 'page' : undefined}>{n.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="foot">
+      <div class="wrap">
+        <a class="btn back primary" href={report.parentUrl} rel="noopener">&larr; Read the original at {report.parentLabel}</a>
+        <a class="wm" href="/" aria-label="Franchise report home">
+          <img src="/brand/wordmark-halftone.webp" alt="Artometrics" width="600" height="124" />
+          <span>{report.tagline}</span>
+        </a>
+        <ul>
+          {nav.map((n) => (
+            <li><a href={n.href}>{n.label}</a></li>
+          ))}
+          <li><a href="/changelog">Changelog</a></li>
+        </ul>
+        <p>
+          Data vintage: Wikipedia revision {report.vintage.revision} ({report.vintage.revisionDate}), read {report.vintage.read}. Article updated {report.vintage.articleUpdated}.
+          Figures are nominal estimates of lifetime consumer spending compiled by Wikipedia's editors. They are not profit, not a company valuation and not money paid to a rights holder.
+        </p>
+        <p>This site is a review build of the Artometrics FRANCHISE report. It is not indexed by search engines.</p>
+      </div>
+    </footer>
+    <script>
+      import '../scripts/theme';
+    </script>
+  </body>
+</html>
