@@ -20,5 +20,5 @@ export const report = {
     read: '10 November 2026',
     articleUpdated: '12 November 2026',
   },
-  firebase: { project: 'artometrics-510519', site: 'artometrics-franchise' },
+  firebase: { project: 'twilda-510519', site: 'artometrics-franchise' },
 } as const;

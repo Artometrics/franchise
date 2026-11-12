@@ -1,7 +1,7 @@
 {
-  "projects": { "default": "artometrics-510519" },
+  "projects": { "default": "twilda-510519" },
   "targets": {
-    "artometrics-510519": {
+    "twilda-510519": {
       "hosting": { "franchise": ["artometrics-franchise"] }
     }
   }
