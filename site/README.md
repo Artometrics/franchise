@@ -12,4 +12,4 @@ npm run test:e2e      # Playwright smoke at 390x844 and 1440x900 (builds and pre
 npm run shots         # full-page screenshots into docs/screenshots (needs a preview on :4321)
 ```
 
-Not deployed. Hosting target: Firebase site `artometrics-franchise` in project `artometrics-510519`. See `PLAN.md` for architecture and data provenance.
+Not deployed. Hosting target: Firebase site `artometrics-franchise` in project `twilda-510519` (artometrics-510519 hosting site quota is full). See `PLAN.md` for architecture and data provenance.

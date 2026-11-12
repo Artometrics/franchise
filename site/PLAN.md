@@ -6,7 +6,7 @@ Status: plan + mockups committed first, build follows. Nothing here is deployed 
 
 `franchise.artometrics.com` is the first of a series. Each Artometrics report (tagline "culture, quantified") gets its own full mini-site on its own subdomain, in the spirit of United by Data or Data with the Stars. The article stays the spine. The site adds ways in: an explorer, a comparer, an ownership view and the paperwork (sources, method, downloads).
 
-* Target host: `franchise.artometrics.com`. Firebase Hosting site `artometrics-franchise` in project `artometrics-510519`.
+* Target host: `franchise.artometrics.com`. Firebase Hosting site `artometrics-franchise` in project `twilda-510519` (artometrics-510519 is out of Hosting site quota).
 * Delivery: pull request only. No merge, no deploy, no DNS.
 * The old R/Quarto analysis (`franchise.qmd`, `franchise.csv`, `data/`, `charts/`, the root `.html`/`.css`) is not touched. Everything new is under `/site`.
 
@@ -87,7 +87,7 @@ noindex everywhere:
 * `firebase.json`: `X-Robots-Tag: noindex, nofollow, noarchive` on `**`, so it also covers CSV and PDF files
 * no sitemap, no canonical, no Open Graph URLs
 
-`firebase.json` targets hosting site `artometrics-franchise`; `.firebaserc` pins project `artometrics-510519`. Not deployed.
+`firebase.json` targets hosting site `artometrics-franchise`; `.firebaserc` pins project `twilda-510519`.
 
 ## 7. Tests
 
