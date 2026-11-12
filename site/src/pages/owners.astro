@@ -9,7 +9,6 @@ import { report } from '../report.config';
 
 const h = headline();
 const ps = parents();
-const top5 = ps.slice(0, 5);
 const conc = concentration();
 const c2019 = conc.filter((c) => c.ledger.startsWith('2019'));
 

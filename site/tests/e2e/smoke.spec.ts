@@ -76,7 +76,7 @@ test.describe('home', () => {
     await page.goto('/');
     const moving = await page.evaluate(() => ({
       autoplay: document.querySelectorAll('video[autoplay], audio[autoplay]').length,
-      marquee: document.querySelectorAll('marquee').length,
+      marquee: document.getElementsByTagName('marquee').length,
       running: document.getAnimations().filter((a) => a.playState === 'running' && (a.effect?.getTiming().iterations ?? 1) === Infinity).length,
     }));
     expect(moving).toEqual({ autoplay: 0, marquee: 0, running: 0 });

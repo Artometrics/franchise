@@ -140,7 +140,8 @@ export function linkCitations(html: string): string {
 
 /* ---------- charts ---------- */
 
-export interface ChartFigureData extends AdaptedChart {
+export interface ChartFigureData extends Omit<AdaptedChart, 'source'> {
+  source?: string;
   key: string;
   title: string;
   description: string;
