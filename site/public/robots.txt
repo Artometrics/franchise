@@ -1,0 +1,3 @@
+# franchise.artometrics.com is a private review build. Not for indexing.
+User-agent: *
+Disallow: /

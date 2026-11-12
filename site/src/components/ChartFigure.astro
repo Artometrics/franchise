@@ -1,0 +1,35 @@
+---
+import { chartHtml, specTable, tableHtml } from '../lib/charts';
+import type { ChartFigureData } from '../lib/article';
+import { inlineHtml } from '../lib/article';
+
+interface Props {
+  fig: ChartFigureData;
+  level?: 2 | 3 | 4;
+  compact?: boolean;
+  noDesc?: boolean;
+}
+const { fig, level = 3, compact = false, noDesc = false } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3' | 'h4';
+const table = tableHtml(specTable(fig.spec));
+---
+
+<figure class="cfig" id={`chart-${fig.key}`}>
+  <H class="ct">{fig.title}</H>
+  {fig.subtitle && <p class="sub">{fig.subtitle}</p>}
+  <Fragment set:html={chartHtml(fig.spec)} />
+  {fig.caption && !compact && <figcaption set:html={inlineHtml(fig.caption)} />}
+  {!compact && !noDesc && fig.description && <p class="desc" set:html={inlineHtml(fig.description)} />}
+  <p class="src">Source: <Fragment set:html={inlineHtml(fig.sourceLine)} /></p>
+  <details class="chart-data">
+    <summary>View the numbers</summary>
+    <Fragment set:html={table} />
+  </details>
+  {fig.data.length > 0 && (
+    <p class="links">
+      {fig.data.map((d) => (
+        <a href={d.href} target={d.external ? '_blank' : undefined} rel={d.external ? 'noopener noreferrer' : undefined}>{d.label} &#8599;</a>
+      ))}
+    </p>
+  )}
+</figure>

@@ -1,0 +1,361 @@
+franchise,category_raw,category,revenue_usd_b
+Pokémon,Retail sales,"Merchandise, Licensing & Retail",119.3
+Pokémon,Mobile games,Video Games/Games,10.23
+Pokémon,Box office,Box Office,1.16
+Pokémon,Home video,Home Video/Entertainment,0.04
+Pokémon,Jet aircraft livery sales,"Merchandise, Licensing & Retail",0.003
+Mickey Mouse & Friends,Retail sales,"Merchandise, Licensing & Retail",60.66
+Mickey Mouse & Friends,Box office,Box Office,0.2267
+Mickey Mouse & Friends,VHS & DVD,Home Video/Entertainment,0.323
+Winnie-the-Pooh,Retail sales,"Merchandise, Licensing & Retail",49.66
+Winnie-the-Pooh,DVD & Blu-ray,Home Video/Entertainment,0.04
+Winnie-the-Pooh,Box office,Box Office,0.545
+Star Wars,Merchandise sales,"Merchandise, Licensing & Retail",29.057
+Star Wars,Box office,Box Office,10.343
+Star Wars,Home video,Home Video/Entertainment,1.275
+Star Wars,Video games,Video Games/Games,4.01
+Star Wars,Book sales,Book sales,1.82
+Star Wars,TV revenue,TV,0.28
+Disney Princess,Retail sales,"Merchandise, Licensing & Retail",45.468
+Disney Princess,Home entertainment,Home Video/Entertainment,0.0147
+Call of Duty,Video games,Video Games/Games,40.0
+Anpanman,Retail sales,"Merchandise, Licensing & Retail",38.42
+Anpanman,Museum,Live & Other,0.0145
+Marvel Cinematic Universe (MCU),Box office,Box Office,34.7
+Marvel Cinematic Universe (MCU),Home entertainment,Home Video/Entertainment,2.786
+Marvel Cinematic Universe (MCU),(total minus itemised),Unallocated,0.014
+Barbie,Merchandise sales,"Merchandise, Licensing & Retail",34.6
+Barbie,Home video sales,Home Video/Entertainment,0.328
+Barbie,Box office,Box Office,1.439
+Wizarding World (Harry Potter),Box office,Box Office,9.656
+Wizarding World (Harry Potter),Book sales,Book sales,8.0777
+Wizarding World (Harry Potter),Merchandise sales,"Merchandise, Licensing & Retail",7.11
+Wizarding World (Harry Potter),Home entertainment,Home Video/Entertainment,4.032
+Wizarding World (Harry Potter),Video games,Video Games/Games,3.5
+Wizarding World (Harry Potter),TV revenue,TV,1.0
+Wizarding World (Harry Potter),Studio tour,Live & Other,1.2
+Wizarding World (Harry Potter),Stage play,Live & Other,0.566
+Hello Kitty,Merchandise sales,"Merchandise, Licensing & Retail",33.5
+Batman,Retail sales,"Merchandise, Licensing & Retail",21.329
+Batman,Home video,Home Video/Entertainment,1.212
+Batman,Box office,Box Office,7.051
+Batman,TV revenue,TV,0.34
+Spider-Man,Merchandise sales,"Merchandise, Licensing & Retail",14.526
+Spider-Man,Box office,Box Office,11.125
+Spider-Man,Home video,Home Video/Entertainment,0.787
+Spider-Man,Video games,Video Games/Games,0.21
+Spider-Man,Broadway musical,Music,0.212
+Transformers,Merchandise sales,"Merchandise, Licensing & Retail",3.97
+Transformers,Box office,Box Office,5.26
+Transformers,Home entertainment,Home Video/Entertainment,0.906
+Transformers,(total minus itemised),Unallocated,14.864
+Naruto,Retail sales,"Merchandise, Licensing & Retail",20.0
+Naruto,Video games,Video Games/Games,2.8
+Dungeon Fighter Online (DFO),Computer game,Video Games/Games,22.0
+Cars,Merchandise sales,"Merchandise, Licensing & Retail",19.114
+Cars,Box office,Box Office,1.799
+Cars,DVD & Blu-ray sales,Home Video/Entertainment,0.634
+Candy Crush,Video games,Video Games/Games,20.0
+Paw Patrol,Retail sales,"Merchandise, Licensing & Retail",18.0
+Paw Patrol,Box office,Box Office,0.3737
+Paw Patrol,Home media,Home Video/Entertainment,0.039
+Looney Tunes,Retail sales,"Merchandise, Licensing & Retail",16.777
+Looney Tunes,Box office,Box Office,0.482
+Looney Tunes,Home video sales,Home Video/Entertainment,0.209
+Teenage Mutant Ninja Turtles,Merchandise sales,"Merchandise, Licensing & Retail",15.4
+Teenage Mutant Ninja Turtles,Box office,Box Office,1.329
+Teenage Mutant Ninja Turtles,Video games,Video Games/Games,0.45
+Teenage Mutant Ninja Turtles,DVD & Blu-ray sales,Home Video/Entertainment,0.154
+Teenage Mutant Ninja Turtles,Video rentals,Home Video/Entertainment,0.06765
+SpongeBob SquarePants,Retail sales,"Merchandise, Licensing & Retail",16.0
+SpongeBob SquarePants,Box office,Box Office,0.63
+SpongeBob SquarePants,Musical Theater,Music,0.037
+Toy Story,Retail sales,"Merchandise, Licensing & Retail",11.0
+Toy Story,Box office,Box Office,3.273
+Toy Story,VHS sales,Home Video/Entertainment,0.29
+Toy Story,DVD & Blu-ray sales,Home Video/Entertainment,0.25
+Toy Story,(total minus itemised),Unallocated,1.187
+The Lion King,Musical theatre,Music,8.1
+The Lion King,Merchandise sales,"Merchandise, Licensing & Retail",3.0
+The Lion King,Box office,Box Office,3.352
+The Lion King,Home entertainment,Home Video/Entertainment,1.5
+Dora the Explorer,Retail sales,"Merchandise, Licensing & Retail",15.413
+Dora the Explorer,Home video sales,Home Video/Entertainment,0.25
+Dora the Explorer,Box office,Box Office,0.118
+Dora the Explorer,(total minus itemised),Unallocated,0.019
+Pac-Man,Video games,Video Games/Games,14.407
+Pac-Man,Merchandise & licensing,"Merchandise, Licensing & Retail",1.0
+Pac-Man,Music sales,Music,0.032
+Peanuts,Retail sales,"Merchandise, Licensing & Retail",14.19
+Peanuts,Box office,Box Office,0.267
+Peanuts,DVD & Blu-ray sales,Home Video/Entertainment,0.035
+Avengers,Box office,Box Office,7.707
+Avengers,Merchandise sales,"Merchandise, Licensing & Retail",6.596
+Avengers,DVD & Blu-ray sales,Home Video/Entertainment,0.018
+Frozen,Merchandise sales,"Merchandise, Licensing & Retail",10.588
+Frozen,Box office,Box Office,2.694
+Frozen,DVD & Blu-ray sales,Home Video/Entertainment,0.502
+Frozen,Musical theatre,Music,0.155
+Space Invaders,Video game,Video Games/Games,13.93
+Warcraft,Video games,Video Games/Games,12.0
+Warcraft,Box office,Box Office,0.438
+Warcraft,Home entertainment,Home Video/Entertainment,0.0174
+Despicable Me (Minions),Retail sales,"Merchandise, Licensing & Retail",6.0
+Despicable Me (Minions),Box office,Box Office,5.61
+Despicable Me (Minions),DVD & Blu-ray sales,Home Video/Entertainment,0.725
+Star Trek,Retail sales,"Merchandise, Licensing & Retail",5.253
+Star Trek,TV revenue,TV,2.3
+Star Trek,Box office,Box Office,2.266
+Star Trek,VHS sales,Home Video/Entertainment,1.0
+Star Trek,DVD & Blu-ray sales,Home Video/Entertainment,0.426
+Dragon Ball,Merchandise sales,"Merchandise, Licensing & Retail",6.0
+Dragon Ball,Box office,Box Office,0.317
+Dragon Ball,Home video,Home Video/Entertainment,0.029
+Dragon Ball,Video games,Video Games/Games,4.4
+Street Fighter,Video Game,Video Games/Games,10.61
+Street Fighter,Box office & home video,Mixed (unsplit),0.211
+Grand Theft Auto (GTA),Video games,Video Games/Games,10.3
+Demon Slayer: Kimetsu no Yaiba,Retail sales,"Merchandise, Licensing & Retail",8.74
+Demon Slayer: Kimetsu no Yaiba,Box office,Box Office,1.42
+Demon Slayer: Kimetsu no Yaiba,Home media,Home Video/Entertainment,0.0048
+Jurassic Park,Box office,Box Office,6.343
+Jurassic Park,Merchandise sales,"Merchandise, Licensing & Retail",3.2
+Jurassic Park,Home video sales,Home Video/Entertainment,0.418
+Jurassic Park,TV revenue,TV,0.15
+Rilakkuma,Merchandise sales,"Merchandise, Licensing & Retail",10.0
+Monster Strike,Mobile Game,Video Games/Games,10.0
+James Bond,Box office,Box Office,7.879
+James Bond,Home entertainment,Home Video/Entertainment,0.373
+James Bond,Merchandise sales,"Merchandise, Licensing & Retail",1.0
+James Bond,Video games,Video Games/Games,0.5
+Mario,Video games,Video Games/Games,7.33
+Mario,Box office,Box Office,2.39
+Mario,Home media,Home Video/Entertainment,0.021
+Angry Birds,Merchandise sales,"Merchandise, Licensing & Retail",8.647
+Angry Birds,Box office,Box Office,0.503
+Angry Birds,Video games,Video Games/Games,0.3625
+Angry Birds,DVD & Blu-ray sales,Home Video/Entertainment,0.035
+The Railway Series / Thomas & Friends,Retail sales,"Merchandise, Licensing & Retail",9.107
+The Railway Series / Thomas & Friends,Box office,Box Office,0.0197
+Fortnite,Video games,Video Games/Games,9.0
+Super Sentai / Power Rangers,Licensed merchandise,"Merchandise, Licensing & Retail",8.47
+Super Sentai / Power Rangers,DVD & Blu-ray,Home Video/Entertainment,0.018
+Super Sentai / Power Rangers,Box office,Box Office,0.182
+Middle-earth (The Lord of the Rings),Retail sales,"Merchandise, Licensing & Retail",1.5
+Middle-earth (The Lord of the Rings),Box office,Box Office,5.968
+Middle-earth (The Lord of the Rings),Home media,Home Video/Entertainment,0.995
+X-Men,Box office,Box Office,7.422
+X-Men,DVD & Blu-ray sales,Home Video/Entertainment,0.8236
+X-Men,Merchandise sales,"Merchandise, Licensing & Retail",0.085
+X-Men,Video games,Video Games/Games,0.028
+Superman,Retail sales,"Merchandise, Licensing & Retail",4.032
+Superman,Box office,Box Office,3.833
+Superman,DVD & Blu-ray,Home Video/Entertainment,0.356
+DC Extended Universe (DCEU),Box office,Box Office,7.191
+DC Extended Universe (DCEU),Home video sales,Home Video/Entertainment,0.7094
+DC Extended Universe (DCEU),Merchandise sales,"Merchandise, Licensing & Retail",0.1
+Fast & Furious,Box office,Box Office,7.333
+Fast & Furious,Home entertainment,Home Video/Entertainment,0.595
+Fast & Furious,(total minus itemised),Unallocated,0.052
+Lilo & Stitch (Stitch),Retail sales,"Merchandise, Licensing & Retail",6.6
+Lilo & Stitch (Stitch),Box office,Box Office,1.31
+Lilo & Stitch (Stitch),Home media,Home Video/Entertainment,0.0159
+Pirates of the Caribbean,Box office,Box Office,4.522
+Pirates of the Caribbean,Home entertainment,Home Video/Entertainment,1.781
+Pirates of the Caribbean,Merchandise sales,"Merchandise, Licensing & Retail",1.6
+Ben 10,Retail sales,"Merchandise, Licensing & Retail",7.853
+Sesame Street (The Muppets),Merchandise sales,"Merchandise, Licensing & Retail",7.05
+Sesame Street (The Muppets),Box office,Box Office,0.481
+Sesame Street (The Muppets),TV licensing,"Merchandise, Licensing & Retail",0.096
+Sesame Street (The Muppets),DVD & Blu-ray sales,Home Video/Entertainment,0.098
+Ultra Series (Ultraman),Merchandise sales,"Merchandise, Licensing & Retail",7.4
+Ultra Series (Ultraman),Box office,Box Office,0.0011
+Ultra Series (Ultraman),Home media,Home Video/Entertainment,0.0014
+Sonic the Hedgehog,Video games,Video Games/Games,5.0
+Sonic the Hedgehog,Box office,Box Office,1.196
+Sonic the Hedgehog,Licensing,"Merchandise, Licensing & Retail",1.0
+Sonic the Hedgehog,Home entertainment,Home Video/Entertainment,0.18
+Avatar,Box office,Box Office,6.709
+Avatar,DVD & Blu-ray sales,Home Video/Entertainment,0.459
+Avatar,Merchandise sales,"Merchandise, Licensing & Retail",0.153
+Puzzle & Dragons,Video games,Video Games/Games,7.0
+Madden NFL,Video games,Video Games/Games,7.0
+Fate,Mobile game,Video Games/Games,7.0
+Halo,Games & consoles,Video Games/Games,5.0
+Halo,Home video & merchandise,Mixed (unsplit),1.8
+Ice Age,Box office,Box Office,3.2
+Ice Age,Retail sales,"Merchandise, Licensing & Retail",1.3
+Ice Age,Home entertainment,Home Video/Entertainment,0.347
+Ice Age,(total minus itemised),Unallocated,1.573
+Genshin Impact,Video game,Video Games/Games,6.3
+Shrek,Box office,Box Office,4.02
+Shrek,Home entertainment,Home Video/Entertainment,1.922
+Shrek,Merchandise sales,"Merchandise, Licensing & Retail",0.275
+Shrek,Broadway musical,Music,0.0464
+Shrek,Video games,Video Games/Games,0.0389
+The Phantom of the Opera,Musical theatre,Music,6.0
+The Phantom of the Opera,Box office,Box Office,0.155
+My Little Pony,Retail sales,"Merchandise, Licensing & Retail",5.916
+My Little Pony,Box office,Box Office,0.0673
+My Little Pony,DVD & Blu-ray sales,Home Video/Entertainment,0.0043
+Scooby-Doo,Retail sales,"Merchandise, Licensing & Retail",4.9
+Scooby-Doo,Box office,Box Office,0.4834
+Scooby-Doo,DVD & Blu-ray sales,Home Video/Entertainment,0.054
+Yu-Gi-Oh!,Licensed merchandise,"Merchandise, Licensing & Retail",5.0
+Yu-Gi-Oh!,Video games,Video Games/Games,0.387
+Yu-Gi-Oh!,Anime box office,Box Office,0.0393
+Mamma Mia,Musical theatre,Music,4.0
+Mamma Mia,Film box office,Box Office,0.988
+Mamma Mia,DVD & Blu-ray sales,Home Video/Entertainment,0.18
+Mortal Kombat,Video games,Video Games/Games,4.054
+Mortal Kombat,Box office,Box Office,0.256
+Mortal Kombat,DVD & Blu-ray sales,Home Video/Entertainment,0.0029
+Mortal Kombat,(total minus itemised),Unallocated,0.7471
+Gundam,Retail sales,"Merchandise, Licensing & Retail",5.0
+The Sims,Video games,Video Games/Games,5.0
+Bob the Builder,Retail sales,"Merchandise, Licensing & Retail",5.0
+MapleStory,Video games,Video Games/Games,5.0
+The Simpsons,Merchandise sales,"Merchandise, Licensing & Retail",4.223
+The Simpsons,Box office,Box Office,0.536
+The Simpsons,Video games,Video Games/Games,0.141
+Assassin's Creed,Video games,Video Games/Games,1.0
+Assassin's Creed,Box office,Box Office,0.24
+Assassin's Creed,DVD & Blu-ray sales,Home Video/Entertainment,0.012
+Assassin's Creed,(total minus itemised),Unallocated,3.448
+Mission: Impossible,Box office,Box Office,4.392
+Mission: Impossible,DVD & Blu-ray sales,Home Video/Entertainment,0.193
+Mission: Impossible,Video games,Video Games/Games,0.024
+Mission: Impossible,TV revenue,TV,0.1
+Beyblade,Merchandise sales,"Merchandise, Licensing & Retail",4.6
+Beyblade,Box office,Box Office,0.0097
+The Big Bang Theory,TV advertising,TV,3.57
+The Big Bang Theory,TV syndication,TV,1.0
+Seinfeld,TV revenue,TV,4.06
+Seinfeld,TV streaming,TV,0.5
+Minecraft,Merchandise sales,"Merchandise, Licensing & Retail",3.367
+Minecraft,Box office,Box Office,0.956
+Twilight,Box office,Box Office,3.314
+Twilight,DVD & Blu-ray sales,Home Video/Entertainment,1.0
+Gran Turismo,Video games,Video Games/Games,4.0
+Gran Turismo,Box office,Box Office,0.117
+Strawberry Shortcake,Retail sales,"Merchandise, Licensing & Retail",4.0
+Strawberry Shortcake,DVD sales,Home Video/Entertainment,0.0026
+The Smurfs,Box office,Box Office,1.109
+The Smurfs,Home media,Home Video/Entertainment,0.0984
+The Smurfs,(total minus itemised),Unallocated,2.7926
+Cabbage Patch Kids,Retail sales,"Merchandise, Licensing & Retail",4.0
+G.I. Joe,Merchandise sales,"Merchandise, Licensing & Retail",3.105
+G.I. Joe,Box office,Box Office,0.712
+G.I. Joe,DVD & Blu-ray,Home Video/Entertainment,0.134
+The Hunger Games,Box office,Box Office,3.317
+The Hunger Games,DVD & Blu-ray,Home Video/Entertainment,0.52
+Blue's Clues,Retail sales,"Merchandise, Licensing & Retail",3.6
+Beauty and the Beast,Box office,Box Office,1.689
+Beauty and the Beast,Musical,Music,1.4
+Beauty and the Beast,DVD & Blu-ray sales,Home Video/Entertainment,0.4326
+Skylanders,Licensed merchandise,"Merchandise, Licensing & Retail",1.858
+Skylanders,(total minus itemised),Unallocated,1.642
+Titanic,Box office,Box Office,2.257
+Titanic,VHS & DVD sales,Home Video/Entertainment,1.2
+Titanfall,Video games,Video Games/Games,3.4
+Bratz,Retail sales,"Merchandise, Licensing & Retail",3.15
+Bratz,Box office,Box Office,0.026
+Bratz,Home entertainment,Home Video/Entertainment,0.0567
+Fengshen Cinematic Universe,Box office,Box Office,3.22
+Fengshen Cinematic Universe,Home Media,Home Video/Entertainment,0.0012
+Care Bears,Retail sales,"Merchandise, Licensing & Retail",3.02
+Care Bears,Box office,Box Office,0.034
+Hamtaro,Retail sales,"Merchandise, Licensing & Retail",3.0
+Hamtaro,Box office,Box Office,0.025
+Terminator,Box office,Box Office,2.074
+Terminator,DVD & Blu-ray sales,Home Video/Entertainment,0.136
+Terminator,(total minus itemised),Unallocated,0.79
+Astro Boy,Merchandise sales,"Merchandise, Licensing & Retail",3.0
+Astro Boy,Box office,Box Office,0.042
+Astro Boy,DVD & Blu-ray sales,Home Video/Entertainment,0.0102
+Thor,Box office,Box Office,2.71
+Thor,Home entertainment,Home Video/Entertainment,0.279
+Zootopia (Zootropolis),Box office,Box Office,2.796
+Zootopia (Zootropolis),Home media,Home Video/Entertainment,0.11196
+Iron Man,Box office,Box Office,2.425
+Iron Man,Home entertainment,Home Video/Entertainment,0.471
+Guardians of the Galaxy,Box office,Box Office,2.485
+Guardians of the Galaxy,Home video,Home Video/Entertainment,0.232
+Inside Out,Box office,Box Office,2.549
+Inside Out,Home media,Home Video/Entertainment,0.1222
+The Elder Scrolls,Video games,Video Games/Games,2.65
+Godzilla (Gojira),Box office,Box Office,2.495
+Godzilla (Gojira),DVD & Blu-ray sales,Home Video/Entertainment,0.1364
+Indiana Jones,Box office,Box Office,2.21
+Indiana Jones,DVD & Blu-ray sales,Home Video/Entertainment,0.396
+Madagascar,Box office,Box Office,2.27
+Madagascar,DVD & Blu-ray sales,Home Video/Entertainment,0.329
+Captain America,Box office,Box Office,2.239
+Captain America,DVD & Blu-ray sales,Home Video/Entertainment,0.317
+Kung Fu Panda,Box office,Box Office,2.306
+Kung Fu Panda,DVD & Blu-ray sales,Home Video/Entertainment,0.234
+Winx Club,Retail sales,"Merchandise, Licensing & Retail",2.5
+Winx Club,Box office,Box Office,0.034
+The Powerpuff Girls,Retail sales,"Merchandise, Licensing & Retail",2.5
+The Powerpuff Girls,Box office,Box Office,0.0164
+The Powerpuff Girls,(total minus itemised),Unallocated,0.0036
+Friends,TV syndication,TV,1.5
+Friends,TV advertising,TV,1.0
+Sailor Moon,Merchandise sales,"Merchandise, Licensing & Retail",2.5
+The Incredibles,Box office,Box Office,1.875
+The Incredibles,Merchandise sales,"Merchandise, Licensing & Retail",0.37
+The Incredibles,DVD & Blu-ray sales,Home Video/Entertainment,0.127
+Kumamon,Retail sales,"Merchandise, Licensing & Retail",2.36
+Aladdin,Box office,Box Office,1.554
+Aladdin,Broadway musical,Music,0.5718
+Aladdin,Video games,Video Games/Games,0.2
+Aladdin,(total minus itemised),Unallocated,0.0042
+Black Panther,Box office,Box Office,2.209
+Black Panther,Home video,Home Video/Entertainment,0.104
+Planet of the Apes,Box office,Box Office,2.115
+Planet of the Apes,DVD & Blu-ray sales,Home Video/Entertainment,0.157
+Jumanji,Box office,Box Office,2.089
+Jumanji,DVD & Blu-ray sales,Home Video/Entertainment,0.155
+The Little Mermaid,Box office,Box Office,0.782
+The Little Mermaid,Merchandise sales,"Merchandise, Licensing & Retail",1.0
+The Little Mermaid,DVD & Blu-ray sales,Home Video/Entertainment,0.349
+The Little Mermaid,Musical,Music,0.083
+The Conjuring Universe,Box office,Box Office,2.107
+The Conjuring Universe,Home media,Home Video/Entertainment,0.079
+Ghostbusters,Merchandise sales,"Merchandise, Licensing & Retail",1.0
+Ghostbusters,Box office,Box Office,1.1
+Ghostbusters,Home media,Home Video/Entertainment,0.085
+Finding Nemo,Box office,Box Office,1.961
+Finding Nemo,DVD & Blu-ray sales,Home Video/Entertainment,0.196
+The Matrix,Video games,Video Games/Games,0.3
+The Matrix,Box office,Box Office,1.791
+The Matrix,Home media,Home Video/Entertainment,0.026
+Rocky,Box office,Box Office,1.993
+Rocky,Home media,Home Video/Entertainment,0.1195
+MonsterVerse,Box office,Box Office,1.94
+MonsterVerse,Home media,Home Video/Entertainment,0.159
+Yo-kai Watch,Merchandise sales,"Merchandise, Licensing & Retail",2.0
+Yo-kai Watch,Box office,Box Office,0.0994
+The Chronicles of Narnia,Box office,Box Office,1.556
+The Chronicles of Narnia,Home media,Home Video/Entertainment,0.506
+E.T. the Extra-Terrestrial,Merchandise sales,"Merchandise, Licensing & Retail",1.0
+E.T. the Extra-Terrestrial,Box office,Box Office,0.797
+E.T. the Extra-Terrestrial,VHS sales,Home Video/Entertainment,0.25
+Robert Langdon,Book sales,Book sales,0.4
+Robert Langdon,Box office,Box Office,1.478
+Robert Langdon,Home media,Home Video/Entertainment,0.1641
+Bourne,Box office,Box Office,1.665
+Bourne,DVD & Blu-ray sales,Home Video/Entertainment,0.374
+Men in Black,Box office,Box Office,1.94
+Men in Black,DVD & Blu-ray sales,Home Video/Entertainment,0.083
+Resident Evil (Biohazard),Video games,Video Games/Games,0.6
+Resident Evil (Biohazard),Box office,Box Office,1.271
+Resident Evil (Biohazard),Home video,Home Video/Entertainment,0.132
+Guitar Hero,Video games,Video Games/Games,2.0
+Lego,Video games,Video Games/Games,2.0
+NBA Jam,Video games,Video Games/Games,2.0
+Neon Genesis Evangelion,TV revenue,TV,1.4
+Neon Genesis Evangelion,Retail sales,"Merchandise, Licensing & Retail",0.255
+Neon Genesis Evangelion,Box office,Box Office,0.254
+Neon Genesis Evangelion,(total minus itemised),Unallocated,0.091
+Farm Heroes Saga,Video games,Video Games/Games,2.0

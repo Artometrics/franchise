@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import { franchises, franchiseBySlug } from '../lib/data';
+import { PRESETS, compareSpecs } from '../lib/compare';
+import { chartHtml } from '../lib/charts';
+import { slim } from '../lib/slim';
+import { fmtTotal } from '../lib/format';
+
+const sorted = [...franchises].sort((a, b) => a.name.localeCompare(b.name));
+const initial = PRESETS[0]!.slugs.map((s) => franchiseBySlug.get(s)!);
+const specs = compareSpecs(initial);
+const roles = ['accent', 'second', 'cream'];
+---
+
+<Base title="Compare" current="compare" description="Pick two or three franchises and compare their totals and revenue streams side by side.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Compare</p>
+      <h1>Pick two or three</h1>
+      <p class="lead">Put franchises side by side: total, each revenue stream, and the mix of where the money comes from. The picks live in the page address, so you can share them.</p>
+    </header>
+
+    <section aria-labelledby="pick-h">
+      <h2 id="pick-h" class="sr">Choose franchises</h2>
+      <div class="controls">
+        <div class="field full">
+          <label for="find">Find a franchise</label>
+          <input id="find" type="search" placeholder="Type to narrow the list…" autocomplete="off" enterkeyhint="search" />
+        </div>
+        <div class="field full">
+          <label for="add">Add to comparison</label>
+          <select id="add">
+            <option value="">Choose a franchise ({franchises.length})</option>
+            {sorted.map((f) => (<option value={f.slug}>{f.name} ({fmtTotal(f.total)})</option>))}
+          </select>
+        </div>
+      </div>
+      <ul class="picks" id="picks" aria-label="Selected franchises">
+        {initial.map((f, i) => (
+          <li class="pick"><i class={`sw r-${roles[i]}`}></i>{f.name}</li>
+        ))}
+      </ul>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      <div class="row" aria-label="Quick starts">
+        {PRESETS.map((p) => (<button type="button" class="chip" data-preset={p.slugs.join(',')} title={p.note}>{p.label}</button>))}
+      </div>
+    </section>
+
+    <div id="out">
+      <section class="section">
+        <figure class="cfig">
+          <h2 class="ct">Stated lifetime total</h2>
+          <p class="sub">Lifetime consumer spending as listed. Not profit.</p>
+          <div id="c-totals" set:html={chartHtml(specs.totals)} />
+        </figure>
+      </section>
+      <section class="section">
+        <figure class="cfig">
+          <h2 class="ct">By revenue stream</h2>
+          <p class="sub">Each stream in billions of dollars. "None listed" means the list carries no line for it.</p>
+          <div id="c-streams" set:html={chartHtml(specs.byStream)} />
+        </figure>
+      </section>
+      <section class="section">
+        <figure class="cfig">
+          <h2 class="ct">Mix of the money</h2>
+          <p class="sub">Each franchise's total split by stream group, so a small franchise and a large one can be read on one scale.</p>
+          <div id="c-mix" set:html={chartHtml(specs.mix)} />
+        </figure>
+      </section>
+      <section class="section">
+        <h2>Facts</h2>
+        <div id="c-facts" class="tablewrap" style="margin-top:12px"></div>
+      </section>
+    </div>
+    <p class="small muted" style="margin-top:24px">Source: Wikipedia list, revision 1384334611, read 10 November 2026 <a class="cite" href="/sources#S017">S017</a>. Stream rows are the list's own lines. Owner is the first-listed parent, a counting rule rather than a legal audit.</p>
+    <script id="franchise-data" type="application/json" set:html={JSON.stringify(slim(franchises))} />
+  </div>
+</Base>
+
+<script>
+  import '../scripts/compare';
+</script>

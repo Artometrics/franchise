@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import { sourceById } from '../lib/article';
+import { report } from '../report.config';
+import { readFileSync, statSync } from 'node:fs';
+
+const size = (p: string) => {
+  try {
+    const b = statSync(new URL(`../../public/downloads/${p}`, import.meta.url)).size;
+    return b > 1_000_000 ? `${(b / 1_000_000).toFixed(1)} MB` : `${Math.max(1, Math.round(b / 1000))} KB`;
+  } catch {
+    return '';
+  }
+};
+void readFileSync; void sourceById;
+interface Item { file: string; title: string; desc: string; type: 'CSV' | 'PDF' | 'MD' }
+const groups: { title: string; items: Item[] }[] = [
+  {
+    title: 'The article',
+    items: [{ file: 'franchise.pdf', title: 'Article as PDF', type: 'PDF', desc: 'The 10 November export from artometrics.com. It predates the 12 November additions (the section for people who own or market an IP, the Sources & method section and per-figure source links). The web text on this site is current.' }],
+  },
+  {
+    title: 'The ledger',
+    items: [
+      { file: 'franchise_entities_2026-10.csv', title: 'Franchise ledger', type: 'CSV', desc: '140 franchises: total, first medium, owner as listed, first-listed parent, origin country. Wikipedia revision 1384334611.' },
+      { file: 'franchise_revenue_long_2026-10.csv', title: 'Revenue by stream', type: 'CSV', desc: '360 stream rows, one line per franchise and stream, in billions of dollars.' },
+      { file: 'wikipedia_franchise_revenue_2026.csv', title: 'Franchise totals', type: 'CSV', desc: 'The compact version: name, year, total, owner, source ID.' },
+    ],
+  },
+  {
+    title: 'Shares, ranges and concentration',
+    items: [
+      { file: 'category_shares_bootstrap.csv', title: 'Stream shares and 95% ranges', type: 'CSV', desc: '2019 and 2026 vintages, from 5,000 resamples of the franchises.' },
+      { file: 'owner_concentration_bootstrap.csv', title: 'Owner concentration', type: 'CSV', desc: 'Top one and top five parents with ranges, on the 2026 ledger and the 2019 ledger with 2026 parent labels.' },
+      { file: 'region_summary_2026-10.csv', title: 'Origin summary', type: 'CSV', desc: 'Franchise count, total and merchandise share by origin country.' },
+    ],
+  },
+  {
+    title: 'Deals, box office and the 2019 file',
+    items: [
+      { file: 'disney_acquisitions.csv', title: 'Disney acquisitions', type: 'CSV', desc: 'Pixar, Marvel, Lucasfilm and 21st Century Fox: filed price and the anchor franchise in the 2019 file.' },
+      { file: 'disney_segment_revenue_fy2025.csv', title: 'Disney segment revenue, FY2025', type: 'CSV', desc: 'Entertainment, Sports and Experiences from the Form 10-K.' },
+      { file: 'box_office_top10_snapshot_2026-11-10.csv', title: 'Worldwide top ten, 2025 and 2026', type: 'CSV', desc: 'Box Office Mojo with The Numbers beside it, read 10 November 2026, with franchise coding.' },
+      { file: 'top10_franchise_share_by_year.csv', title: 'Domestic top ten by year', type: 'CSV', desc: 'Franchise installments as a share of titles, 2010 to 2024.' },
+      { file: 'franchise_revenue_2019_vs_2026.csv', title: '2019 file against the November list', type: 'CSV', desc: 'The 82 franchises with a usable total in both vintages.' },
+      { file: 'owner_totals_derived.csv', title: 'Owner totals, 2019 file', type: 'CSV', desc: 'The older Disney roll-up and other owner groups.' },
+      { file: 'owner_consolidation_rules.csv', title: 'Owner consolidation rules', type: 'CSV', desc: 'Which owner strings roll into Disney.' },
+      { file: 'franchise_failures.csv', title: 'Failure cases', type: 'CSV', desc: 'Dark Universe, Fantastic Beasts, Ghostbusters and others, with evidence links.' },
+    ],
+  },
+  {
+    title: 'Records',
+    items: [
+      { file: 'verified_numbers.csv', title: 'Verified numbers', type: 'CSV', desc: 'Every numeric claim, how it was computed and its status.' },
+      { file: 'sources.csv', title: 'Source registry', type: 'CSV', desc: 'The full S-number registry.' },
+      { file: 'CHANGELOG.md', title: 'Changelog (Markdown)', type: 'MD', desc: 'Figure changes between the 12 October and 10 November readings. Also on this site as the Changelog page.' },
+    ],
+  },
+];
+---
+
+<Base title="Downloads" current="downloads" description="CSV files behind every chart, and the article as a PDF. Each opens in a new tab.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Downloads</p>
+      <h1>Take the data</h1>
+      <p class="lead">Every file below opens in a new tab. On a phone, use the share sheet to save it. Files are copied unchanged from artometrics.com, vintage {report.vintage.read}.</p>
+    </header>
+    {groups.map((g) => (
+      <section class="section" aria-labelledby={`g-${g.title.replace(/\W+/g, '-')}`}>
+        <h2 id={`g-${g.title.replace(/\W+/g, '-')}`}>{g.title}</h2>
+        <ul class="dl-list" style="margin-top:14px">
+          {g.items.map((i) => (
+            <li>
+              <a class="box act" href={`/downloads/${i.file}`} target="_blank" rel="noopener noreferrer">
+                <span class="t">{i.title}</span>
+                <span class="f">{i.type} &middot; {size(i.file)} &middot; {i.file}</span>
+                <span class="d">{i.desc}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+    <p class="small muted" style="margin-top:28px">Wikipedia's text is available under CC BY-SA. The 2019 file is the TidyTuesday community copy of Wikipedia editors' estimates. <a href="/sources">Sources &amp; method</a></p>
+  </div>
+</Base>

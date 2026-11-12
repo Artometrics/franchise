@@ -1,0 +1,38 @@
+{
+  "name": "franchise-site",
+  "version": "0.1.0",
+  "description": "Artometrics FRANCHISE mini-site (franchise.artometrics.com). Static Astro, noindex.",
+  "scripts": {
+    "sync:source": "node scripts/sync-source.mjs",
+    "predev": "node scripts/copy-downloads.mjs",
+    "dev": "astro dev --host",
+    "prebuild": "node scripts/copy-downloads.mjs",
+    "build": "astro build",
+    "postbuild": "node scripts/verify-dist.mjs",
+    "preview": "astro preview --host --port 4321",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "shots": "node scripts/shots.mjs"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "astro": "^5.18.2",
+    "d3": "^7.9.2",
+    "marked": "^18.2.0",
+    "typescript": "^5.9.3",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@playwright/test": "^1.65.0",
+    "@types/d3": "^7.4.3",
+    "@types/node": "^26.6.6",
+    "vitest": "^5.1.0"
+  },
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

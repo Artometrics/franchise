@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import { citationsBySource, inlineHtml, meta, sources } from '../lib/article';
+import { report } from '../report.config';
+
+const cited = citationsBySource();
+const sections = [
+  { key: 'pulled', title: 'What we pulled' },
+  { key: 'cleaned', title: 'How it was cleaned' },
+  { key: 'updated', title: 'What changed on re-reading' },
+  { key: 'vintage', title: 'Data vintage' },
+] as const;
+const derived = [
+  'Per-franchise merchandise share and top stream: computed from the list\'s stream rows (merchandise, licensing and retail divided by the franchise\'s rows).',
+  'Merchandise share per parent company and the stream mix by origin country: computed from the same rows. Where the article publishes a figure (Japan 71.4%, US 51.5%, UK 53.9%, Canada 77.9%, Sweden 12.8%), the published figure is shown and our calculation is checked against it in the unit tests.',
+  'The 57-parent roll-up uses the ledger\'s own first-listed-parent column. Shares of the list are parent total divided by the list total.',
+  'The explorer, compare and owners views redraw the same data. Nothing on them is estimated, extrapolated or typed by hand.',
+];
+---
+
+<Base title="Sources & method" current="sources" description="Every citation, the method, the data vintage and the caveats behind the FRANCHISE report.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Sources &amp; method</p>
+      <h1>How we know</h1>
+      <p class="lead">Every figure on this site carries a source ID like <a class="cite" href="#S017">S017</a>. They all land here. The article was updated {report.vintage.articleUpdated}; the data was read {report.vintage.read} against Wikipedia revision {report.vintage.revision}.</p>
+    </header>
+
+    <div class="callout">
+      <p><strong>{meta.status.label}.</strong> {meta.status.note}</p>
+      <p class="row small">
+        {meta.status.links.map((l) => (
+          <a href={l.href.startsWith('/franchise/changelog') ? '/changelog' : `${report.siteUrl}${l.href}`} target={l.href.startsWith('/franchise/changelog') ? undefined : '_blank'} rel="noopener">{l.label}</a>
+        ))}
+      </p>
+    </div>
+
+    <section class="section method" aria-labelledby="method">
+      <h2 id="method">Method</h2>
+      {sections.map((s) => (
+        <Fragment>
+          <h3 style="margin:22px 0 8px">{s.title}</h3>
+          <ul>{meta.method[s.key].map((t) => (<li set:html={inlineHtml(t)} />))}</ul>
+        </Fragment>
+      ))}
+    </section>
+
+    <section class="section method" aria-labelledby="caveats">
+      <h2 id="caveats">What it cannot tell you</h2>
+      <ul style="margin-top:12px">{meta.method.caveats.map((t) => (<li set:html={inlineHtml(t)} />))}</ul>
+    </section>
+
+    <section class="section method" aria-labelledby="derived">
+      <h2 id="derived">What this site derives itself</h2>
+      <p class="muted">The mini-site adds views, not findings. These are the calculations it makes beyond the article, all from the files in <a href="/downloads">Downloads</a>.</p>
+      <ul>{derived.map((t) => (<li>{t}</li>))}</ul>
+    </section>
+
+    <section class="section" aria-labelledby="citations">
+      <h2 id="citations">Citations</h2>
+      <p class="muted" style="margin:8px 0 16px">{sources.length} sources are cited in the article. Links open the original in a new tab. "Cited in" lists the sections of the article that rely on each one.</p>
+      <ol class="src-list">
+        {sources.map((s) => (
+          <li class="box src-item" id={s.id}>
+            <span class="id">{s.id}</span>
+            <h3>{s.title}</h3>
+            <p class="small muted" style="margin:0">{s.publisher}, {s.year}</p>
+            <dl>
+              <dt>Link</dt>
+              <dd><a href={s.url} target="_blank" rel="noopener noreferrer">{s.url}</a></dd>
+              {s.moreUrls?.map((u) => (<Fragment><dt>Also</dt><dd><a href={u.url} target="_blank" rel="noopener noreferrer">{u.label}</a></dd></Fragment>))}
+              {s.revision && (<Fragment><dt>Revision</dt><dd>{s.revision}</dd></Fragment>)}
+              <dt>Retrieved</dt>
+              <dd>{s.retrieved ?? 'not recorded'}{s.retrievedNote ? ` (${s.retrievedNote})` : ''}</dd>
+              <dt>Note</dt>
+              <dd>{s.note}</dd>
+              {cited.get(s.id) && (
+                <Fragment>
+                  <dt>Cited in</dt>
+                  <dd>{cited.get(s.id)!.map((c, i) => (<Fragment>{i > 0 && ', '}<a href={`/read#${c.id}`}>{c.text}</a></Fragment>))}</dd>
+                </Fragment>
+              )}
+            </dl>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="section" aria-labelledby="files">
+      <h2 id="files">Files and records</h2>
+      <ul class="link-list" style="margin-top:14px">
+        <li><a href="/changelog">Figure-by-figure changelog<span>this site</span></a></li>
+        <li><a href="/downloads/verified_numbers.csv" target="_blank" rel="noopener">Verified numbers (CSV)<span>every numeric claim</span></a></li>
+        <li><a href="/downloads/sources.csv" target="_blank" rel="noopener">Source registry (CSV)<span>full S-number registry</span></a></li>
+        <li><a href="/downloads">All downloads<span>CSV and PDF</span></a></li>
+      </ul>
+    </section>
+  </div>
+</Base>

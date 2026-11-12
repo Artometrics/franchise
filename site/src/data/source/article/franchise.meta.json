@@ -1,0 +1,549 @@
+{
+  "updated": "2026-11-12",
+  "whatChanged": "Added a section for people who own or market an IP. Every figure now links to its source, and each chart carries a description, source line and data link. No figures changed since the 10 November reading.",
+  "changelog": {
+    "href": "/franchise/changelog",
+    "file": "articles/franchise/data/CHANGELOG.md"
+  },
+  "status": {
+    "state": "current",
+    "label": "Current report",
+    "note": "This is the current FRANCHISE report, read on 10 November 2026 against Wikipedia revision 1384334611. The earlier audit, What changed when we fixed the data, was written against the 12 October revision. Where the two differ, this report is the one to use.",
+    "links": [
+      {
+        "label": "Earlier audit (12 October 2026)",
+        "href": "/franchise-data-fix"
+      },
+      {
+        "label": "Figure-by-figure changelog",
+        "href": "/franchise/changelog"
+      }
+    ]
+  },
+  "aliases": {
+    "Jenkins, 2006": "S002",
+    "Steinberg, 2012": "S003",
+    "Hernández Hernández, 2018": "HH2018"
+  },
+  "sources": {
+    "S001": {
+      "title": "TidyTuesday: Media Franchise Revenues (2019-07-02)",
+      "publisher": "R for Data Science Online Learning Community",
+      "year": 2019,
+      "url": "https://github.com/rfordatascience/tidytuesday/tree/main/data/2019/2019-07-02",
+      "retrieved": null,
+      "retrievedNote": "Committed copy, SHA-256 6e556287bad580be04e14d346036a8453f7ce975a7b26cf47d2057b873be1090; retrieval date not recorded",
+      "revision": "Dataset dated 2 July 2019",
+      "note": "Community copy of Wikipedia editors' estimates. Not audited."
+    },
+    "S002": {
+      "title": "Convergence Culture: Where Old and New Media Collide",
+      "publisher": "Henry Jenkins, NYU Press",
+      "year": 2006,
+      "url": "https://openlibrary.org/works/OL4292067W",
+      "retrieved": "2026-11-10",
+      "retrievedNote": "link check",
+      "revision": null,
+      "note": "Framing only; no figure comes from this book. The DOI stored in the registry did not resolve at Crossref on 10 November 2026."
+    },
+    "S003": {
+      "title": "Anime's Media Mix: Franchising Toys and Characters in Japan",
+      "publisher": "Marc Steinberg, University of Minnesota Press",
+      "year": 2012,
+      "url": "https://openlibrary.org/works/OL16142176W",
+      "retrieved": "2026-11-10",
+      "retrievedNote": "link check",
+      "revision": null,
+      "note": "Framing only; no figure comes from this book. The DOI stored in the registry did not resolve at Crossref on 10 November 2026."
+    },
+    "HH2018": {
+      "title": "Production committees",
+      "publisher": "Á. D. Hernández Hernández, Arts 7(3): 42",
+      "year": 2018,
+      "url": "https://doi.org/10.3390/arts7030042",
+      "retrieved": null,
+      "revision": null,
+      "note": "Cited by author and year in the text. It has no S-number in the source registry. Framing only."
+    },
+    "S004": {
+      "title": "Disney Form 10-K, fiscal year ended 28 September 2024 (segment revenue)",
+      "publisher": "The Walt Disney Company",
+      "year": 2024,
+      "url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448924000276/dis-20240928.htm",
+      "retrieved": null,
+      "revision": "Filing 0001744489-24-000276",
+      "note": "Prior-year column of the FY2025 table matches this filing."
+    },
+    "S005": {
+      "title": "Box Office Mojo: worldwide 2025 and 2026 year pages; domestic yearly charts 2010–2024",
+      "publisher": "Box Office Mojo (IMDbPro)",
+      "year": 2026,
+      "url": "https://www.boxofficemojo.com/year/world/2026/",
+      "retrieved": "2026-11-10",
+      "retrievedNote": "worldwide pages; domestic yearly charts first read 11 October 2026",
+      "revision": null,
+      "note": "Live pages with no revision ID. The 2026 year is partial. Franchise coding is ours and is stated in the text.",
+      "moreUrls": [
+        {
+          "label": "2025 worldwide page",
+          "url": "https://www.boxofficemojo.com/year/world/2025/"
+        }
+      ]
+    },
+    "S007": {
+      "title": "List of highest-grossing media franchises, June 2019 revision (audit baseline)",
+      "publisher": "Wikipedia contributors",
+      "year": 2019,
+      "url": "https://en.wikipedia.org/w/index.php?title=List_of_highest-grossing_media_franchises&oldid=904026364",
+      "retrieved": "2026-10-12",
+      "revision": "904026364 (29 June 2019)",
+      "note": "Upstream of S001. Used to audit the 2019 file."
+    },
+    "S009": {
+      "title": "Disney acquisition of Pixar, Form 8-K",
+      "publisher": "The Walt Disney Company",
+      "year": 2006,
+      "url": "https://www.sec.gov/Archives/edgar/data/1001039/000110465906016567/tm206114-1_8k.htm",
+      "retrieved": null,
+      "revision": "Filing 0001104659-06-016567",
+      "note": "$7.4 billion."
+    },
+    "S010": {
+      "title": "Disney acquisition of Marvel Entertainment, Form 8-K exhibit 99.1",
+      "publisher": "The Walt Disney Company",
+      "year": 2009,
+      "url": "https://www.sec.gov/Archives/edgar/data/1001039/000119312509184500/dex991.htm",
+      "retrieved": "2026-10-11",
+      "revision": "Filing 0001193125-09-184500",
+      "note": "Approximately $4 billion."
+    },
+    "S011": {
+      "title": "Disney acquisition of Lucasfilm, Form 8-K exhibit 99.1",
+      "publisher": "The Walt Disney Company",
+      "year": 2012,
+      "url": "https://www.sec.gov/Archives/edgar/data/1001039/000119312512441509/d429302dex991.htm",
+      "retrieved": "2026-10-11",
+      "revision": "Filing 0001193125-12-441509",
+      "note": "$4.05 billion transaction value."
+    },
+    "S012": {
+      "title": "Disney amended agreement to acquire 21st Century Fox, exhibit 99.1",
+      "publisher": "The Walt Disney Company",
+      "year": 2018,
+      "url": "https://www.sec.gov/Archives/edgar/data/1001039/000095015718000744/ex99-1.htm",
+      "retrieved": null,
+      "revision": "Filing 0000950157-18-000744, 20 June 2018",
+      "note": "$71.3 billion in cash and stock, the exhibit's own wording. Not relabelled as enterprise value."
+    },
+    "S013": {
+      "title": "Universal's Dark Universe is dead",
+      "publisher": "The Hollywood Reporter",
+      "year": 2017,
+      "url": "https://www.hollywoodreporter.com/movies/movie-news/universals-dark-universe-dead-1049868/",
+      "retrieved": null,
+      "revision": null,
+      "note": "Failure-case example, not a figure source."
+    },
+    "S015": {
+      "title": "The Numbers: Ghostbusters (2016)",
+      "publisher": "The Numbers",
+      "year": 2016,
+      "url": "https://www.the-numbers.com/movie/Ghostbusters-(2016)",
+      "retrieved": null,
+      "revision": null,
+      "note": "Failure-case example, not a figure source."
+    },
+    "S017": {
+      "title": "List of highest-grossing media franchises",
+      "publisher": "Wikipedia contributors",
+      "year": 2026,
+      "url": "https://en.wikipedia.org/w/index.php?title=List_of_highest-grossing_media_franchises&oldid=1384334611",
+      "retrieved": "2026-11-10",
+      "revision": "1384334611 (7 November 2026, 19:52 UTC). Prior revision 1379832186 (12 October 2026, 04:29 UTC).",
+      "note": "The main ledger: 140 franchises, nominal consumer-spend estimates, not profit.",
+      "moreUrls": [
+        {
+          "label": "Prior revision 1379832186 (12 October 2026)",
+          "url": "https://en.wikipedia.org/w/index.php?title=List_of_highest-grossing_media_franchises&oldid=1379832186"
+        }
+      ]
+    },
+    "S019": {
+      "title": "The Numbers: worldwide box office, 2025 and 2026 releases",
+      "publisher": "The Numbers",
+      "year": 2026,
+      "url": "https://www.the-numbers.com/box-office-records/worldwide/all-movies/cumulative/released-in-2026",
+      "retrieved": "2026-11-10",
+      "revision": null,
+      "note": "Cross-check for Box Office Mojo. Live pages with no revision ID.",
+      "moreUrls": [
+        {
+          "label": "2025 releases",
+          "url": "https://www.the-numbers.com/box-office-records/worldwide/all-movies/cumulative/released-in-2025"
+        }
+      ]
+    },
+    "S081": {
+      "title": "Disney FY2024 Q4 earnings release, exhibit 99.1 (segment revenue)",
+      "publisher": "The Walt Disney Company",
+      "year": 2024,
+      "url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448924000275/fy2024_q4xprxex991.htm",
+      "retrieved": null,
+      "revision": "Filing 0001744489-24-000275",
+      "note": "FY2024 segment table, repeated as the prior-year column in the FY2025 10-K."
+    },
+    "S090": {
+      "title": "Consumer Price Index for All Urban Consumers: All Items (CPIAUCSL)",
+      "publisher": "Federal Reserve Bank of St. Louis",
+      "year": 2026,
+      "url": "https://fred.stlouisfed.org/series/CPIAUCSL",
+      "retrieved": "2026-10-12",
+      "revision": null,
+      "note": "Not used to inflate the lifetime totals."
+    },
+    "S091": {
+      "title": "2025 in film",
+      "publisher": "Wikipedia contributors",
+      "year": 2026,
+      "url": "https://en.wikipedia.org/w/index.php?title=2025_in_film&oldid=1383769082",
+      "retrieved": "2026-11-10",
+      "revision": "1383769082 (4 November 2026)",
+      "note": "Its Ne Zha 2 figure disagrees with both trackers; the text reports all three."
+    },
+    "S092": {
+      "title": "2026 in film",
+      "publisher": "Wikipedia contributors",
+      "year": 2026,
+      "url": "https://en.wikipedia.org/w/index.php?title=2026_in_film&oldid=1384822773",
+      "retrieved": "2026-11-10",
+      "revision": "1384822773 (10 November 2026)",
+      "note": "Its Super Mario Galaxy Movie cell is malformed and is not used for dollars."
+    },
+    "S093": {
+      "title": "Disney Form 10-K, fiscal year ended 27 September 2025",
+      "publisher": "The Walt Disney Company",
+      "year": 2025,
+      "url": "https://www.sec.gov/Archives/edgar/data/1744489/000174448925000155/dis-20250927.htm",
+      "retrieved": "2026-11-10",
+      "revision": "Filing 0001744489-25-000155",
+      "note": "Operating-segment revenue table. FY2026's 10-K was not on file at that date."
+    },
+    "S094": {
+      "title": "Call of Duty franchise surpasses $40 billion in lifetime revenue",
+      "publisher": "IGN (R. McCaffrey), 26 October 2026",
+      "year": 2026,
+      "url": "https://www.ign.com/articles/call-of-duty-franchise-surpasses-40-billion-lifetime-revenue-following-launch-of-modern-warfare-4",
+      "retrieved": "2026-11-10",
+      "retrievedNote": "re-read",
+      "revision": null,
+      "note": "A rounded milestone quoted from Xbox, not an itemised audit."
+    },
+    "S095": {
+      "title": "PAW Patrol 4",
+      "publisher": "Deadline (A. D'Alessandro), 28 October 2026",
+      "year": 2026,
+      "url": "https://deadline.com/2026/10/paw-patrol-4-1237207451/",
+      "retrieved": "2026-11-10",
+      "retrievedNote": "re-read",
+      "revision": null,
+      "note": "Confirms $18 billion in lifetime retail only."
+    },
+    "S008": {
+      "title": "Analyzing Franchise Revenue: TidyTuesday screencast",
+      "publisher": "David Robinson",
+      "year": 2019,
+      "url": "https://youtu.be/1xsbTs9-a50",
+      "retrieved": null,
+      "revision": null,
+      "note": "Background on the 2019 file. Not a figure source.",
+      "listed": true
+    }
+  },
+  "method": {
+    "pulled": [
+      "The main ledger is Wikipedia's \"List of highest-grossing media franchises\", revision 1384334611 (7 November 2026, 19:52 UTC), pulled through the MediaWiki API and saved as raw wikitext before any cleaning. [S017]",
+      "Worldwide box office is Box Office Mojo's 2025 and 2026 year pages, with The Numbers stored beside it, both read on 10 November 2026 into one snapshot file. [S005; S019]",
+      "The 2019 baseline is TidyTuesday's 2 July 2019 file, checked against Wikipedia revision 904026364 (29 June 2019). Disney's segment revenue and deal prices come from SEC filings. [S001; S007; S093; S009–S012]"
+    ],
+    "cleaned": [
+      "The list was parsed into 140 franchise rows with a revenue line for each stream. Stated totals are kept as printed. About $27.2 billion that is in the totals but not itemised sits in an Unallocated line (1.9%). [S017]",
+      "Each franchise is assigned to its first-listed parent company. This is a rule for counting, not a legal ownership audit. Region is the creator's home market at launch, with hand assignments documented line by line. [S017]",
+      "The 2019 file and the November list were joined by a hand-built crosswalk with 103 rows; 82 have a usable total in both vintages. No fuzzy matching was used. [S001; S017]",
+      "The 95% ranges come from resampling the franchises 5,000 times. They show how much a share depends on which rows are on the list. They are not sampling error. [S017]",
+      "Wikipedia's 2026 Super Mario Galaxy Movie cell is malformed and was not used. Box Office Mojo and The Numbers supplied the film dollars. [S092; S005; S019]"
+    ],
+    "updated": [
+      "The ledger was re-read on 10 November 2026 against the 12 October reading. The same 140 names are on the list. Two stated totals changed: Call of Duty ($31 billion to $40 billion) and Paw Patrol ($15.4 billion to $18.4 billion). [S017]",
+      "Every figure that moved is listed, with the reason, in the changelog. Items that were not re-checked are listed there as flagged rather than carried forward as current.",
+      "Wikipedia editors revise this list, so the figures will move again. Each reading gets a dated entry in the changelog.",
+      "To rebuild the figures: run python3 scripts/franchise-data/clean_audit.py, then npm run verify:franchise, then python3 articles/franchise/scripts/build_theme_a_charts.py. Every numeric claim is a row in verified_numbers.csv."
+    ],
+    "vintage": [
+      "Franchise list: Wikipedia revision 1384334611, 7 November 2026, read 10 November 2026. [S017]",
+      "Box office: Box Office Mojo and The Numbers, read 10 November 2026. 2026 is a partial year. [S005; S019]",
+      "Disney segments: fiscal year ended 27 September 2025. [S093]",
+      "Baseline: TidyTuesday file of 2 July 2019, from Wikipedia revision 904026364 of 29 June 2019. [S001; S007]"
+    ],
+    "caveats": [
+      "Figures are nominal estimates of consumer spending compiled by Wikipedia's editors. They are not profit, not a company valuation, and not money paid to a rights holder. [S017]",
+      "Ranges are wide: merchandise is 55.6% with a range of 43.2–65.8, and games (18.3%) and box office (18.1%) have overlapping ranges, so the order of those two is not a ranking. [S017]",
+      "Call of Duty at $40 billion is a rounded company milestone, not an itemised audit. Paw Patrol's $0.4 billion of box office and home media on the Wikipedia row uses older citations that were not re-read. [S094; S095; S017]",
+      "Ne Zha 2 has three public worldwide grosses ($2.318 billion on Wikipedia, $2.271 billion on Box Office Mojo, $2.004 billion on The Numbers). They are reported, not averaged. [S091; S005; S019]",
+      "Original-medium, per-year and the older Disney roll-up charts still use the 2019 file and are labelled that way. [S001]",
+      "Streaming dollars are absent from this ledger. Domestic franchise share was not recoded for 2025, so that line stops at 2024. [S005]",
+      "English-language Wikipedia is not a census of world culture, and the list is not a random sample. [S017]"
+    ],
+    "files": [
+      {
+        "label": "Figure-by-figure changelog",
+        "href": "/franchise/changelog"
+      },
+      {
+        "label": "Verified numbers (CSV)",
+        "href": "/data/articles/franchise/verified_numbers.csv"
+      },
+      {
+        "label": "Source registry (CSV)",
+        "href": "/data/articles/franchise/sources.csv"
+      },
+      {
+        "label": "Data provenance (TXT)",
+        "href": "/data/articles/franchise/SOURCE.txt"
+      }
+    ]
+  },
+  "charts": {
+    "c02_pokemon_vs_two": {
+      "title": "Pokémon against Star Wars and the MCU combined",
+      "description": "Pokémon is listed at $130.7 billion. Star Wars ($46.7 billion) and the Marvel Cinematic Universe ($37.5 billion) add up to $84.2 billion. It matters because it shows how much a game, card and merchandise franchise can outweigh two film-led ones on a list of lifetime consumer spending.",
+      "source": "Wikipedia revision 1384334611, read 10 Nov 2026 [S017]",
+      "data": [
+        {
+          "label": "Franchise totals (CSV)",
+          "href": "/data/articles/franchise/wikipedia_franchise_revenue_2026.csv"
+        }
+      ]
+    },
+    "chart6_revenue_streams_2026": {
+      "title": "Where the list's lifetime spending comes from",
+      "description": "Merchandise, licensing and retail are 55.6% of the list ($812.4 billion), video games 18.3% ($268.2 billion) and box office 18.1% ($265.3 billion). The bars carry 95% ranges, and the ranges for games and box office overlap, so neither can be called the runner-up. It matters because most of the money on this list is not ticket sales.",
+      "source": "Wikipedia revision 1384334611; ranges from 5,000 resamples of the franchises [S017]",
+      "data": [
+        {
+          "label": "Stream shares and ranges (CSV)",
+          "href": "/data/articles/franchise/clean/category_shares_bootstrap.csv"
+        }
+      ]
+    },
+    "chart1_top20_revenue_2026": {
+      "title": "The fifteen largest franchises on the list",
+      "description": "Pokémon leads at $130.7 billion, followed by Mickey Mouse & Friends ($61.2 billion), Winnie-the-Pooh ($50.2 billion), Star Wars ($46.7 billion) and Disney Princess ($45.4 billion). The figures are lifetime estimates of consumer spending, not profit. It matters because the top of the list is mostly character franchises with long merchandise lives.",
+      "source": "Wikipedia revision 1384334611 [S017]",
+      "data": [
+        {
+          "label": "Franchise totals (CSV)",
+          "href": "/data/articles/franchise/wikipedia_franchise_revenue_2026.csv"
+        }
+      ]
+    },
+    "c03_revisions": {
+      "title": "Three big edits between the 2019 file and the November list",
+      "description": "Hello Kitty went from $80.0 billion in the 2019 file to $33.5 billion on the November list. Mario went from $35.0 billion to $9.74 billion and Gundam from $25.5 billion to $5.0 billion. These are revised estimates on Wikipedia, not reported collapses at Sanrio or Nintendo, so they should not be read as a change in what people bought.",
+      "source": "2019 file [S001] paired to the November list [S017]",
+      "data": [
+        {
+          "label": "2019 vs 2026 pairs (CSV)",
+          "href": "/data/articles/franchise/franchise_revenue_2019_vs_2026.csv"
+        }
+      ]
+    },
+    "chart10_wiki_2019_vs_2026": {
+      "title": "Percent change from the 2019 file to the November list",
+      "description": "Six paired franchises are shown. Pokémon rises from $90.9 billion to $130.7 billion and Call of Duty from $17.0 billion to $40.0 billion, while the downward bars are source edits. It matters because the 2019 and 2026 baskets are not identical, so a bar is revenue growth only where the crosswalk says the scope matches.",
+      "source": "2019 file [S001] and November list [S017]",
+      "data": [
+        {
+          "label": "2019 vs 2026 pairs (CSV)",
+          "href": "/data/articles/franchise/franchise_revenue_2019_vs_2026.csv"
+        }
+      ]
+    },
+    "c04_what_moved": {
+      "title": "What moved between the October and November readings",
+      "description": "Only two stated totals changed. Call of Duty went from $31 billion to $40 billion and Paw Patrol from $15.4 billion to $18.4 billion, which is the whole $12.0 billion rise in the list total. It matters because every other row, including Pokémon, held still.",
+      "source": "Wikipedia revisions 1379832186 and 1384334611 [S017]; Call of Duty [S094]; Paw Patrol [S095]",
+      "data": [
+        {
+          "label": "Changelog",
+          "href": "/franchise/changelog"
+        },
+        {
+          "label": "Franchise totals (CSV)",
+          "href": "/data/articles/franchise/wikipedia_franchise_revenue_2026.csv"
+        }
+      ]
+    },
+    "chart15_region_2026": {
+      "title": "Lifetime revenue by region of origin",
+      "description": "United States-origin franchises total $825.5 billion across 88 rows, Japan-origin $394.5 billion across 30 rows, and United Kingdom-origin $136.1 billion across 9 rows. Each label carries the region's merchandise share: 51.5% for the United States, 71.4% for Japan and 53.9% for the United Kingdom. It matters because the larger total and the higher merchandise share belong to different regions.",
+      "source": "Wikipedia revision 1384334611; region is the creator's home market at launch [S017]",
+      "data": [
+        {
+          "label": "Region summary (CSV)",
+          "href": "/data/articles/franchise/clean/region_summary_2026-10.csv"
+        }
+      ]
+    },
+    "chart5_original_media_revenue": {
+      "title": "Lifetime revenue by first format, 2019 file",
+      "description": "Game-origin rows sum to $334.9 billion and manga-origin rows to $253.8 billion in the 2019 file. This chart uses the 2019 baseline, not the November list. It matters because a franchise's first format is one clue to where its money comes from, though not a complete business plan.",
+      "source": "TidyTuesday 2019 file [S001]",
+      "data": [
+        {
+          "label": "Mix by original medium (CSV)",
+          "href": "/data/articles/franchise/revenue_mix_by_original_medium.csv"
+        }
+      ]
+    },
+    "chart11_mix_by_original_medium": {
+      "title": "Revenue mix within each first format, 2019 file",
+      "description": "The same 2019 totals are drawn again to show how each first format's revenue splits across categories. The date is repeated on purpose, because these shares are not the November 2026 shares. It matters because a skimming reader should not paste these splits onto the current list.",
+      "source": "TidyTuesday 2019 file [S001]",
+      "data": [
+        {
+          "label": "Mix by original medium (CSV)",
+          "href": "/data/articles/franchise/revenue_mix_by_original_medium.csv"
+        }
+      ]
+    },
+    "chart14_box_office_share_top20": {
+      "title": "Box office as a share of each franchise, 2019 file",
+      "description": "For twelve franchises, the chart shows how much of each 2019 row was box office. The Marvel Cinematic Universe row is 67.7% box office, and several famous rows are close to none. It matters because a franchise can be famous for films and still earn most of its money elsewhere.",
+      "source": "TidyTuesday 2019 file [S001]",
+      "data": [
+        {
+          "label": "2019 franchise rows (CSV)",
+          "href": "/data/articles/franchise/franchise.csv"
+        }
+      ]
+    },
+    "chart2_revenue_per_year": {
+      "title": "Average revenue per year of life, 2019 file",
+      "description": "Each bar divides a franchise's 2019 lifetime revenue by the years since it was created. It is an average across a whole life, not a year of revenue and not a growth rate. It matters because it lets young and old franchises be compared on one scale, with that limit in mind.",
+      "source": "TidyTuesday 2019 file [S001]",
+      "data": [
+        {
+          "label": "2019 franchise rows (CSV)",
+          "href": "/data/articles/franchise/franchise.csv"
+        }
+      ]
+    },
+    "chart3a_disney_non_consolidated": {
+      "title": "2019 owner totals, subsidiaries left separate",
+      "description": "Counting only rows whose owner field reads \"The Walt Disney Company\", Disney sums to $259.0 billion in the 2019 file. The standalone Nintendo label sums to $49.0 billion and does not include the Pokémon Company string. It matters because leaving subsidiaries uncounted makes the biggest owner look much smaller.",
+      "source": "TidyTuesday 2019 file, owner field as written [S001]",
+      "data": [
+        {
+          "label": "Owner totals (CSV)",
+          "href": "/data/articles/franchise/owner_totals_derived.csv"
+        }
+      ]
+    },
+    "chart3b_disney_consolidated": {
+      "title": "2019 owner totals, Disney subsidiaries rolled together",
+      "description": "Rolling Marvel, Lucasfilm and Fox rows into Disney, the same 2019 file sums to $426.2 billion. The roll-up follows a stated rule and is not a legal ownership audit. It matters because the same data gives very different owner totals depending on how acquisitions are counted.",
+      "source": "TidyTuesday 2019 file with our consolidation rule [S001]",
+      "data": [
+        {
+          "label": "Owner totals (CSV)",
+          "href": "/data/articles/franchise/owner_totals_derived.csv"
+        },
+        {
+          "label": "Consolidation rules (CSV)",
+          "href": "/data/articles/franchise/owner_consolidation_rules.csv"
+        }
+      ]
+    },
+    "chart12_owner_concentration_2026": {
+      "title": "The five largest parent companies, November 2026",
+      "description": "Disney is $430.7 billion, Warner Bros. Discovery $133.0 billion, The Pokémon Company $130.7 billion, Microsoft $84.2 billion and Paramount Skydance $72.8 billion. Together the five hold 58.3% of the list. It matters because a few rights holders sit behind most of the listed spending, on a first-listed-parent rule that is not a legal ownership audit.",
+      "source": "Wikipedia revision 1384334611, first-listed parent rule [S017]",
+      "data": [
+        {
+          "label": "Concentration ranges (CSV)",
+          "href": "/data/articles/franchise/clean/owner_concentration_bootstrap.csv"
+        },
+        {
+          "label": "Franchise entities (CSV)",
+          "href": "/data/articles/franchise/clean/franchise_entities_2026-10.csv"
+        }
+      ]
+    },
+    "chart8_disney_acquisitions": {
+      "title": "What Disney paid in four filed deals",
+      "description": "The filed prices are Pixar in 2006 ($7.4 billion), Marvel in 2009 (about $4.0 billion), Lucasfilm in 2012 ($4.05 billion) and 21st Century Fox in a June 2018 exhibit ($71.3 billion in cash and stock). The bars show price only. It matters because acquired characters are part of why ownership on the list is concentrated.",
+      "source": "Disney SEC filings [S009; S010; S011; S012]",
+      "data": [
+        {
+          "label": "Disney acquisitions (CSV)",
+          "href": "/data/articles/franchise/disney_acquisitions.csv"
+        }
+      ]
+    },
+    "chart13_deal_price_vs_revenue": {
+      "title": "The 2019 franchise row beside each deal",
+      "description": "Each deal is paired with one anchor row from the 2019 file: Toy Story $19.54 billion, the Marvel Cinematic Universe $31.0 billion, Star Wars $63.0 billion and The Simpsons $13.5 billion. A purchase price is not lifetime consumer spending, and the Fox deal also covered cable, a Hulu stake and a library. It matters because the two numbers answer different questions and should not be read as a return.",
+      "source": "TidyTuesday 2019 file [S001]; prices [S009; S010; S011; S012]",
+      "data": [
+        {
+          "label": "Disney acquisitions (CSV)",
+          "href": "/data/articles/franchise/disney_acquisitions.csv"
+        }
+      ]
+    },
+    "chart9_disney_segments_fy2025": {
+      "title": "Disney segment revenue, fiscal 2025",
+      "description": "For the year ended 27 September 2025, Disney reported Entertainment revenue of $42.466 billion, Sports $17.672 billion and Experiences $36.156 billion. These are annual segment figures, not lifetime totals from the Wikipedia list. It matters because Experiences includes parks, resorts, cruises and merchandise, which is where a character's shelf life meets Disney's own accounts.",
+      "source": "Disney Form 10-K, fiscal year ended 27 September 2025 [S093]",
+      "data": [
+        {
+          "label": "FY2025 segments (CSV)",
+          "href": "/data/articles/franchise/disney_segment_revenue_fy2025.csv"
+        }
+      ]
+    },
+    "chart7_top10_franchise_share": {
+      "title": "Franchise share of the domestic top ten, by year",
+      "description": "Counting titles rather than ticket dollars, franchise entries were 60% of the domestic top ten in 2010, 70% in 2015, 80% in 2019 and 90% in 2024. The line stops at 2024 because 2025 was not recoded. It matters because it shows how familiar the biggest films have become, without saying why.",
+      "source": "Box Office Mojo yearly charts, manual coding through 2024 [S005]",
+      "data": [
+        {
+          "label": "Top-ten share by year (CSV)",
+          "href": "/data/articles/franchise/top10_franchise_share_by_year.csv"
+        }
+      ]
+    },
+    "c05_nezha_trackers": {
+      "title": "Three published grosses for one film",
+      "description": "Ne Zha 2 is $2.318 billion on Wikipedia, $2.271 billion on Box Office Mojo and $2.004 billion on The Numbers. We report all three and do not average them. It matters because the count of franchise films in a top ten is sturdier than the dollars.",
+      "source": "Wikipedia [S091]; Box Office Mojo [S005]; The Numbers [S019]",
+      "data": [
+        {
+          "label": "Top-ten snapshot (CSV)",
+          "href": "/data/articles/franchise/box_office_top10_snapshot_2026-11-10.csv"
+        }
+      ]
+    },
+    "chart16_worldwide_top10_2025_2026": {
+      "title": "The 2026 worldwide top ten so far",
+      "description": "Six of the ten biggest 2026 films are franchise installments (red) and four are originals under our coding (blue), which is 61.9% of top-ten gross on both trackers. Spider-Man: Brand New Day leads at $2.52 billion. It matters because 2026 is unfinished and the denominator is only ten films.",
+      "source": "Box Office Mojo worldwide, read 10 Nov 2026 [S005]; The Numbers [S019]",
+      "data": [
+        {
+          "label": "Top-ten snapshot (CSV)",
+          "href": "/data/articles/franchise/box_office_top10_snapshot_2026-11-10.csv"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "projects": { "default": "artometrics-510519" },
+  "targets": {
+    "artometrics-510519": {
+      "hosting": { "franchise": ["artometrics-franchise"] }
+    }
+  }
+}

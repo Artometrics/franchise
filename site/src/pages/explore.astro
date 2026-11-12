@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import { franchises, parents, regionSummary, STREAMS } from '../lib/data';
+import { applyQuery, defaultQuery, tbodyHtml } from '../lib/explore';
+import { slim } from '../lib/slim';
+import { report } from '../report.config';
+
+const initial = applyQuery(franchises, defaultQuery);
+const origins = regionSummary();
+const owners = parents().filter((p) => p.count > 0);
+const streamOpts = STREAMS.filter((s) => s.key !== 'unalloc');
+const cols = [
+  { key: 'name', label: 'Franchise' },
+  { key: 'owner', label: 'Owner' },
+  { key: 'origin', label: 'Origin' },
+  { key: 'year', label: 'Created', num: true },
+  { key: 'total', label: 'Total', num: true },
+  { key: 'merch', label: 'Revenue streams' },
+];
+---
+
+<Base title="Explore" current="explore" description="Sort and filter all 140 franchises on the list by owner, origin country and revenue streams.">
+  <div class="wrap">
+    <header class="page-head">
+      <p class="kicker">Explore</p>
+      <h1>All {franchises.length} franchises</h1>
+      <p class="lead">Lifetime consumer-spending estimates from Wikipedia's list (revision {report.vintage.revision}, read {report.vintage.read}). Open any row for its revenue breakdown. <a class="cite" href="/sources#S017">S017</a></p>
+    </header>
+
+    <form id="explore-form" class="controls" role="search" aria-label="Filter franchises" onsubmit="return false">
+      <div class="field full">
+        <label for="q">Search franchise, owner or first medium</label>
+        <input id="q" name="q" type="search" placeholder="Try pokemon, Disney, anime…" autocomplete="off" enterkeyhint="search" />
+      </div>
+      <div class="field">
+        <label for="origin">Origin country</label>
+        <select id="origin" name="origin">
+          <option value="">All origins</option>
+          {origins.map((o) => (<option value={o.origin}>{o.name} ({o.n})</option>))}
+        </select>
+      </div>
+      <div class="field">
+        <label for="owner">Owner (parent)</label>
+        <select id="owner" name="owner">
+          <option value="">All owners</option>
+          {owners.map((o) => (<option value={o.name}>{o.name} ({o.count})</option>))}
+        </select>
+      </div>
+      <div class="field">
+        <label for="stream">Has revenue stream</label>
+        <select id="stream" name="stream">
+          <option value="">Any stream</option>
+          {streamOpts.map((s) => (<option value={s.key}>{s.label}</option>))}
+        </select>
+      </div>
+      <div class="field sortfield">
+        <label for="sort">Sort by</label>
+        <select id="sort" name="sort">
+          <option value="total:desc">Total, largest first</option>
+          <option value="total:asc">Total, smallest first</option>
+          <option value="name:asc">Name, A to Z</option>
+          <option value="name:desc">Name, Z to A</option>
+          <option value="owner:asc">Owner, A to Z</option>
+          <option value="origin:asc">Origin, A to Z</option>
+          <option value="year:asc">Oldest first</option>
+          <option value="year:desc">Newest first</option>
+          <option value="merch:desc">Merchandise share, highest</option>
+          <option value="merch:asc">Merchandise share, lowest</option>
+        </select>
+      </div>
+      <div class="field full" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button type="button" class="btn small" id="reset" hidden>Clear filters</button>
+        <p class="status" id="status" role="status" aria-live="polite" style="margin:0">Showing all {franchises.length}</p>
+      </div>
+    </form>
+
+    <div class="tablewrap">
+      <table class="dt stack" id="explore-table">
+        <caption class="sr">Franchises on the list, with owner, origin country, year created, lifetime total and revenue streams</caption>
+        <thead>
+          <tr>
+            {cols.map((c) => (
+              <th scope="col" class={c.num ? 'num' : undefined} aria-sort={c.key === 'total' ? 'descending' : 'none'} data-col={c.key}>
+                <button type="button" class="sortbtn" data-sort={c.key}>{c.label} <span class="arr" aria-hidden="true">{c.key === 'total' ? '↓' : '↕'}</span></button>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody id="explore-body" set:html={tbodyHtml(initial)} />
+      </table>
+      <div id="empty" class="empty" hidden>
+        <p><strong>No franchise matches those filters.</strong></p>
+        <p class="muted">Clear a filter or shorten the search. The list has {franchises.length} rows.</p>
+      </div>
+    </div>
+    <p class="small muted" style="margin-top:20px">Owner is the first-listed parent company, a counting rule, not a legal ownership audit. Origin is the creator's home market at launch. The bar in each row shows how the franchise's total splits across streams. <a href="/sources">Method</a></p>
+    <script id="franchise-data" type="application/json" set:html={JSON.stringify(slim(franchises))} />
+  </div>
+</Base>
+
+<script>
+  import '../scripts/explore';
+</script>

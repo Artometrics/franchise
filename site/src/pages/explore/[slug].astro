@@ -1,0 +1,119 @@
+---
+import Base from '../../layouts/Base.astro';
+import ChartFigure from '../../components/ChartFigure.astro';
+import { franchises, history2019, ledgerTotal, parents, streamByKey, type Franchise } from '../../lib/data';
+import type { ChartFigureData } from '../../lib/article';
+import { fmtAmt, fmtB, fmtTotal, pctLabel, ratioPct } from '../../lib/format';
+import type { BarsSpec, Role } from '../../lib/charts';
+import { report } from '../../report.config';
+
+interface Props { f: Franchise }
+
+export function getStaticPaths() {
+  return franchises.map((f) => ({ params: { slug: f.slug }, props: { f } }));
+}
+
+const { f } = Astro.props;
+const hist = history2019().get(f.slug);
+const sum = f.streams.reduce((a, s) => a + s.amount, 0);
+const spec: BarsSpec = {
+  type: 'bars',
+  ariaLabel: `${f.name} revenue by stream: ${f.streams.map((s) => `${streamByKey.get(s.key)!.label} ${fmtAmt(s.amount)}`).join('; ')}`,
+  rows: f.streams.map((s) => ({
+    label: streamByKey.get(s.key)!.label,
+    sub: `${pctLabel(s.amount, sum)} of the total`,
+    value: s.amount,
+    text: fmtAmt(s.amount),
+    role: streamByKey.get(s.key)!.group as Role,
+  })),
+};
+const fig: ChartFigureData = {
+  key: `breakdown-${f.slug}`,
+  title: 'Revenue breakdown',
+  subtitle: `Where the ${fmtTotal(f.total)} total comes from, in billions of dollars of lifetime consumer spending.`,
+  description: '',
+  sourceLine: `Wikipedia list, revision ${report.vintage.revision} [S017]. Stream rows are the list's own itemised lines; a gap to the stated total is shown as not itemised.`,
+  spec,
+  headline: 'Revenue breakdown',
+  data: [{ label: 'Stream rows, all franchises (CSV)', href: '/downloads/franchise_revenue_long_2026-10.csv', external: true }],
+};
+
+const ownerGroup = parents().find((p) => p.name === f.owner)!;
+const sameOwner = ownerGroup.franchises.filter((x) => x.slug !== f.slug).slice(0, 8);
+const byRank = [...franchises].sort((a, b) => a.rank - b.rank);
+const prev = byRank[f.rank - 2];
+const next = byRank[f.rank];
+const gapRatio = Math.abs(f.breakdownSum - f.total) / f.total;
+const merch = f.streams.find((s) => s.key === 'merch');
+const noMerch = !merch;
+const box = f.streams.find((s) => s.key === 'box');
+---
+
+<Base title={f.name} current="explore" description={`${f.name}: ${fmtTotal(f.total)} in lifetime consumer spending on Wikipedia's franchise list. Revenue breakdown, owner and origin.`}>
+  <div class="wrap">
+    <header class="page-head">
+      <p class="crumb"><a href="/explore">&larr; All {franchises.length} franchises</a></p>
+      <p class="kicker">Rank {f.rank} of {franchises.length} &middot; {f.originName}{f.year ? ` · ${f.year}` : ''}</p>
+      <h1>{f.name}</h1>
+      <p class="lead">
+        Listed at <strong>{fmtTotal(f.total)}</strong> of lifetime consumer spending, {ratioPct(f.total, ledgerTotal)}% of the list's {fmtB(ledgerTotal, 1)}. <a class="cite" href="/sources#S017">S017</a>
+      </p>
+      <ul class="facts-grid">
+        <li><span class="k">Owner (first-listed parent)</span><span class="v">{f.owner}</span></li>
+        <li><span class="k">Origin country</span><span class="v">{f.originName}</span></li>
+        <li><span class="k">Created</span><span class="v">{f.year ?? 'n/a'}</span></li>
+        <li><span class="k">First medium</span><span class="v">{f.originalMedia}</span></li>
+        <li><span class="k">Merchandise share</span><span class="v">{f.merchShare === null ? 'n/a' : `${f.merchShare.toFixed(f.merchShare > 0 && f.merchShare < 1 ? 1 : 0)}%`}</span></li>
+        <li><span class="k">Top stream</span><span class="v">{f.topStream ? streamByKey.get(f.topStream)!.short : 'Not itemised'}</span></li>
+        <li><span class="k">Streams listed</span><span class="v">{f.streams.filter((s) => s.key !== 'unalloc').length}</span></li>
+        <li><span class="k">On the 2019 file</span><span class="v">{f.in2019 ? 'Yes' : 'No'}</span></li>
+      </ul>
+    </header>
+
+    <section class="section">
+      <ChartFigure fig={fig} level={2} noDesc />
+      <p class="small muted" style="margin-top:12px">
+        Merchandise share is derived on this site from the list's stream rows (merchandise, licensing and retail divided by this franchise's rows). It is not a figure published in the article.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Reading this row</h2>
+      <ul class="prose" style="padding-left:1.2em">
+        <li>The owner field on the list reads <strong>{f.ownersRaw || 'blank'}</strong>. We count it under <strong>{f.owner}</strong> by the first-listed parent rule. That is a rule for counting, not a legal ownership audit. <a class="cite" href="/sources#S017">S017</a></li>
+        {gapRatio > 0.005 && f.unallocated === 0 && <li>Itemised lines sum to {fmtAmt(f.breakdownSum)} against a stated total of {fmtTotal(f.total)}. The list's total is kept as printed.</li>}
+        {f.unallocated > 0 && <li>{fmtAmt(f.unallocated)} of the total has no itemised stream on the list. It is shown as "In the total, not itemised".</li>}
+        {noMerch && <li>No merchandise, licensing or retail line is listed for this franchise{box ? `; box office is ${pctLabel(box.amount, sum)} of its total` : ''}. The article reads the MCU row the same way: mostly theatrical. <a class="cite" href="/sources#S017">S017</a></li>}
+        {hist && (
+          <li>
+            The 2019 file had <strong>{hist.name2019}</strong> at {fmtB(hist.rev2019)}; the November list has {fmtB(hist.rev2026)} ({hist.pctChange > 0 ? '+' : ''}{hist.pctChange.toFixed(0)}%). These are different vintages and baskets, so a changed estimate is not by itself a change in sales. <a class="cite" href="/sources#S001">S001</a> <a class="cite" href="/sources#S017">S017</a>
+          </li>
+        )}
+        <li>Totals are nominal estimates of what audiences spent, not profit. Wikipedia's editors revise them, so this row may move again. <a href="/changelog">Changelog</a></li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Next steps</h2>
+      <div class="row" style="margin-top:12px">
+        <a class="btn primary" href={`/compare?f=${f.slug}`}>Compare {f.name}</a>
+        <a class="btn" href={`/explore?owner=${encodeURIComponent(f.owner)}`}>Everything under {f.owner}</a>
+      </div>
+    </section>
+
+    {sameOwner.length > 0 && (
+      <section class="section">
+        <h2>Same owner</h2>
+        <p class="muted small" style="margin:8px 0 12px">{f.owner} is first-listed parent for {ownerGroup.count} franchises, {ownerGroup.share.toFixed(1)}% of the list.</p>
+        <ul class="link-list">
+          {sameOwner.map((x) => (<li><a href={`/explore/${x.slug}`}>{x.name}<span>{fmtTotal(x.total)}</span></a></li>))}
+        </ul>
+      </section>
+    )}
+
+    <nav class="pager" aria-label="Neighbouring franchises by size">
+      {prev ? <a href={`/explore/${prev.slug}`}><small>&larr; Rank {prev.rank}</small>{prev.name}</a> : <span></span>}
+      {next ? <a href={`/explore/${next.slug}`}><small>Rank {next.rank} &rarr;</small>{next.name}</a> : <span></span>}
+    </nav>
+  </div>
+</Base>
