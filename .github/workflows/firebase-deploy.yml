@@ -54,7 +54,7 @@ jobs:
           firebaseServiceAccount: ${{ steps.wif.outputs.json }}
           projectId: twilda-510519
           entryPoint: site
-          target: franchise
+          target: artometrics-franchise
           expires: 7d
 
   build_and_deploy:
@@ -95,5 +95,5 @@ jobs:
           firebaseServiceAccount: ${{ steps.wif.outputs.json }}
           projectId: twilda-510519
           entryPoint: site
-          target: franchise
+          target: artometrics-franchise
           channelId: live
